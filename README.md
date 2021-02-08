@@ -1,4 +1,6 @@
 # INF112 Obligatorisk oppgave 1: Prosjekt RoboRally
+[![Build Status](https://travis-ci.com/inf112-v21/The-Agile-Tunas.svg?branch=master)](https://travis-ci.com/inf112-v21/The-Agile-Tunas)
+
 - Spillmotor: libgdx
 - Gruppenavn: The Agile Tunas
 - Gruppemedlemmer:
