@@ -54,3 +54,15 @@ Akseptansekriterier
 Gitt at spillebrettet vises på skjermen så skal 
 spilleren ha en formening om dimensjonene til brettet,
 hvor de ulike objektene er samt startposisjonene.
+
+Brukerhistorie MVP 3:
+Som en spiller
+Ønsker jeg at det er mulig å flytte brikken som representerer en robot i spillet,
+slik at brikken flytter seg slik som jeg har planlagt.
+
+Løsningsbeskrivelse MVP 3:
+Lage en metode som tar inn keycodes og differensierer mellom de fire ulike tastetrykkene: pil opp, pil ned, venstre pil og høyre pil.
+Metoden flytter brikken i henhold til piltastenes keycode.
+
+Akseptansekriterier MVP 3:
+Gitt at brikken er flyttbar, så skal jeg kunne se at brikken flyttes riktig i henhold til tastetrykk.
