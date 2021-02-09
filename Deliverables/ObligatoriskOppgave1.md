@@ -1,8 +1,9 @@
-The Agile Tunas
+# The Agile Tunas
 
-DELOPPGAVE 1 
+## DELOPPGAVE 1
 
-Prosess- og prosjektplan:
+### Prosess- og prosjektplan:
+
 Jacob
 God  erfaring med praktisk og teoretisk ledelse og teamarbeid etter å ha gått Befalsskole i Forsvaret.
 Har gått 3 år på Norges Handelshøyskole der psykologi og ledelse er  godt integrert i fagplanen. Har
@@ -39,9 +40,9 @@ Måten vi ønsker å organisere prosjektet på den første tiden er å aktivt be
 Vi har valgt å benytte oss av Discord som kommunikasjonsplattform. Der deler vi lenker eller bilder med hverandre. Vi har og opprettet en egen discord-chat der vi kan ha videomøter om det skulle være nødvendig. Med dokumenter der alle skal ha mulighet til å skrive og redigere i sanntid benytter vi oss av google docs. Her har vi skrevet blant annet team-kontrakten da alle skulle skrive inn sine sterke og svake sider.
 For detaljer omkring møtedeltakelse, konfliktløsning, uforutsette hendelser, forventningsavklaring osv. legger vi ved kontrakten i sin helhet.
 
-DELOPPGAVE 3 - 'overskrift her'
+###### DELOPPGAVE 3 - 'overskrift her'
 
-Brukerhistorie MVP 1
+Brukerhistorie MVP 1 - Vise et spillebrett
 
 Som en spiller 
 ønsker jeg å se spillebrettet
@@ -55,6 +56,9 @@ Gitt at spillebrettet vises på skjermen så skal
 spilleren ha en formening om dimensjonene til brettet,
 hvor de ulike objektene er samt startposisjonene.
 
+Brukerhistorie MVP 2 - Vise brikke på spillebrett
+
+
 Brukerhistorie MVP 3:
 Som en spiller
 Ønsker jeg at det er mulig å flytte brikken som representerer en robot i spillet,
@@ -66,3 +70,22 @@ Metoden flytter brikken i henhold til piltastenes keycode.
 
 Akseptansekriterier MVP 3:
 Gitt at brikken er flyttbar, så skal jeg kunne se at brikken flyttes riktig i henhold til tastetrykk.
+
+
+Brukerhistorie MVP 4 - Robot besøker flagg
+
+Som en spiller ønsker jeg å kunne besøke flagg slik at jeg kan vinne spillet.
+
+Løsningsbeskrivelse
+Roboten må kunne bevege seg iht. de instruksjonene den har fått, samt at spillet må registrere at en robot står på flagget.
+En Robot-klasse vil da trenge en teller eller en boolean verdi for at man skulle bekrefte dette.
+
+
+Akseptansekriterier
+Gitt at roboten kan besøke et flagg:
+1. Må flagget være synlig på brettet.
+   a. På denne måten kan en spiller bevege seg mot det.
+2. Må brikken kunne bevege på seg.
+   a. I tillegg må vi alltid vite hvor roboten er.
+3. Må vi kunne vite når en brikke og et flagg står i samme rute på brettet. 
+   
