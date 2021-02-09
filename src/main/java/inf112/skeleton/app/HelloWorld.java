@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.Vector2;
 
 public class HelloWorld implements ApplicationListener {
 
@@ -40,6 +43,13 @@ public class HelloWorld implements ApplicationListener {
     private TiledMapTileLayer wallsLayer;
 
     private OrthogonalTiledMapRenderer mapRenderer;
+
+    //Player config
+    private TiledMapTileLayer.Cell playerCell;
+    private TiledMapTileLayer.Cell playerWonCell;
+    private TiledMapTileLayer.Cell playerDiedCell;
+    private TextureRegion[][] pictureOne;
+    private Vector2 playerPos;
 
     @Override
     public void create() {
@@ -78,6 +88,18 @@ public class HelloWorld implements ApplicationListener {
         mapRenderer = new OrthogonalTiledMapRenderer(map, (float) 1/300);
         mapRenderer.setView(camera);
 
+        //Player config
+        Texture pictureAll = new Texture("assets/player.png");
+        pictureOne = new TextureRegion().split(pictureAll,300,300);
+
+        this.playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][0]));
+        this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
+        this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
+
+        playerPos = new Vector2(5,0);
+
+        //Gdx.input.setInputProcessor(this);
+
     }
 
     @Override
@@ -92,6 +114,9 @@ public class HelloWorld implements ApplicationListener {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         mapRenderer.render();
+
+        playerLayer.setCell((int) playerPos.x, (int) playerPos.y,playerCell);
+
     }
 
     @Override
