@@ -39,3 +39,18 @@ Måten vi ønsker å organisere prosjektet på den første tiden er å aktivt be
 Vi har valgt å benytte oss av Discord som kommunikasjonsplattform. Der deler vi lenker eller bilder med hverandre. Vi har og opprettet en egen discord-chat der vi kan ha videomøter om det skulle være nødvendig. Med dokumenter der alle skal ha mulighet til å skrive og redigere i sanntid benytter vi oss av google docs. Her har vi skrevet blant annet team-kontrakten da alle skulle skrive inn sine sterke og svake sider.
 For detaljer omkring møtedeltakelse, konfliktløsning, uforutsette hendelser, forventningsavklaring osv. legger vi ved kontrakten i sin helhet.
 
+DELOPPGAVE 3 - 'overskrift her'
+
+Brukerhistorie MVP 1
+
+Som en spiller 
+ønsker jeg å se spillebrettet
+slik at jeg kan få en oversikt over objektene og planlegge spillet mitt.
+
+Løsningsbeskrivelse
+Lage spillebrettet i Tiled og lage kode i IntelliJ for å vise det.
+
+Akseptansekriterier
+Gitt at spillebrettet vises på skjermen så skal 
+spilleren ha en formening om dimensjonene til brettet,
+hvor de ulike objektene er samt startposisjonene.
