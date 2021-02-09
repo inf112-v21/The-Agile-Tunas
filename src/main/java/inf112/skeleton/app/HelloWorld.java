@@ -58,9 +58,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TextureRegion[][] pictureOne;
     private Vector2 playerPos;
 
-    // LISA: Player position stored in ArrayList. Can be implemented differently later.
-    private ArrayList playerPosition;
-
     // endregion
 
     @Override
