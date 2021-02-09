@@ -76,7 +76,7 @@ Gitt at brikken er flyttbar, så skal jeg kunne se at brikken flyttes riktig i h
 
 #### Brukerhistorie MVP 4 - Robot besøker flagg
 
-Som en spiller ønsker jeg å kunne besøke flagg slik at jeg kan vinne spillet.
+Som en spiller ønsker jeg å kunne besøke flagg slik at jeg kan gjøre fremskritt i spillet.
 
 Løsningsbeskrivelse
 Roboten må kunne bevege seg iht. de instruksjonene den har fått, samt at spillet må registrere at en robot står på flagget.
@@ -84,10 +84,6 @@ En Robot-klasse vil da trenge en teller eller en boolean verdi for at man skulle
 
 
 Akseptansekriterier
-Gitt at roboten kan besøke et flagg:
-1. Må flagget være synlig på brettet.
-   a. På denne måten kan en spiller bevege seg mot det.
-2. Må brikken kunne bevege på seg.
-   a. I tillegg må vi alltid vite hvor roboten er.
-3. Må vi kunne vite når en brikke og et flagg står i samme rute på brettet. 
-   
+Gitt at roboten kan besøke et flagg må flagget være synlig på brettet slik at en spiller kan planlegge ruten mot det. 
+Gitt at roboten kan besøke et flagg må vi vite hvor roboten er til en hver tid slik at vi kan bekrefte om den står på et flagg eller ikke. 
+
