@@ -38,4 +38,10 @@ public class RobotTest {
         Vector2 expected = new Vector2(-1,0);
         assertEquals(expected,bot.get_position());
     }
+
+    @Test
+    public void RobotHasCorrectStartingPosition(){
+        bot = new Robot(new Vector2(10,10));
+        assertEquals(new Vector2(10,10),bot.get_position());
+    }
 }
