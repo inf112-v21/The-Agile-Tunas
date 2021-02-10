@@ -39,9 +39,10 @@ Måten vi ønsker å organisere prosjektet på den første tiden er å aktivt be
 Vi har valgt å benytte oss av Discord som kommunikasjonsplattform. Der deler vi lenker eller bilder med hverandre. Vi har og opprettet en egen discord-chat der vi kan ha videomøter om det skulle være nødvendig. Med dokumenter der alle skal ha mulighet til å skrive og redigere i sanntid benytter vi oss av google docs. Her har vi skrevet blant annet team-kontrakten da alle skulle skrive inn sine sterke og svake sider.
 For detaljer omkring møtedeltakelse, konfliktløsning, uforutsette hendelser, forventningsavklaring osv. legger vi ved kontrakten i sin helhet.
 
-## DELOPPGAVE 3 - 'overskrift her'
+## DELOPPGAVE 3 - Forventet produkt
 
-
+Det overordnede målet for applikasjonen vil  i første iterasjon være å skape et solid fundament hvor videre utvikling kan foregå på en ryddig og effektiv måte. Til dette trenger vi å implementere de mest grunnleggende funksjonene til spillet. Herunder å vise brettet med tilhørende brikker, kunne flytte på brikkene samt utvikle en seiersbetingelse.
+Vi har valgt å prioritere de enkleste funksjonene i spillet først. Dette er et valgt tatt på bakgrunn av at ingen av oss har særlig erfaring med spillutvikling tidligere, og vi tror det vil lønne seg å få satt seg godt inn i det grunnleggende før man bruker for mye tid på noe man ikke vet man får fullført til fristen. Dog er det en intern prioritet i gruppen å få sett på en multiplayer-løsning så fort de 5 første punktene er ferdig. Det er det punktet som virker mest krevende og behøver mest tid for å sette seg inn i. Men siden det ikke er et krav for å få spillet til å fungere har vi valgt å prioritere det noe lavere.
 
 ###Brukerhistorier
 
