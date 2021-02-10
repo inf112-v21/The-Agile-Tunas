@@ -27,7 +27,7 @@ public class RobotTest {
     public void RobotMovesLeft() {
         bot = new Robot(new Vector2(0,0));
         bot.moveLeft();
-        Vector2 expected = new Vector2(1,0);
+        Vector2 expected = new Vector2(-1,0);
         assertEquals(expected,bot.get_position());
     }
 
@@ -35,7 +35,7 @@ public class RobotTest {
     public void RobotMovesRight() {
         bot = new Robot(new Vector2(0,0));
         bot.moveRight();
-        Vector2 expected = new Vector2(-1,0);
+        Vector2 expected = new Vector2(1,0);
         assertEquals(expected,bot.get_position());
     }
 }
