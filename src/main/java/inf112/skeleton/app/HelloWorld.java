@@ -52,11 +52,12 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private OrthogonalTiledMapRenderer mapRenderer;
 
     //Player config
+    private Robot robot;
     private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
     private TextureRegion[][] pictureOne;
-    private Vector2 playerPos;
+    private Vector2 playerPosStart;
 
     // endregion
 
@@ -112,7 +113,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
 
-        playerPos = new Vector2(5,0);
+        playerPosStart = new Vector2(5,0);
+        //Making new player
+        robot = new Robot(playerPosStart);
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
@@ -121,46 +124,45 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int keycode) {
         // Current player coordinates:
-        int playerPosX = (int) playerPos.x;
-        int playerPosY = (int) playerPos.y;
+        int playerPosX = (int) robot.position.x;
+        int playerPosY = (int) robot.position.y;
 
         // If the left arrow key is pressed:
         if (keycode == Input.Keys.LEFT) {
             if (playerPosX > 0) {
-                int newX = playerPosX - 1;                                  // Calculating new x-coordinate.
-                playerLayer.setCell(newX, playerPosY, playerCell);          // Puts a playerCell on (newX, playerPosY).
-                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY).
-                playerPos.set(newX,playerPosY);                             // Sets the new position of player.
+                robot.moveLeft();
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);          // Puts a playerCell on (newX, playerPosY).
+                playerLayer.setCell(playerPosX, playerPosY, null);
             }
             return true;
         }
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < 11) {
-                int newX = playerPosX + 1;                                  // Calculating new x-coordinate.
-                playerLayer.setCell(newX, playerPosY, playerCell);          // Puts a playerCell on (newX, playerPosY).
-                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY)
-                playerPos.set(newX,playerPosY);                             // Sets the new position of player.
+                robot.moveRight();                                 // Calculating new x-coordinate.
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);          // Puts a playerCell on (newX, playerPosY).
+                playerLayer.setCell(playerPosX, playerPosY, null);      // Removes playerCell on (playerPosX, playerPosY)
+
             }
             return true;
         }
         // If the upwards arrow key is pressed:
         else if (keycode == Input.Keys.UP) {
             if (playerPosY < 15) {
-                int newY = playerPosY + 1;                                  // Calculating new y-coordinate.
-                playerLayer.setCell(playerPosX, newY, playerCell);          // Puts a playerCell on (playerPosX, newY).
+                robot.moveUp();
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);          // Puts a playerCell on (playerPosX, newY).
                 playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY)
-                playerPos.set(playerPosX, newY);                            // Sets the new position of player.
+
             }
             return true;
         }
         // If the downwards arrow key is pressed:
         else if (keycode == Input.Keys.DOWN) {
             if (playerPosY > 0 ) {
-                int newY = playerPosY - 1;                                  // Calculating new y-coordinate.
-                playerLayer.setCell(playerPosX, newY, playerCell);          // Puts a playerCell on (playerPosX, newY).
+                robot.moveDown();
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);          // Puts a playerCell on (playerPosX, newY).
                 playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY)
-                playerPos.set(playerPosX, newY);                            // Sets the new position of player.
+
             }
             return true;
         }
@@ -181,7 +183,18 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         mapRenderer.render();
 
         // PLAYER:
-        playerLayer.setCell((int) playerPos.x, (int) playerPos.y,playerCell);
+        playerLayer.setCell((int) playerPosStart.x, (int) playerPosStart.y,playerCell);
+        TiledMapTileLayer.Cell hole = holesLayer.getCell((int) robot.position.x, (int) robot.position.y);
+        TiledMapTileLayer.Cell flag = flagsLayer.getCell((int) robot.position.x, (int) robot.position.y);
+
+        //If player is on hole change player icon to defeat-icon.
+        if (hole != null) {
+            playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerDiedCell);
+        }
+        //If player is on flag change player icon to victory-icon.
+        if (flag != null) {
+            playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerWonCell);
+        }
     }
 
     @Override

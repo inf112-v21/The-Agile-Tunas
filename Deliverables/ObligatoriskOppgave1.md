@@ -11,7 +11,7 @@ tilbrakt	vesentlig tid i studentforeningen NHHS. Jobbet gjentatte ganger som  gr
 Personlighetstype INTJ eller ENTJ.
 
 Robin
-Har bachelor i petroleumslogistikk, har drevet med idrett i norgestoppen. Liker å ha det kjekt. 
+Har bachelor i petroleumslogistikk, har drevet med idrett i norgestoppen. Liker å ha det kjekt.
 Personlighetstype ENTJ-A.
 
 Olesya
@@ -48,7 +48,7 @@ Vi har valgt å prioritere de enkleste funksjonene i spillet først. Dette er et
 
 #### Brukerhistorie MVP 1 - Vise et spillebrett
 
-Som en spiller 
+Som en spiller
 ønsker jeg å se spillebrettet
 slik at jeg kan få en oversikt over objektene og planlegge spillet mitt.
 
@@ -56,7 +56,7 @@ Løsningsbeskrivelse:
 Lage spillebrettet i Tiled og lage kode i IntelliJ for å vise det.
 
 Akseptansekriterier:
-Gitt at spillebrettet vises på skjermen så skal 
+Gitt at spillebrettet vises på skjermen så skal
 spilleren ha en formening om dimensjonene til brettet,
 hvor de ulike objektene er samt startposisjonene.
 
@@ -64,14 +64,14 @@ hvor de ulike objektene er samt startposisjonene.
 
 Som en spiller
 ønsker jeg at brikken som jeg kontrollerer skal dukke opp på
-brettet i den posisjonen som jeg har fått tildelt. 
+brettet i den posisjonen som jeg har fått tildelt.
 I første grad skal brikken vises i startposisjon 1.
 
 Løsningsbeskrivelse:
 Skrive inn kode som gjør at bretter putter spillerbrikken
 på brettet i den riktige startposisjonen sin.
 
-Akseptansekriterier: 
+Akseptansekriterier:
 Gitt at brettet er synlig så skal spilleren kunne se
 brikken sin på brettet i den tildelte startposisjonen sin.
 
@@ -97,13 +97,13 @@ Roboten må kunne bevege seg iht. de instruksjonene den har fått, samt at spill
 En Robot-klasse vil da trenge en teller eller en boolean verdi for at man skulle bekrefte dette.
 
 Akseptansekriterier:
-Gitt at roboten kan besøke et flagg må flagget være synlig på brettet slik at en spiller kan planlegge ruten mot det. 
-Gitt at roboten kan besøke et flagg må vi vite hvor roboten er til en hver tid slik at vi kan bekrefte om den står på et flagg eller ikke. 
+Gitt at roboten kan besøke et flagg må flagget være synlig på brettet slik at en spiller kan planlegge ruten mot det.
+Gitt at roboten kan besøke et flagg må vi vite hvor roboten er til en hver tid slik at vi kan bekrefte om den står på et flagg eller ikke.
 
 #### Brukerhistorie MVP 5 - Robot vinner ved å besøke flagg
 Kommentar: vi vil senere utvide denne brukerhistorien når spillet blir mer komplisert.
 
-Som en spiller 
+Som en spiller
 ønsker jeg å vinne når jeg besøker flagg
 slik at jeg fullfører spillet.
 

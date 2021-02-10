@@ -37,12 +37,12 @@ public class Robot implements IRobot{
 
     @Override
     public void moveLeft() {
-        position.x +=1;
+        position.x -=1;
     }
 
     @Override
     public void moveRight() {
-        position.x -= 1;
+        position.x += 1;
     }
 
 }
