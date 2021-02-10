@@ -61,7 +61,18 @@ spilleren ha en formening om dimensjonene til brettet,
 hvor de ulike objektene er samt startposisjonene.
 
 #### Brukerhistorie MVP 2 - Vise brikke på spillebrett
+Som en spiller:
+Vil jeg at brikken som jeg kontrollerer skal dukke opp på
+brettet i den posisjonen som jeg har fått tildelt. 
+I første grad skal brikken vises i startposisjon 1.
 
+Løsningsbeskrivelse MVP 2:
+Skrive inn kode som gjør at bretter putter spillerbrikken
+på brettet i den riktige startposisjonen sin.
+
+Akseptansekriterier MVP 3:
+Gitt at brettet er synlig så skal spilleren kunne se
+brikken sin på brettet i den tildelte startposisjonen sin.
 
 #### Brukerhistorie MVP 3:
 Som en spiller
