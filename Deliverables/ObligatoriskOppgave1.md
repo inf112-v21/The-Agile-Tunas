@@ -52,49 +52,51 @@ Som en spiller
 ønsker jeg å se spillebrettet
 slik at jeg kan få en oversikt over objektene og planlegge spillet mitt.
 
-Løsningsbeskrivelse
+Løsningsbeskrivelse:
 Lage spillebrettet i Tiled og lage kode i IntelliJ for å vise det.
 
-Akseptansekriterier
+Akseptansekriterier:
 Gitt at spillebrettet vises på skjermen så skal 
 spilleren ha en formening om dimensjonene til brettet,
 hvor de ulike objektene er samt startposisjonene.
 
 #### Brukerhistorie MVP 2 - Vise brikke på spillebrett
-Som en spiller:
-Vil jeg at brikken som jeg kontrollerer skal dukke opp på
+
+Som en spiller
+ønsker jeg at brikken som jeg kontrollerer skal dukke opp på
 brettet i den posisjonen som jeg har fått tildelt. 
 I første grad skal brikken vises i startposisjon 1.
 
-Løsningsbeskrivelse MVP 2:
+Løsningsbeskrivelse:
 Skrive inn kode som gjør at bretter putter spillerbrikken
 på brettet i den riktige startposisjonen sin.
 
-Akseptansekriterier MVP 3:
+Akseptansekriterier: 
 Gitt at brettet er synlig så skal spilleren kunne se
 brikken sin på brettet i den tildelte startposisjonen sin.
 
-#### Brukerhistorie MVP 3:
+#### Brukerhistorie MVP 3 - Flytte brikke (vha taster e.l. for testing)
+
 Som en spiller
-Ønsker jeg at det er mulig å flytte brikken som representerer en robot i spillet,
+ønsker jeg at det er mulig å flytte brikken som representerer en robot i spillet,
 slik at brikken flytter seg slik som jeg har planlagt.
 
-Løsningsbeskrivelse MVP 3:
+Løsningsbeskrivelse:
 Lage en metode som tar inn keycodes og differensierer mellom de fire ulike tastetrykkene: pil opp, pil ned, venstre pil og høyre pil.
 Metoden flytter brikken i henhold til piltastenes keycode.
 
-Akseptansekriterier MVP 3:
+Akseptansekriterier:
 Gitt at brikken er flyttbar, så skal jeg kunne se at brikken flyttes riktig i henhold til tastetrykk.
 
 #### Brukerhistorie MVP 4 - Robot besøker flagg
 
 Som en spiller ønsker jeg å kunne besøke flagg slik at jeg kan gjøre fremskritt i spillet.
 
-Løsningsbeskrivelse
+Løsningsbeskrivelse:
 Roboten må kunne bevege seg iht. de instruksjonene den har fått, samt at spillet må registrere at en robot står på flagget.
 En Robot-klasse vil da trenge en teller eller en boolean verdi for at man skulle bekrefte dette.
 
-Akseptansekriterier
+Akseptansekriterier:
 Gitt at roboten kan besøke et flagg må flagget være synlig på brettet slik at en spiller kan planlegge ruten mot det. 
 Gitt at roboten kan besøke et flagg må vi vite hvor roboten er til en hver tid slik at vi kan bekrefte om den står på et flagg eller ikke. 
 
@@ -105,9 +107,9 @@ Som en spiller
 ønsker jeg å vinne når jeg besøker flagg
 slik at jeg fullfører spillet.
 
-Løsningsbeskrivelse
+Løsningsbeskrivelse:
 Skrive kode i IntelliJ som endrer ikonet til spilleren når spilleren besøker flagg.
 
-Akseptansekriterier
+Akseptansekriterier:
 Gitt at spilleren vinner ved å besøke flagg skal ikonet til spilleren endres
 til vinner-ikonet slik at spilleren vet at hun/han har vunnet. 
