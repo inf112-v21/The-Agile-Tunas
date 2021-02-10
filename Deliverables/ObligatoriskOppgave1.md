@@ -113,3 +113,20 @@ Skrive kode i IntelliJ som endrer ikonet til spilleren når spilleren besøker f
 Akseptansekriterier:
 Gitt at spilleren vinner ved å besøke flagg skal ikonet til spilleren endres
 til vinner-ikonet slik at spilleren vet at hun/han har vunnet. 
+
+## DELOPPGAVE 4 - Kode
+
+### Manuell testing
+
+#### Manuell test for brukerhistorie 1
+Gitt at spillebrettet vises på skjermen så skal
+spilleren ha en formening om dimensjonene til brettet,
+hvor de ulike objektene er samt startposisjonene.
+
+For å teste dette starter vi med å kjøre main-metoden i programmet. Ønsket resultat av dette er at brettet gjør seg synlig.
+Vi kan visuelt bekrefte dette. 
+
+#### Manuell test for oppdatering av spillerposisjon
+Med å bruke Intellij's debugger så kan vi se de ulike variablene som skal oppdateres. 
+Vi oppdaget en bug i koden når det kom til oppdateringen av robotens posisjon. Til tross for denne feilen så
+fungerte fremdeles alt som det skulle. Vi fant ut hvorfor gjennom debugeren, og endret koden
