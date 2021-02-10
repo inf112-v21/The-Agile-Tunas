@@ -21,12 +21,11 @@ Personlighetstype ESFJ.
 Lisa
 Kompetanse/Erfaring: Lang erfaring med lagkommunikasjon i pressede/stressende situasjoner der        
 konkurranse og teamarbeid er essensielt for gode resultater.
-Personlighetstype: INFJ
+Personlighetstype: INFJ.
 
-Rolleinndeling:
+Rolleinndeling: Jacob Hagan (Teamlead, utvikler), Robin Lange (Utvikler), Olesya Pasichnyk (Kundekontakt, utvikler), Lisa Eliassen (Utvikler).
 
-Teamlead: 
-
+Teamlead: Jacob Hagan.
 
 ## DELOPPGAVE 2 - Prosjekt- og prosessplan
 
@@ -41,6 +40,8 @@ Vi har valgt å benytte oss av Discord som kommunikasjonsplattform. Der deler vi
 For detaljer omkring møtedeltakelse, konfliktløsning, uforutsette hendelser, forventningsavklaring osv. legger vi ved kontrakten i sin helhet.
 
 ## DELOPPGAVE 3 - 'overskrift her'
+
+
 
 ###Brukerhistorier
 
@@ -73,7 +74,6 @@ Metoden flytter brikken i henhold til piltastenes keycode.
 Akseptansekriterier MVP 3:
 Gitt at brikken er flyttbar, så skal jeg kunne se at brikken flyttes riktig i henhold til tastetrykk.
 
-
 #### Brukerhistorie MVP 4 - Robot besøker flagg
 
 Som en spiller ønsker jeg å kunne besøke flagg slik at jeg kan gjøre fremskritt i spillet.
@@ -82,8 +82,20 @@ Løsningsbeskrivelse
 Roboten må kunne bevege seg iht. de instruksjonene den har fått, samt at spillet må registrere at en robot står på flagget.
 En Robot-klasse vil da trenge en teller eller en boolean verdi for at man skulle bekrefte dette.
 
-
 Akseptansekriterier
 Gitt at roboten kan besøke et flagg må flagget være synlig på brettet slik at en spiller kan planlegge ruten mot det. 
 Gitt at roboten kan besøke et flagg må vi vite hvor roboten er til en hver tid slik at vi kan bekrefte om den står på et flagg eller ikke. 
 
+#### Brukerhistorie MVP 5 - Robot vinner ved å besøke flagg
+Kommentar: vi vil senere utvide denne brukerhistorien når spillet blir mer komplisert.
+
+Som en spiller 
+ønsker jeg å vinne når jeg besøker flagg
+slik at jeg fullfører spillet.
+
+Løsningsbeskrivelse
+Skrive kode i IntelliJ som endrer ikonet til spilleren når spilleren besøker flagg.
+
+Akseptansekriterier
+Gitt at spilleren vinner ved å besøke flagg skal ikonet til spilleren endres
+til vinner-ikonet slik at spilleren vet at hun/han har vunnet. 
