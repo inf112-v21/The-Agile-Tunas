@@ -8,7 +8,7 @@ public class RobotTest {
     Robot bot;
 
     @Test
-    public void RobotMovesUp() {
+    public void robotMovesUp() {
         bot = new Robot(new Vector2(0,0));
         bot.moveUp();
         Vector2 expected = new Vector2(0,1);
@@ -16,7 +16,7 @@ public class RobotTest {
     }
 
     @Test
-    public void RobotMovesDown() {
+    public void robotMovesDown() {
         bot = new Robot(new Vector2(0,0));
         bot.moveDown();
         Vector2 expected = new Vector2(0,-1);
@@ -24,7 +24,7 @@ public class RobotTest {
     }
 
     @Test
-    public void RobotMovesLeft() {
+    public void robotMovesLeft() {
         bot = new Robot(new Vector2(0,0));
         bot.moveLeft();
         Vector2 expected = new Vector2(-1,0);
@@ -32,7 +32,7 @@ public class RobotTest {
     }
 
     @Test
-    public void RobotMovesRight() {
+    public void robotMovesRight() {
         bot = new Robot(new Vector2(0,0));
         bot.moveRight();
         Vector2 expected = new Vector2(1,0);
@@ -40,7 +40,7 @@ public class RobotTest {
     }
 
     @Test
-    public void RobotHasCorrectStartingPosition(){
+    public void robotHasCorrectStartingPosition(){
         bot = new Robot(new Vector2(10,10));
         assertEquals(new Vector2(10,10),bot.getPosition());
     }
