@@ -3,8 +3,8 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.math.Vector2;
 
 public class Robot implements IRobot{
-    Vector2 position;
-    boolean flag = false;
+    private Vector2 position;
+    private boolean flag = false;
 
     public Robot(Vector2 start_pos) {
         this.position = start_pos;
