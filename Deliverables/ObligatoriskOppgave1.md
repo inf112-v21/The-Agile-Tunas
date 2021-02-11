@@ -130,3 +130,10 @@ Vi kan visuelt bekrefte dette.
 Med å bruke Intellij's debugger så kan vi se de ulike variablene som skal oppdateres. 
 Vi oppdaget en bug i koden når det kom til oppdateringen av robotens posisjon. Til tross for denne feilen så
 fungerte fremdeles alt som det skulle. Vi fant ut hvorfor gjennom debugeren, og endret koden
+
+
+####Visuell test for brukerhistorie 2
+Gitt at spillerbrettet vises på skjermen skal spilleren
+ha en formening om brettet og posisjonen til roboten sin
+samtidig med alle de andre elementene på brettet. 
+Slik kan da spilleren planlegge sin rute mot målet.

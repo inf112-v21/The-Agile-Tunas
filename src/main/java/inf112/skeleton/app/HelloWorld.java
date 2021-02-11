@@ -55,8 +55,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
     private TextureRegion[][] pictureOne;
-    private Vector2 playerPos;
-
+    private Vector2 playerPosStart;
     // endregion
 
     @Override
@@ -95,7 +94,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         // CAMERA:
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 16);
-        //6f because it's in the middle of the viewportWidth.
+        // 6f because it's in the middle of the viewportWidth.
         camera.position.x = 6f;
         camera.update();
 
@@ -111,9 +110,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
 
-        playerPos = new Vector2(5,0);       // Robot class updates this vector when the robot moves.
-        //Making new player
-        robot = new Robot(playerPos);
+        playerPosStart = new Vector2(5,0);
+        // Making new player
+        robot = new Robot(playerPosStart);
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
@@ -129,7 +128,8 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         if (keycode == Input.Keys.LEFT) {
             if (playerPosX > 0) {
                 robot.moveLeft();
-                playerLayer.setCell(playerPosX, playerPosY, null);
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);          // Puts a playerCell on (newX, playerPosY).
+                playerLayer.setCell(playerPosX, playerPosY, null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
         }
@@ -137,7 +137,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < 11) {
                 robot.moveRight();
-                playerLayer.setCell(playerPosX, playerPosY, null);      // Removes playerCell on (playerPosX, playerPosY)
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);     // Puts a playerCell on (newX, playerPosY).
+                playerLayer.setCell(playerPosX, playerPosY, null);      // Removes playerCell on (playerPosX, playerPosY).
+
             }
             return true;
         }
@@ -145,7 +147,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         else if (keycode == Input.Keys.UP) {
             if (playerPosY < 15) {
                 robot.moveUp();
-                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY)
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);         // Puts a playerCell on (playerPosX, newY).
+                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY).
+
             }
             return true;
         }
@@ -153,7 +157,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         else if (keycode == Input.Keys.DOWN) {
             if (playerPosY > 0 ) {
                 robot.moveDown();
-                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY)
+                playerLayer.setCell(playerPosX, playerPosY, playerCell);         // Puts a playerCell on (playerPosX, newY).
+                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY).
+
             }
             return true;
         }
@@ -173,20 +179,24 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         mapRenderer.render();
 
-        // region PLAYER:
-        playerLayer.setCell((int) playerPos.x, (int) playerPos.y, playerCell);
+        // PLAYER:
+        // Player in start position
+        playerLayer.setCell((int) playerPosStart.x, (int) playerPosStart.y,playerCell);
+
+        // if player is on a hole
         TiledMapTileLayer.Cell hole = holesLayer.getCell((int) robot.position.x, (int) robot.position.y);
+
+        // if player is on a flag
         TiledMapTileLayer.Cell flag = flagsLayer.getCell((int) robot.position.x, (int) robot.position.y);
 
-        //If player is on hole change player icon to defeat-icon.
+        // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
             playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerDiedCell);
         }
-        //If player is on flag change player icon to victory-icon.
+        // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
             playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerWonCell);
         }
-        // endregion
     }
 
     @Override
