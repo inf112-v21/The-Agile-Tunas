@@ -191,7 +191,8 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
-            playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerDiedCell);
+            mapHandler.setCell((int) robot.position.x, (int) robot.position.y,Layers.PLAYER, playerDiedCell);
+            //playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerDiedCell);
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
