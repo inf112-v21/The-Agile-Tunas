@@ -11,9 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
@@ -23,22 +21,19 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
 
-
-    private TiledMapTileLayer playerLayer;
-
+    // MAP:
     private OrthogonalTiledMapRenderer mapRenderer;
+    private MapHandler mapHandler;
 
-    private Vector2 playerPosition;
-
-    //Player config
+    // PLAYER CONFIG:
     private Robot robot;
     private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
     private TextureRegion[][] pictureOne;
-    private Vector2 playerPosStart;
+    private Vector2 playerPosition;
+
     // endregion
-    MapHandler mapHandler;
 
     @Override
     public void create() {
@@ -46,10 +41,8 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         font = new BitmapFont();
         font.setColor(Color.RED);
 
-        // TILEDMAP:
+        // MAP::
         this.mapHandler = new MapHandler("assets/riskyexchange.tmx");
-
-        playerLayer = mapHandler.getLayer(Layers.PLAYER);
 
         // CAMERA:
         OrthographicCamera camera = new OrthographicCamera();
@@ -65,16 +58,11 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         // PLAYER CONFIG:
         Texture pictureAll = new Texture("assets/player.png");
         pictureOne = new TextureRegion().split(pictureAll,300,300);
-
         this.playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][0]));
         this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
-
-        //playerPosStart = new Vector2(5,0);
         playerPosition = mapHandler.getStartingPositions().get(0);
-
-        // Making new player
-        robot = new Robot(playerPosition);
+        robot = new Robot(playerPosition);          // Instantiating a player Robot.
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
@@ -137,10 +125,8 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         // PLAYER:
         mapHandler.setCell((int) robot.position.x, (int) robot.position.y, Layers.PLAYER, playerCell);
 
-        // if player is on a hole
+        // HOLE AND FLAG CELL:
         TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.position.x, (int) robot.position.y, Layers.HOLES);
-
-        // if player is on a flag
         TiledMapTileLayer.Cell flag = mapHandler.getCell((int) robot.position.x, (int) robot.position.y, Layers.FLAGS);
 
         // If player is on a hole change player icon to defeat-icon.
@@ -153,8 +139,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
             mapHandler.setCell((int) robot.position.x, (int) robot.position.y,Layers.PLAYER, playerWonCell);
             //playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerWonCell);
         }
-
-
     }
 
     @Override
