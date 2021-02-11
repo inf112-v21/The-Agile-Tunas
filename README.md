@@ -6,7 +6,7 @@ Spillmotor: libgdx
 Gruppenavn: The Agile Tunas
 Gruppemedlemmer: Jacob Hagan, Robin Lee Lange, Olesya Pasichnyk, Lisa Maria Eliassen
 
-## Known bugs
+## Known bugs:
 Ingen kjente bugs.
 Alle testene passerer med glans!
 -CTO
