@@ -49,6 +49,8 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
     private OrthogonalTiledMapRenderer mapRenderer;
 
+    private Vector2 playerPosition;
+
     //Player config
     private Robot robot;
     private TiledMapTileLayer.Cell playerCell;
@@ -57,6 +59,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TextureRegion[][] pictureOne;
     private Vector2 playerPosStart;
     // endregion
+    MapHandler mapHandler;
 
     @Override
     public void create() {
@@ -65,31 +68,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         font.setColor(Color.RED);
 
         // TILEDMAP:
-        TiledMap map = new TmxMapLoader().load("assets/riskyexchange.tmx");
+        this.mapHandler = new MapHandler("assets/riskyexchange.tmx");
 
-        // region TILEDMAPTILELAYERS:
-        boardLayer = (TiledMapTileLayer) map.getLayers().get("Board");
-        holesLayer = (TiledMapTileLayer) map.getLayers().get("Holes");
-        flagsLayer = (TiledMapTileLayer) map.getLayers().get("Flags");
-        playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
-
-        startsPositionsLayer = (TiledMapTileLayer) map.getLayers().get("StartPositions");
-        gearsLayer = (TiledMapTileLayer) map.getLayers().get("Gears");
-        expressConveyorBeltDownLayer = (TiledMapTileLayer) map.getLayers().get("ExpressConveyorBeltDown");
-        expressConveyorBeltRightLayer = (TiledMapTileLayer) map.getLayers().get("ExpressConveyorBeltRight");
-        conveyorBeltUpLayer = (TiledMapTileLayer) map.getLayers().get("ConveyorBeltUp");
-        conveyorBeltDownLayer = (TiledMapTileLayer) map.getLayers().get("ConveyorBeltDown");
-        conveyorBeltRightLayer = (TiledMapTileLayer) map.getLayers().get("ConveyorBeltRight");
-        conveyorBeltLeftLayer = (TiledMapTileLayer) map.getLayers().get("ConveyorBeltLeft");
-        conveyorBeltSwingDownLayer = (TiledMapTileLayer) map.getLayers().get("ConveyorBeltSwingDown");
-        conveyorBeltSwingLeftLayer = (TiledMapTileLayer) map.getLayers().get("ConveyorBeltSwingLeft");
-        conveyorBeltSwingRightLayer = (TiledMapTileLayer) map.getLayers().get("ConveyorBeltSwingRight");
-        wrenchLayer = (TiledMapTileLayer) map.getLayers().get("Wrench");
-        wrenchHammerLayer = (TiledMapTileLayer) map.getLayers().get("WrenchHammer");
-        laserbeamLayer = (TiledMapTileLayer) map.getLayers().get("Laserbeam");
-        laserLayer = (TiledMapTileLayer) map.getLayers().get("Laser");
-        wallsLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
-        // endregion
+        playerLayer = mapHandler.getLayer(Layers.PLAYER);
 
         // CAMERA:
         OrthographicCamera camera = new OrthographicCamera();
@@ -99,7 +80,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         camera.update();
 
         // RENDERER:
-        mapRenderer = new OrthogonalTiledMapRenderer(map, (float) 1/300);
+        mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap, (float) 1/300);
         mapRenderer.setView(camera);
 
         // PLAYER CONFIG:
@@ -110,7 +91,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
 
-        playerPosStart = new Vector2(5,0);
+        //playerPosStart = new Vector2(5,0);
+        playerPosition = mapHandler.getStartingPositions().get(0);
+
         // Making new player
         robot = new Robot(playerPosStart);
 
@@ -135,7 +118,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         }
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
-            if (playerPosX < 11) {
+            if (playerPosX < mapHandler.getMapWidth()-1) {
                 robot.moveRight();
                 playerLayer.setCell(playerPosX, playerPosY, playerCell);     // Puts a playerCell on (newX, playerPosY).
                 playerLayer.setCell(playerPosX, playerPosY, null);      // Removes playerCell on (playerPosX, playerPosY).
@@ -145,7 +128,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         }
         // If the upwards arrow key is pressed:
         else if (keycode == Input.Keys.UP) {
-            if (playerPosY < 15) {
+            if (playerPosY < mapHandler.getMapHeight()-1) {
                 robot.moveUp();
                 playerLayer.setCell(playerPosX, playerPosY, playerCell);         // Puts a playerCell on (playerPosX, newY).
                 playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY).
@@ -184,10 +167,10 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         playerLayer.setCell((int) playerPosStart.x, (int) playerPosStart.y,playerCell);
 
         // if player is on a hole
-        TiledMapTileLayer.Cell hole = holesLayer.getCell((int) robot.position.x, (int) robot.position.y);
+        TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.position.x, (int) robot.position.y, Layers.HOLES);
 
         // if player is on a flag
-        TiledMapTileLayer.Cell flag = flagsLayer.getCell((int) robot.position.x, (int) robot.position.y);
+        TiledMapTileLayer.Cell flag = mapHandler.getCell((int) robot.position.x, (int) robot.position.y, Layers.FLAGS);
 
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
