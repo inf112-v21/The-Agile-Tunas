@@ -69,8 +69,8 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int keycode) {
         // Current player coordinates:
-        int playerPosX = (int) robot.position.x;
-        int playerPosY = (int) robot.position.y;
+        int playerPosX = (int) robot.getPosition().x;
+        int playerPosY = (int) robot.getPosition().y;
 
         // If the left arrow key is pressed:
         if (keycode == Input.Keys.LEFT) {
@@ -121,20 +121,20 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         mapRenderer.render();
 
         // PLAYER:
-        mapHandler.setCell((int) robot.position.x, (int) robot.position.y, Layers.PLAYER, playerCell);
+        mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
 
         // HOLE AND FLAG CELL:
-        TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.position.x, (int) robot.position.y, Layers.HOLES);
-        TiledMapTileLayer.Cell flag = mapHandler.getCell((int) robot.position.x, (int) robot.position.y, Layers.FLAGS);
+        TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.HOLES);
+        TiledMapTileLayer.Cell flag = mapHandler.getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.FLAGS);
 
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
-            mapHandler.setCell((int) robot.position.x, (int) robot.position.y,Layers.PLAYER, playerDiedCell);
+            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerDiedCell);
             //playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerDiedCell);
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
-            mapHandler.setCell((int) robot.position.x, (int) robot.position.y,Layers.PLAYER, playerWonCell);
+            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerWonCell);
             //playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerWonCell);
         }
     }
