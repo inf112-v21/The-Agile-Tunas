@@ -140,3 +140,33 @@ Gitt at spillerbrettet vises på skjermen skal spilleren
 ha en formening om brettet og posisjonen til roboten sin
 samtidig med alle de andre elementene på brettet. 
 Slik kan da spilleren planlegge sin rute mot målet.
+
+### Retrospekt
+
+#### Hva gikk bra?
+Vi følte vi fikk igjen for å ha brukt tid i starten til å bli bedre kjent. Dette gjorde at vi holdt en god tone og klarte å kommunisere mer effektivt. Vi lagde en team-kontrakt der vi fikk snakket om hva vi forventet av hverandre hva vi forventet å få ut av dette prosjektet. Dette hjalp oss mye ved at vi alle var på samme bølgelengde når vi startet. Vi har klart å jobbe jevnt og hatt god kommunikasjon hele veien.
+Prosjektmetodikken vi valgt viste seg å passe fint til denne typen arbeid, og vi klarte å bruke Trello aktivt til å holde orden på alle arbeidsoppgaver.
+I henhold til team-kontrakten ble alle planlagt møter gjennomført på en effektiv og ryddig måte.
+Noe som og var veldig bra var at alle i gruppen viste initiativ når det kom til uløste arbeidsoppgaver.
+Alle i gruppen viste egeninitiativ, noe som hjalp veldig med å få gjort alle oppgavene på project board.
+
+####Hva kunne gått bedre?
+Det største forbedringspotensialet var nok absolutt arbeidsfordelingen. Den kunne vært mer tydelig for hver enkelt oppgave slik at de blir lettere å fordele mellom oss. Til tider kunne det være noe utydelig skille mellom hvem som gjorde hva, slik at oppgaver som kunne vært gjort tidligere ble noe utsatt i vente på avklaring.
+Vi lærte at parprogrammering kan bli litt kaotisk om man er flere enn 2 personer samtidig og at det da er desto viktig med klare skiller mellom hvem som gjør hva.
+Møtene kunne og vært strukturert bedre. Vi tror man ville vært tjent med en klarere struktur på hva møtene skal inneholde før møte, slik at alle har en klar formening om hva som skal foregå.
+
+
+####Hvordan fungerte det tekniske?
+Code with me fungerte bra, gitt at man ikke er for mange som jobber med samme oppgave.
+Møter på discord har fungert bra. Alle har vist respekt for hverandres meninger og det har vært lite misforståelser basert på verbal kommunikasjon.
+Google docs har fungert fint til å skrive dokumenter i fellesskap.
+Trello har fungert veldig bra til å holde orden på prosjektet og dets arbeidsoppgaver. Enkelt å sette frister og tagge hvilke personer som jobber med hva.
+
+####Hva vil vi gjøre annerledes neste gang?
+Et fokusområde fram mot neste innlevering blir  å lage klarere roller innad i gruppen. På denne måten håper vi å oppnå er mer naturlig ansvarsfordeling basert på den enkeltes styrker. Det vil og tydeliggjøre skille mellom hvem som gjør hva.  Arbeidsoppgaver i Trello kan spesifiseres enda mere for å gjøre det veldig klart hvilke oppgaver det gjelder og hvordan man vet om man er ferdig.
+Vi vil forsøke å lage en agenda på forhånd av hvert møte slik at alle er på samme side når det gjelder hva møte skal handle om og om man må forberede noe.
+Neste gang vi skal parprogrammere skal vi prøve å holde en tydeligere kommunikasjon omkring hvem som gjør hva og hvor de gjør det i koden. Målet blir å unngå den klassiske “Flere kokker, mere søl”
+
+
+###Veien videre:
+Alt i alt er vi veldig fornøyde med hvordan det har vært å jobbe sammen. Vi har kommet godt overens og lært hverandre bedre å kjenne. Med fokus på hva vi har av forbedringspotensiale har vi tro på at gruppen vil prestere godt sammen dette semesteret. 
