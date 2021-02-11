@@ -30,8 +30,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
-    private TextureRegion[][] pictureOne;
-    private Vector2 playerPosition;
 
     // endregion
 
@@ -57,11 +55,11 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         // PLAYER CONFIG:
         Texture pictureAll = new Texture("assets/player.png");
-        pictureOne = new TextureRegion().split(pictureAll,300,300);
+        TextureRegion[][] pictureOne = new TextureRegion().split(pictureAll, 300, 300);
         this.playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][0]));
         this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
-        playerPosition = mapHandler.getStartingPositions().get(0);
+        Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
         robot = new Robot(playerPosition);          // Instantiating a player Robot.
 
         // INPUT:

@@ -4,28 +4,31 @@
 
 ### Prosess- og prosjektplan:
 
-Jacob
+Jacob:
 God  erfaring med praktisk og teoretisk ledelse og teamarbeid etter å ha gått Befalsskole i Forsvaret.
 Har gått 3 år på Norges Handelshøyskole der psykologi og ledelse er  godt integrert i fagplanen. Har
 tilbrakt	vesentlig tid i studentforeningen NHHS. Jobbet gjentatte ganger som  gruppemedlem eller gruppeleder.
 Personlighetstype INTJ eller ENTJ.
 
-Robin
+Robin:
 Har bachelor i petroleumslogistikk, har drevet med idrett i norgestoppen. Liker å ha det kjekt.
 Personlighetstype ENTJ-A.
 
-Olesya
-Bred erfaring innenfor kreativt arbeid. Vært i norgestoppen innenfor mitt fagområde, der vi ble bedømt av anerkjente personligheter i bransjen.  
-Personlighetstype ESFJ.
+Olesya:
+Bred erfaring innenfor kreativt arbeid. Vært i norgestoppen innenfor mitt fagområde, der vi ble bedømt av anerkjente personligheter i bransjen. Liker å kommunisere med andre. Personlighetstype ESFJ.
 
-Lisa
-Kompetanse/Erfaring: Lang erfaring med lagkommunikasjon i pressede/stressende situasjoner der        
+Lisa:
+Lang erfaring med lagkommunikasjon i pressede/stressende situasjoner der        
 konkurranse og teamarbeid er essensielt for gode resultater.
 Personlighetstype: INFJ.
 
 Rolleinndeling: Jacob Hagan (Teamlead, utvikler), Robin Lange (Utvikler), Olesya Pasichnyk (Kundekontakt, utvikler), Lisa Eliassen (Utvikler).
 
-Teamlead: Jacob Hagan.
+Kommentar til rolleinndeling: Jacob ble teamlead fordi han hadde mest erfaring med ledelse og teamarbeid. Olesya ble kundekontakt fordi hun liker å kommunisere og det å være et mellomledd mellom kunden og teamet passet dermed godt for henne.
+
+Trello-board 11.02.2021:
+![img.png](ProjectBoardOblig1.png)
+Link til trello-board: https://trello.com/b/9pKSo8yI/project-board. 
 
 ## DELOPPGAVE 2 - Prosjekt- og prosessplan
 

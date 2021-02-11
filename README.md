@@ -3,16 +3,15 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/598d6a507dc74d34989e2c999450792d)](https://www.codacy.com/gh/inf112-v21/The-Agile-Tunas/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=inf112-v21/The-Agile-Tunas&amp;utm_campaign=Badge_Grade)
 
 Spillmotor: libgdx
+
 Gruppenavn: The Agile Tunas
+
 Gruppemedlemmer: Jacob Hagan, Robin Lee Lange, Olesya Pasichnyk, Lisa Maria Eliassen
 
-## Known bugs:
+## Kjente bugs:
 Ingen kjente bugs.
 Alle testene passerer med glans!
 -CTO
-
-I can finally code with you!
--TeamLeader
 
 ## Krav - MVP:
 - Vise et spillebrett
@@ -24,3 +23,6 @@ I can finally code with you!
 - Dele ut kort
 - Velge 5 kort
 - Bevege robot ut fra valgte kort
+
+## Hvordan kjøre spillet:
+Naviger til src/main/java/inf112.skeleton.app/Main og kjør Main filen for å starte spillet.
