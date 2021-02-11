@@ -23,29 +23,8 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
 
-    // TiledMap Layers:
+
     private TiledMapTileLayer playerLayer;
-    private TiledMapTileLayer holesLayer;
-    private TiledMapTileLayer flagsLayer;
-    private TiledMapTileLayer boardLayer;
-    private TiledMapTileLayer startsPositionsLayer;
-    private TiledMapTileLayer gearsLayer;
-
-    private TiledMapTileLayer expressConveyorBeltDownLayer;
-    private TiledMapTileLayer expressConveyorBeltRightLayer;
-    private TiledMapTileLayer conveyorBeltUpLayer;
-    private TiledMapTileLayer conveyorBeltDownLayer;
-    private TiledMapTileLayer conveyorBeltRightLayer;
-    private TiledMapTileLayer conveyorBeltLeftLayer;
-    private TiledMapTileLayer conveyorBeltSwingDownLayer;
-    private TiledMapTileLayer conveyorBeltSwingLeftLayer;
-    private TiledMapTileLayer conveyorBeltSwingRightLayer;
-
-    private TiledMapTileLayer wrenchLayer;
-    private TiledMapTileLayer wrenchHammerLayer;
-    private TiledMapTileLayer laserbeamLayer;
-    private TiledMapTileLayer laserLayer;
-    private TiledMapTileLayer wallsLayer;
 
     private OrthogonalTiledMapRenderer mapRenderer;
 
@@ -95,7 +74,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         playerPosition = mapHandler.getStartingPositions().get(0);
 
         // Making new player
-        robot = new Robot(playerPosStart);
+        robot = new Robot(playerPosition);
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
@@ -111,8 +90,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         if (keycode == Input.Keys.LEFT) {
             if (playerPosX > 0) {
                 robot.moveLeft();
-                playerLayer.setCell(playerPosX, playerPosY, playerCell);          // Puts a playerCell on (newX, playerPosY).
-                playerLayer.setCell(playerPosX, playerPosY, null);           // Removes playerCell on (playerPosX, playerPosY).
+                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
         }
@@ -120,9 +98,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < mapHandler.getMapWidth()-1) {
                 robot.moveRight();
-                playerLayer.setCell(playerPosX, playerPosY, playerCell);     // Puts a playerCell on (newX, playerPosY).
-                playerLayer.setCell(playerPosX, playerPosY, null);      // Removes playerCell on (playerPosX, playerPosY).
-
+                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
         }
@@ -130,9 +106,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         else if (keycode == Input.Keys.UP) {
             if (playerPosY < mapHandler.getMapHeight()-1) {
                 robot.moveUp();
-                playerLayer.setCell(playerPosX, playerPosY, playerCell);         // Puts a playerCell on (playerPosX, newY).
-                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY).
-
+                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
         }
@@ -140,9 +114,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         else if (keycode == Input.Keys.DOWN) {
             if (playerPosY > 0 ) {
                 robot.moveDown();
-                playerLayer.setCell(playerPosX, playerPosY, playerCell);         // Puts a playerCell on (playerPosX, newY).
-                playerLayer.setCell(playerPosX, playerPosY, null);          // Removes playerCell on (playerPosX, playerPosY).
-
+                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
         }
@@ -163,8 +135,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         mapRenderer.render();
 
         // PLAYER:
-        // Player in start position
-        playerLayer.setCell((int) playerPosStart.x, (int) playerPosStart.y,playerCell);
+        mapHandler.setCell((int) robot.position.x, (int) robot.position.y, Layers.PLAYER, playerCell);
 
         // if player is on a hole
         TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.position.x, (int) robot.position.y, Layers.HOLES);
@@ -179,8 +150,11 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
-            playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerWonCell);
+            mapHandler.setCell((int) robot.position.x, (int) robot.position.y,Layers.PLAYER, playerWonCell);
+            //playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerWonCell);
         }
+
+
     }
 
     @Override
