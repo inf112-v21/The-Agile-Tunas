@@ -11,17 +11,17 @@ public class Robot implements IRobot{
     }
 
     @Override
-    public Vector2 get_position() {
+    public Vector2 getPosition() {
         return position;
     }
 
     @Override
-    public boolean Has_Visited_a_Flag() {
+    public boolean hasVisitedAFlag() {
         return flag;
     }
 
     @Override
-    public void Visit_Flag() {
+    public void visitFlag() {
         this.flag = true;
     }
 

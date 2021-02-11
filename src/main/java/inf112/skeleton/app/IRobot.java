@@ -4,15 +4,15 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface IRobot {
 
-    Vector2 get_position();
+    Vector2 getPosition();
 
     /**
      *
      * @return
      */
-    boolean Has_Visited_a_Flag();
+    boolean hasVisitedAFlag();
 
-    void Visit_Flag();
+    void visitFlag();
 
     void moveUp();
 
