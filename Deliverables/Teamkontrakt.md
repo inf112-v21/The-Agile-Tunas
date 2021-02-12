@@ -17,7 +17,7 @@ Lag en kort liste over hvert gruppemedlems navn, telefonnummer og e-postadresse 
 
 Jacob
 - Sterke sider 
-    * terk indre motivasjon for å gjøre det godt.
+    * sterk indre motivasjon for å gjøre det godt.
     * Hardtarbeidende
     * Forståelsesfull
     * Pragmatisk
@@ -119,14 +119,16 @@ Diskuter hvordan dere underveis i kurset skal evaluere hvordan samarbeidet funge
 
 Etter hver innleveringsfrist vil vi møtes for å evaluere oss selv. Skrive ned hva som gikk bra og hva som gikk suboptimalt. Vi kan bruke dette i planleggingen av neste innlevering for å kontinuerlig forbedre oss som gruppe.
 
-
-
 Vi bekrefter at teamkontrakten er utarbeidet samlet, og at alle i gruppen har fått mulighet til å påvirke innholdet i teamkontrakten.
 
-Signering av gruppemedlemmer:
+####Signering av gruppemedlemmer:
+
 Medlem 1: Robin Lee Lange
+
 Medlem 2: Jacob Hagan
+
 Medlem 3: Olesya Pasichnyk
+
 Medlem 4: Lisa Maria Eliassen
  
 

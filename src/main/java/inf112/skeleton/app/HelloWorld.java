@@ -45,8 +45,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         // CAMERA:
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 16);
-        // 6f because it's in the middle of the viewportWidth.
-        camera.position.x = 6f;
+        camera.position.x = 6f;                     // 6f because it's in the middle of the viewportWidth.
         camera.update();
 
         // RENDERER:
@@ -130,12 +129,10 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
             mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerDiedCell);
-            //playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerDiedCell);
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
             mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerWonCell);
-            //playerLayer.setCell((int) robot.position.x, (int) robot.position.y,playerWonCell);
         }
     }
 
@@ -150,4 +147,5 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     @Override
     public void resume() {
     }
+
 }

@@ -2,11 +2,12 @@
 [![Build Status](https://travis-ci.com/inf112-v21/The-Agile-Tunas.svg?branch=master)](https://travis-ci.com/inf112-v21/The-Agile-Tunas)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/598d6a507dc74d34989e2c999450792d)](https://www.codacy.com/gh/inf112-v21/The-Agile-Tunas/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=inf112-v21/The-Agile-Tunas&amp;utm_campaign=Badge_Grade)
 
-Spillmotor: libgdx
+## Beskrivelse av prosjektet
+Prosjektet er å implementere brettspillet RoboRally i Java med spillmotoren libgdx.
 
-Gruppenavn: The Agile Tunas
+Teamnavn: The Agile Tunas
 
-Gruppemedlemmer: Jacob Hagan, Robin Lee Lange, Olesya Pasichnyk, Lisa Maria Eliassen
+Teammedlemmer: Jacob Hagan, Robin Lee Lange, Olesya Pasichnyk, Lisa Maria Eliassen
 
 ## Kjente bugs:
 Ingen kjente bugs.

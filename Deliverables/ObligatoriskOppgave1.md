@@ -4,27 +4,27 @@
 
 ### Prosess- og prosjektplan:
 
-Jacob:
+**Jacob:**
 God  erfaring med praktisk og teoretisk ledelse og teamarbeid etter å ha gått Befalsskole i Forsvaret.
 Har gått 3 år på Norges Handelshøyskole der psykologi og ledelse er  godt integrert i fagplanen. Har
 tilbrakt	vesentlig tid i studentforeningen NHHS. Jobbet gjentatte ganger som  gruppemedlem eller gruppeleder.
 Personlighetstype INTJ eller ENTJ.
 
-Robin:
+**Robin:**
 Har bachelor i petroleumslogistikk, har drevet med idrett i norgestoppen. Liker å ha det kjekt.
 Personlighetstype ENTJ-A.
 
-Olesya:
+**Olesya:**
 Bred erfaring innenfor kreativt arbeid. Vært i norgestoppen innenfor mitt fagområde, der vi ble bedømt av anerkjente personligheter i bransjen. Liker å kommunisere med andre. Personlighetstype ESFJ.
 
-Lisa:
+**Lisa:**
 Lang erfaring med lagkommunikasjon i pressede/stressende situasjoner der        
 konkurranse og teamarbeid er essensielt for gode resultater.
 Personlighetstype: INFJ.
 
-Rolleinndeling: Jacob Hagan (Teamlead, utvikler), Robin Lange (Utvikler), Olesya Pasichnyk (Kundekontakt, utvikler), Lisa Eliassen (Utvikler).
+**Rolleinndeling:** Jacob Hagan (Utvikler), Robin Lange (Teamlead, utvikler), Olesya Pasichnyk (Kundekontakt, utvikler), Lisa Eliassen (Utvikler).
 
-Kommentar til rolleinndeling: Jacob ble teamlead fordi han hadde mest erfaring med ledelse og teamarbeid. Olesya ble kundekontakt fordi hun liker å kommunisere og det å være et mellomledd mellom kunden og teamet passet dermed godt for henne.
+**Kommentar til rolleinndeling:** Robin ble teamlead fordi det er en egenskap han vil utvikle, og at dette er en god mulighet for å utøve praktisk lederskap under kontrollerte former. Olesya ble kundekontakt fordi hun liker å kommunisere og det å være et mellomledd mellom kunden og teamet passet dermed godt for henne.
 
 Trello-board 11.02.2021:
 ![img.png](ProjectBoardOblig1.png)
@@ -86,7 +86,7 @@ slik at brikken flytter seg slik som jeg har planlagt.
 
 Løsningsbeskrivelse:
 Lage en metode som tar inn keycodes og differensierer mellom de fire ulike tastetrykkene: pil opp, pil ned, venstre pil og høyre pil.
-Metoden flytter brikken i henhold til piltastenes keycode.
+Metoden skal flytte brikken i henhold til piltastenes keycode.
 
 Akseptansekriterier:
 Gitt at brikken er flyttbar, så skal jeg kunne se at brikken flyttes riktig i henhold til tastetrykk.
@@ -154,7 +154,6 @@ Alle i gruppen viste egeninitiativ, noe som hjalp veldig med å få gjort alle o
 Det største forbedringspotensialet var nok absolutt arbeidsfordelingen. Den kunne vært mer tydelig for hver enkelt oppgave slik at de blir lettere å fordele mellom oss. Til tider kunne det være noe utydelig skille mellom hvem som gjorde hva, slik at oppgaver som kunne vært gjort tidligere ble noe utsatt i vente på avklaring.
 Vi lærte at parprogrammering kan bli litt kaotisk om man er flere enn 2 personer samtidig og at det da er desto viktig med klare skiller mellom hvem som gjør hva.
 Møtene kunne og vært strukturert bedre. Vi tror man ville vært tjent med en klarere struktur på hva møtene skal inneholde før møte, slik at alle har en klar formening om hva som skal foregå.
-
 
 ####Hvordan fungerte det tekniske?
 Code with me fungerte bra, gitt at man ikke er for mange som jobber med samme oppgave.
