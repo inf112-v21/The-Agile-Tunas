@@ -39,13 +39,13 @@ public class MapHandler implements IMapHandler{
             case WALLS:
                 return (TiledMapTileLayer) tiledMap.getLayers().get("Walls");
             case CONVEYORS:
-                return (TiledMapTileLayer) tiledMap.getLayers().get("ConveyorBeltUp");
+                return (TiledMapTileLayer) tiledMap.getLayers().get("ConveyorBelts");
             case LASERS:
                 return (TiledMapTileLayer) tiledMap.getLayers().get("Laser");
             case PLAYER:
                 return (TiledMapTileLayer) tiledMap.getLayers().get("Player");
             case EXPRESS_CONVEYOR:
-                return (TiledMapTileLayer) tiledMap.getLayers().get("ExpressConveyorBeltDown");
+                return (TiledMapTileLayer) tiledMap.getLayers().get("ExpressConveyorBelts");
             case GEARS:
                 return (TiledMapTileLayer) tiledMap.getLayers().get("Gears");
             case START_POSITIONS:
