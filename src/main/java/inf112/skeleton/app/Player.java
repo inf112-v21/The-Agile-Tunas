@@ -11,12 +11,16 @@ public class Player implements IPlayer {
     //private int playerID;
     //private CardDeck playerDeck;
     private ArrayList<Card> program;
+    private final List<Card> deck;
+    private final Card[] cardHand = new Card[9];
+
 
 
     public Player(Robot robot, String name) {
         //this.playerDeck = new CardDeck(new ArrayList<>());
         this.robot = robot;
         this.name = name;
+        deck = deck_Of_Cards();
     }
 
     public List<Card> deck_Of_Cards() {
