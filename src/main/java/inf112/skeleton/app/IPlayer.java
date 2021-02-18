@@ -7,11 +7,11 @@ public interface IPlayer {
     Robot getRobot();
     // int getRobotID();
 
-    void setProgram(ArrayList<Card> programCards);
+    void setProgram(ArrayList<CardTypes> programCards);
 
-    ArrayList<Card> getProgram();
+    ArrayList<CardTypes> getProgram();
 
-    ArrayList<Card> getDeck();
+    ArrayList<CardTypes> getDeck();
 
     void setPowerDown();
 

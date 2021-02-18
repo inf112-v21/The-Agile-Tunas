@@ -10,9 +10,9 @@ public class Player implements IPlayer {
     private String name;
     //private int playerID;
     //private CardDeck playerDeck;
-    private ArrayList<Card> program;
-    private final List<Card> deck;
-    private final Card[] cardHand = new Card[9];
+    private ArrayList<CardTypes> program;
+    private final List<CardTypes> deck;
+    private final CardTypes[] cardHand = new CardTypes[9];
 
 
 
@@ -23,15 +23,15 @@ public class Player implements IPlayer {
         deck = deck_Of_Cards();
     }
 
-    public List<Card> deck_Of_Cards() {
-        List<Card> cards = new ArrayList<>();
-        cards.add(Card.MOVE_ONE);
-        cards.add(Card.MOVE_TWO);
-        cards.add(Card.MOVE_THREE);
-        cards.add(Card.BACK_UP);
-        cards.add(Card.ROTATE_LEFT);
-        cards.add(Card.ROTATE_RIGHT);
-        cards.add(Card.U_TURN);
+    public List<CardTypes> deck_Of_Cards() {
+        List<CardTypes> cards = new ArrayList<>();
+        cards.add(CardTypes.MOVE_ONE);
+        cards.add(CardTypes.MOVE_TWO);
+        cards.add(CardTypes.MOVE_THREE);
+        cards.add(CardTypes.BACK_UP);
+        cards.add(CardTypes.ROTATE_LEFT);
+        cards.add(CardTypes.ROTATE_RIGHT);
+        cards.add(CardTypes.U_TURN);
 
         Collections.shuffle(cards);
 
@@ -53,7 +53,7 @@ public class Player implements IPlayer {
      * @param listOfCards
      */
     @Override
-    public void setProgram(ArrayList<Card> listOfCards) {
+    public void setProgram(ArrayList<CardTypes> listOfCards) {
     }
 
     /**
@@ -61,7 +61,7 @@ public class Player implements IPlayer {
      * @return
      */
     @Override
-    public ArrayList<Card> getProgram() {
+    public ArrayList<CardTypes> getProgram() {
         return program;
     }
 
@@ -70,7 +70,7 @@ public class Player implements IPlayer {
      * @return
      */
     @Override
-    public ArrayList<Card> getDeck() {
+    public ArrayList<CardTypes> getDeck() {
         return null;
     }
 
