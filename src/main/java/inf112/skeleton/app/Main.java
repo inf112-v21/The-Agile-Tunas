@@ -10,6 +10,6 @@ public class Main {
         //Chose different width and height according to the new map layout
         cfg.setWindowedMode(600, 800);
 
-        new Lwjgl3Application(new HelloWorld(), cfg);
+        new Lwjgl3Application(new GameHandler(), cfg);
     }
 }
