@@ -55,3 +55,18 @@ de fem bevegelsene som jeg har valgt.
 #### Brukerhistorie MVP 9 - Bevege robot ut fra valgte kort
 
 Som spiller:
+
+Gitt at jeg kan se brettet, min robot og de 5 kortene som jeg valgte ut fra de 9 kortene. 
+Så skal roboten for hver runde gjøre den aksjonen som jeg valgte, aksjonene utføres fra venstre 
+til høyre.
+
+Løsningskriterier:
+
+Programmere kode slik at spillerene kan se at roboten utfører de aksjonene som de har valgt ut,
+den bevegelsen som er gjort forsvinner eller markeres med gjort.
+
+Akseptansekriterier:
+
+Gitt at alle spillerbrettet er synlig, robotene kan sees, så skal alle robotene utføre
+en aksjon for hver runde som de forskjellige spillerene har valgt. 
+
