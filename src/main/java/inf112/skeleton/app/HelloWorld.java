@@ -33,6 +33,10 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
     // endregion
 
+    /**
+     * Sets mapHandler, camera, mapRenderer, the icons for the player,
+     * the player position, the robot for the player, and input processor.
+     */
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -65,6 +69,14 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         Gdx.input.setInputProcessor(this);
     }
 
+    /**
+     * Takes a keycode which corresponds to one of the four arrow keys on the keyboard.
+     * Then moves the robot accordingly by calling one the movement-methods in the Robot class,
+     * and sets the cell on the position the robot was on before moving, to null.
+     *
+     * @param keycode
+     * @return true if a key has been pressed, else false.
+     */
     @Override
     public boolean keyUp(int keycode) {
         // Current player coordinates:
@@ -106,12 +118,16 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         return false;
     }
 
+
     @Override
     public void dispose() {
         batch.dispose();
         font.dispose();
     }
 
+    /**
+     * Method for rendering.
+     */
     @Override
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);

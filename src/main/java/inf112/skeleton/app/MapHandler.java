@@ -14,7 +14,11 @@ public class MapHandler implements IMapHandler{
     private final int mapHeight;
     private final int mapWidth;
 
-
+    /**
+     * Takes a string which corresponds to the path of a TiledMap,
+     * then loads the TiledMap, sets mapHeight and mapWidth, and counts the number of flags.
+     * @param path
+     */
     public MapHandler(String path) {
         this.tiledMap = new TmxMapLoader().load(path);
         mapHeight = (int) tiledMap.getProperties().get("height");
@@ -30,6 +34,11 @@ public class MapHandler implements IMapHandler{
         }
     }
 
+    /**
+     * Takes the name of a layer in the enum Layers and returns the corresponding layer from the TiledMap tiledMap.
+     * @param layer
+     * @return a TiledMapTileLayer
+     */
     public TiledMapTileLayer getLayer(Layers layer){
         switch(layer){
             case FLAGS:
@@ -56,26 +65,56 @@ public class MapHandler implements IMapHandler{
 
     }
 
+    /**
+     * Sets the Cell in position (x,y) on the Layer layer to the object objectInCell.
+     * @param x
+     * @param y
+     * @param layer
+     * @param objectInCell
+     */
     public void setCell(int x, int y, Layers layer, TiledMapTileLayer.Cell objectInCell){
         this.getLayer(layer).setCell(x,y,objectInCell);
     }
 
+    /**
+     * Gets the Cell in position (x,y) on the Layer layer.
+     * @param x
+     * @param y
+     * @param layer
+     * @return a TiledMapTileLayer.Cell
+     */
     public TiledMapTileLayer.Cell getCell(int x, int y, Layers layer){
         return this.getLayer(layer).getCell(x,y);
     }
 
+    /**
+     * Gets the height of the map.
+     * @return mapHeight
+     */
     public int getMapHeight() {
         return mapHeight;
     }
 
+    /**
+     * Gets the width of the map.
+     * @return mapWidth
+     */
     public int getMapWidth() {
         return mapWidth;
     }
 
+    /**
+     * Gets the number of flags on map.
+     * @return NumberOfFlags
+     */
     public int getNumberOfFlags() {
         return NumberOfFlags;
     }
 
+    /**
+     * Gets the starting positions of the players/robots.
+     * @return ArrayList with positions
+     */
     public ArrayList<Vector2> getStartingPositions(){
         ArrayList<Vector2> startingPositions = new ArrayList<>();
         for (int i = 0; i < mapWidth; i++) {
