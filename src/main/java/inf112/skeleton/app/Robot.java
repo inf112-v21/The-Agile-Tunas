@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Robot implements IRobot{
     private Vector2 position;
     private boolean flag = false;
+    private Direction direction;
 
     public Robot(Vector2 start_pos) {
         this.position = start_pos;

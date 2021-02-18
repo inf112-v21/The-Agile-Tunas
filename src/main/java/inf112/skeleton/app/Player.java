@@ -25,19 +25,23 @@ public class Player implements IPlayer {
 
     public List<CardTypes> deck_Of_Cards() {
         List<CardTypes> cards = new ArrayList<>();
-        cards.add(CardTypes.MOVE_ONE);
-        cards.add(CardTypes.MOVE_TWO);
-        cards.add(CardTypes.MOVE_THREE);
-        cards.add(CardTypes.BACK_UP);
-        cards.add(CardTypes.ROTATE_LEFT);
-        cards.add(CardTypes.ROTATE_RIGHT);
-        cards.add(CardTypes.U_TURN);
+        for(int i = 0; i < 18; i++) {
+            if(i < 6) {
+                cards.add(CardTypes.BACK_UP);
+                cards.add(CardTypes.U_TURN);
+                cards.add(CardTypes.MOVE_THREE);
+            }
+            if(i < 12) {
+                cards.add(CardTypes.MOVE_TWO);
+            }
+            cards.add(CardTypes.MOVE_ONE);
+            cards.add(CardTypes.ROTATE_LEFT);
+            cards.add(CardTypes.ROTATE_RIGHT);
 
+        }
         Collections.shuffle(cards);
-
         return cards;
     }
-
 
     /**
      *
