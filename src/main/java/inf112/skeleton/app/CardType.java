@@ -1,6 +1,6 @@
 package inf112.skeleton.app;
 
-public enum CardTypes {
+public enum CardType {
     MOVE_ONE,
     MOVE_TWO,
     MOVE_THREE,

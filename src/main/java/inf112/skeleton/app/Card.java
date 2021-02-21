@@ -1,18 +1,34 @@
 package inf112.skeleton.app;
 
-public class Card {
-    private final CardTypes type;
+public class Card implements ICard {
+    private final CardType type;
     private final int priority;
 
-    Card(CardTypes type, int priority){
+    /**
+     * Sets the instance's type to the given CardType, and the instance's priority to the given int.
+     *
+     * @param type
+     * @param priority
+     */
+    Card(CardType type, int priority){
         this.type = type;
         this.priority = priority;
     }
 
-    public CardTypes getType(){
+    /**
+     * Returns the card's type.
+     *
+     * @return
+     */
+    public CardType getType(){
         return type;
     }
 
+    /**
+     * Returns the card's priority.
+     *
+     * @return
+     */
     public int getPriority(){
         return priority;
     }
