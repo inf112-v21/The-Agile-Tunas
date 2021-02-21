@@ -3,15 +3,14 @@ package inf112.skeleton.app;
 import java.util.ArrayList;
 
 public interface IPlayer {
-
     Robot getRobot();
     // int getRobotID();
 
-    void setProgram(ArrayList<CardTypes> programCards);
+    void setProgram(ArrayList<CardType> programCards);
 
-    ArrayList<CardTypes> getProgram();
+    ArrayList<CardType> getProgram();
 
-    ArrayList<CardTypes> getDeck();
+    ArrayList<CardType> getDeck();
 
     void setPowerDown();
 

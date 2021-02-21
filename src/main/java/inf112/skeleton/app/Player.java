@@ -1,51 +1,30 @@
 package inf112.skeleton.app;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Player implements IPlayer {
     private Robot robot;
     //private int robotID;
     private String name;
     //private int playerID;
-    //private CardDeck playerDeck;
-    private ArrayList<CardTypes> program;
-    private final List<CardTypes> deck;
-    private final CardTypes[] cardHand = new CardTypes[9];
+    private ArrayList<CardType> program;
+    private final CardType[] cardHand = new CardType[9];
 
-
-
+    /**
+     * Sets the instance's robot to the given Robot, the instance's name to the given String.
+     * @param robot, this player's robot.
+     * @param name, this player's name.
+     */
     public Player(Robot robot, String name) {
         //this.playerDeck = new CardDeck(new ArrayList<>());
         this.robot = robot;
         this.name = name;
-        deck = deck_Of_Cards();
-    }
-
-    public List<CardTypes> deck_Of_Cards() {
-        List<CardTypes> cards = new ArrayList<>();
-        for(int i = 0; i < 18; i++) {
-            if(i < 6) {
-                cards.add(CardTypes.BACK_UP);
-                cards.add(CardTypes.U_TURN);
-                cards.add(CardTypes.MOVE_THREE);
-            }
-            if(i < 12) {
-                cards.add(CardTypes.MOVE_TWO);
-            }
-            cards.add(CardTypes.MOVE_ONE);
-            cards.add(CardTypes.ROTATE_LEFT);
-            cards.add(CardTypes.ROTATE_RIGHT);
-
-        }
-        Collections.shuffle(cards);
-        return cards;
+        //deck = deck_Of_Cards();
     }
 
     /**
-     *
-     * @return
+     * Returns the Player's Robot.
+     * @return Robot
      */
     @Override
     public Robot getRobot() {
@@ -53,41 +32,43 @@ public class Player implements IPlayer {
     }
 
     /**
+     * Sets the program for the player.
      *
-     * @param listOfCards
+     * @param listOfCards, an ArrayList of type Card.
      */
     @Override
-    public void setProgram(ArrayList<CardTypes> listOfCards) {
+    public void setProgram(ArrayList<CardType> listOfCards) {
     }
 
     /**
+     * Returns player's current program.
      *
-     * @return
+     * @return ArrayList<CardType>
      */
     @Override
-    public ArrayList<CardTypes> getProgram() {
+    public ArrayList<CardType> getProgram() {
         return program;
     }
 
     /**
-     *
-     * @return
+     * Returns the card deck.
+     * @return ArrayList<CardType>
      */
     @Override
-    public ArrayList<CardTypes> getDeck() {
+    public ArrayList<CardType> getDeck() {
         return null;
     }
 
     /**
-     *
+     * Sets the robot to power down next round.
      */
     @Override
     public void setPowerDown() {
     }
 
     /**
-     *
-     * @return
+     * Gets name of player.
+     * @return the name of the player.
      */
     @Override
     public String getName() {
