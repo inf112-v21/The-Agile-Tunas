@@ -14,12 +14,14 @@ public interface IRobot {
 
     void visitFlag();
 
-    void moveUp();
+    void moveNorth();
 
-    void moveDown();
+    void moveSouth();
 
-    void moveLeft();
+    void moveWest();
 
-    void moveRight();
+    void moveEast();
+
+    void changeDirection(Direction direction);
 
 }
