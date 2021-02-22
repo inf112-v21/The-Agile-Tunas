@@ -1,11 +1,13 @@
-package inf112.skeleton.app;
+package Card;
+
+import Card.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 //public class CardDeck<Card> implements ICardDeck{
-public class CardDeck implements ICardDeck{
+public class CardDeck implements ICardDeck {
     private final List<CardType> deck;
     //private final List<Card> deck;
 

@@ -1,4 +1,6 @@
-package inf112.skeleton.app;
+package Card;
+
+import Card.CardType;
 
 public interface ICard {
 

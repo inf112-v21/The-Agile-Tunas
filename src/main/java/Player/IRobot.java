@@ -1,6 +1,7 @@
-package inf112.skeleton.app;
+package Player;
 
 import com.badlogic.gdx.math.Vector2;
+import Player.Player;
 
 public interface IRobot {
 
