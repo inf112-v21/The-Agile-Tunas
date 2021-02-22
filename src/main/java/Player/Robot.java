@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package Player;
 
 import com.badlogic.gdx.math.Vector2;
 

@@ -1,4 +1,6 @@
-package inf112.skeleton.app;
+package Player;
+
+import Card.CardType;
 
 import java.util.ArrayList;
 

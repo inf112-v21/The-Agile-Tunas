@@ -1,5 +1,9 @@
 package inf112.skeleton.app;
 
+import Map.Layers;
+import Map.MapHandler;
+import Player.Direction;
+import Player.Robot;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -87,7 +91,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         if (keycode == Input.Keys.LEFT) {
             if (playerPosX > 0) {
                 robot.moveWest();
-                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
+                mapHandler.setCell(playerPosX,playerPosY, Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
         }

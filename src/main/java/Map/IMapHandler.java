@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package Map;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
