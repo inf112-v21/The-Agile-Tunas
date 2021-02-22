@@ -9,29 +9,43 @@ import java.net.Socket;
 import java.util.Date;
 
 public class Server {
+    private static String[] names = {"Jacob", "Robin", "Lisa", "Olesya"};
+    private static String[] adjs = {"the gentle", "the un-gentle", "the overwrought", "the urbane"};
     private static final int PORT = 9090;
     //The port can be any number really, but above 9090 should be good, 8080 or something is internet
-    ServerSocket incoming = new ServerSocket(PORT);
-
-    public Server() throws IOException {
-    }
 
     public static void main(String[] args) throws IOException {
-
         ServerSocket listener = new ServerSocket(PORT);
-        System.out.println(" [SERVER] Waiting for client connection...");
 
+        System.out.println("[SERVER] Waiting for client connection...");
         Socket client = listener.accept();
         System.out.println("[SERVER] Connected to client!");
 
         PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-        String date = (new Date()).toString();
-        System.out.println("[SERVER] Sending date " + date);
-        out.println("[SERVER] sending date " + date);
+        BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
-        System.out.println("[SERVER] Sent Date. Closing");
-        client.close();
-        listener.close();
+
+
+        try {
+            while (true) {
+                String request = in.readLine();
+                if (request.contains("name")) {
+                    out.println(getRandomName());
+                } else {
+                    out.println("Type 'tell me a name' to get a random name");
+                }
+
+            }
+        } finally {
+            out.close();
+            in.close();
+        }
+    }
+
+    private static String getRandomName() {
+        String name = names[(int) (Math.random()*names.length)];
+        String adj = adjs[(int) (Math.random()* adjs.length)];
+        return name + " " + adj;
     }
 
 

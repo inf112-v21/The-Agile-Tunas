@@ -16,10 +16,22 @@ public class Client {
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
 
         BufferedReader input = new BufferedReader(new InputStreamReader( socket.getInputStream()));
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-        String serverResponse = input.readLine();
+        while(true) {
+            System.out.println("> ");
+            String command = keyboard.readLine();
 
-        JOptionPane.showMessageDialog(null, serverResponse);
+            if (command.equals("quit")) break;
+
+            out.println(command);
+
+            String serverResponse = input.readLine();
+            System.out.println("Server says: " + serverResponse);
+
+            //JOptionPane.showMessageDialog(null, serverResponse);
+        }
 
         socket.close();
         System.exit(0);
@@ -28,32 +40,6 @@ public class Client {
     }
 
 
-    /*
 
-    String serverIP = "The ip adress";
-    int serverPort = 9090;
-
-    Socket s = new Socket(serverIP, serverPort);
-
-    public Client() throws IOException {
-    }
-
-    BufferedReader receiver = new BufferedReader( new InputStreamReader(s.getInputStream()));
-    PrintWriter sender = new PrintWriter(s.getOutputStream(), true);
-
-    //What I wish:
-
-
-
-    while(game is going on) {
-
-    String userInput = keyboard.readLine(); // wait for user to type
-    sender.println(userInput);              // send message to server
-    String response = receiver.readLine();  // wait for server reply
-    System.out.println(response);           // display response for user
-
-    }
-
-     */
 
 }
