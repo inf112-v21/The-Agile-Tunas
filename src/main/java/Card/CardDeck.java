@@ -5,33 +5,60 @@ import Card.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 //public class CardDeck<Card> implements ICardDeck{
 public class CardDeck implements ICardDeck {
-    private final List<CardType> deck;
-    //private final List<Card> deck;
+    private final Stack<Card> deck;
 
     /**
-     * Makes a standard card deck in RoboRally (?)
+     * Makes a standard deck consisting of the different available cards.
      */
     public CardDeck() {
-        List<CardType> cards = new ArrayList<>();
+        deck = new Stack<>();
         for(int i = 0; i < 18; i++) {
             if(i < 6) {
-                cards.add(CardType.BACK_UP);
-                cards.add(CardType.U_TURN);
-                cards.add(CardType.MOVE_THREE);
+                deck.push(new Card(CardType.BACK_UP,1000));
+                deck.push(new Card(CardType.U_TURN,1000));
+                deck.push(new Card(CardType.MOVE_THREE,1000));
             }
             if(i < 12) {
-                cards.add(CardType.MOVE_TWO);
+                deck.push(new Card(CardType.MOVE_TWO,1000));
             }
-            cards.add(CardType.MOVE_ONE);
-            cards.add(CardType.ROTATE_LEFT);
-            cards.add(CardType.ROTATE_RIGHT);
-
+            deck.push(new Card(CardType.MOVE_ONE,1000));
+            deck.push(new Card(CardType.ROTATE_LEFT,1000));
+            deck.push(new Card(CardType.ROTATE_RIGHT,1000));
         }
-        Collections.shuffle(cards);
 
-        this.deck = cards;
+    }
+
+    /**
+     * Shuffle the deck of cards randomly.
+     */
+    @Override
+    public void shuffle() {
+        Collections.shuffle(deck);
+    }
+
+    /**
+     *
+     * @return the card at the top of the deck.
+     */
+    @Override
+    public Card getCard() {
+        return deck.pop();
+    }
+
+    /**
+     *
+     * @return a copy of the deck.
+     */
+    @Override
+    public Stack<Card> getCopy() {
+        Stack<Card> deckCopy = new Stack<>();
+        for(Card card : deck){
+            deckCopy.push(card);
+        }
+        return deckCopy;
     }
 }
