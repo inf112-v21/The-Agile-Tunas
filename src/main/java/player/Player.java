@@ -1,9 +1,7 @@
-package Player;
+package player;
 
-import Card.Card;
-import Card.CardType;
-import Card.CardDeck;
-import inf112.skeleton.app.GameHandler;
+import card.Card;
+import card.CardDeck;
 
 import java.util.ArrayList;
 import java.util.Stack;

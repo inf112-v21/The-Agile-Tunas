@@ -1,6 +1,4 @@
-package Card;
-
-import Card.Card;
+package card;
 
 public enum CardType {
     MOVE_ONE,

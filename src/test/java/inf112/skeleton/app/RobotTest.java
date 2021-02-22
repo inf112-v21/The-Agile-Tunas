@@ -1,9 +1,10 @@
 package inf112.skeleton.app;
 
-import Player.Direction;
-import Player.Robot;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.Test;
+import player.Direction;
+import player.Robot;
+
 import static org.junit.Assert.assertEquals;
 
 public class RobotTest {

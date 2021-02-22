@@ -1,6 +1,4 @@
-package Card;
-
-import Card.CardType;
+package card;
 
 public interface ICard {
 

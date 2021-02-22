@@ -1,11 +1,9 @@
 package inf112.skeleton.app;
 
-import Card.Card;
-import Card.CardDeck;
-import Map.Layers;
-import Map.MapHandler;
-import Player.Direction;
-import Player.Robot;
+import card.Card;
+import card.CardDeck;
+import map.Layers;
+import map.MapHandler;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -21,6 +19,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import player.Direction;
+import player.Robot;
 
 import java.util.Stack;
 

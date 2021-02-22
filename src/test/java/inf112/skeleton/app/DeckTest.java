@@ -1,7 +1,6 @@
 package inf112.skeleton.app;
 
-import Card.CardDeck;
-import org.junit.Test;
+import card.CardDeck;
 
 public class DeckTest {
     private CardDeck deck;

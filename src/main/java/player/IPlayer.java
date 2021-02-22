@@ -1,7 +1,6 @@
-package Player;
+package player;
 
-import Card.Card;
-import Card.CardType;
+import card.Card;
 
 import java.util.ArrayList;
 import java.util.Stack;

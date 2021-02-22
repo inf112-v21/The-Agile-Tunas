@@ -1,4 +1,4 @@
-package Map;
+package map;
 
 public enum Layers {
     PLAYER,

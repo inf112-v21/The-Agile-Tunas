@@ -1,10 +1,6 @@
-package Card;
+package card;
 
-import Card.Card;
-
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Stack;
 
 //public class CardDeck<Card> implements ICardDeck{

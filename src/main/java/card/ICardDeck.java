@@ -1,4 +1,4 @@
-package Card;
+package card;
 
 import java.util.Stack;
 

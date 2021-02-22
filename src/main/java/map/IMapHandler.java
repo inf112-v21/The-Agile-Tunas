@@ -1,4 +1,4 @@
-package Map;
+package map;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
