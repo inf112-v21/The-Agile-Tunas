@@ -63,7 +63,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
         Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
-        robot = new Robot(playerPosition);          // Instantiating a player Robot.
+        robot = new Robot(playerPosition, Direction.NORTH);          // Instantiating a player Robot.
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
@@ -86,7 +86,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the left arrow key is pressed:
         if (keycode == Input.Keys.LEFT) {
             if (playerPosX > 0) {
-                robot.moveLeft();
+                robot.moveWest();
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -94,7 +94,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < mapHandler.getMapWidth()-1) {
-                robot.moveRight();
+                robot.moveEast();
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -102,7 +102,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the upwards arrow key is pressed:
         else if (keycode == Input.Keys.UP) {
             if (playerPosY < mapHandler.getMapHeight()-1) {
-                robot.moveUp();
+                robot.moveNorth();
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -110,7 +110,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the downwards arrow key is pressed:
         else if (keycode == Input.Keys.DOWN) {
             if (playerPosY > 0 ) {
-                robot.moveDown();
+                robot.moveSouth();
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
