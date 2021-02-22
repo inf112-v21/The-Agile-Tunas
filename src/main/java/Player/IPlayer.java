@@ -1,18 +1,20 @@
 package Player;
 
+import Card.Card;
 import Card.CardType;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public interface IPlayer {
     Robot getRobot();
     // int getRobotID();
 
-    void setProgram(ArrayList<CardType> programCards);
+    void setProgram(ArrayList<Card> programCards);
 
-    ArrayList<CardType> getProgram();
+    ArrayList<Card> getProgram();
 
-    ArrayList<CardType> getDeck();
+    Stack<Card> getDeck();
 
     void setPowerDown();
 

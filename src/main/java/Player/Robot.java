@@ -84,5 +84,4 @@ public class Robot implements IRobot{
     public void changeDirection(Direction dir) {
         this.direction = dir;
     }
-
 }

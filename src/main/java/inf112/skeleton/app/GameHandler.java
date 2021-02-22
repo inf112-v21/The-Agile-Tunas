@@ -1,5 +1,7 @@
 package inf112.skeleton.app;
 
+import Card.Card;
+import Card.CardDeck;
 import Map.Layers;
 import Map.MapHandler;
 import Player.Direction;
@@ -20,6 +22,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Stack;
+
 public class GameHandler extends InputAdapter implements ApplicationListener {
     // region Class Variable Initialization:
     private SpriteBatch batch;
@@ -34,6 +38,10 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
+
+    // CARD DECK:
+    private CardDeck cardDeck;
+    private Stack<Card> deck;
 
     // endregion
 
@@ -71,6 +79,12 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
+
+        /*
+        // CARD DECK:
+        this.cardDeck = new CardDeck();
+        cardDeck.shuffle();
+        */
     }
 
     /**
@@ -121,7 +135,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         }
         return false;
     }
-
 
     @Override
     public void dispose() {

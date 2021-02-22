@@ -1,16 +1,21 @@
 package Player;
 
+import Card.Card;
 import Card.CardType;
+import Card.CardDeck;
+import inf112.skeleton.app.GameHandler;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Player implements IPlayer {
     private Robot robot;
     //private int robotID;
     private String name;
     //private int playerID;
-    private ArrayList<CardType> program;
-    private final CardType[] cardHand = new CardType[9];
+    private ArrayList<Card> program;
+    //private final CardType[] cardHand = new CardType[9];
+    private CardDeck cardDeck;
 
     /**
      * Sets the instance's robot to the given Robot, the instance's name to the given String.
@@ -18,10 +23,8 @@ public class Player implements IPlayer {
      * @param name, this player's name.
      */
     public Player(Robot robot, String name) {
-        //this.playerDeck = new CardDeck(new ArrayList<>());
         this.robot = robot;
         this.name = name;
-        //deck = deck_Of_Cards();
     }
 
     /**
@@ -39,7 +42,10 @@ public class Player implements IPlayer {
      * @param listOfCards, an ArrayList of type Card.
      */
     @Override
-    public void setProgram(ArrayList<CardType> listOfCards) {
+    public void setProgram(ArrayList<Card> listOfCards) {       // !!! muligens ikke riktig implementert
+        for(Card card : listOfCards) {
+            program.add(card);
+        }
     }
 
     /**
@@ -48,7 +54,7 @@ public class Player implements IPlayer {
      * @return ArrayList<CardType>
      */
     @Override
-    public ArrayList<CardType> getProgram() {
+    public ArrayList<Card> getProgram() {
         return program;
     }
 
@@ -57,8 +63,12 @@ public class Player implements IPlayer {
      * @return ArrayList<CardType>
      */
     @Override
-    public ArrayList<CardType> getDeck() {
-        return null;
+    public Stack<Card> getDeck() {
+        cardDeck = new CardDeck();
+        cardDeck.shuffle();
+        Stack<Card> deck = cardDeck.getCopy();
+
+        return deck;
     }
 
     /**
