@@ -15,17 +15,21 @@ public class Client {
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
 
         BufferedReader input = new BufferedReader(new InputStreamReader( socket.getInputStream()));
+        //Read from keyboard
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+        //This goes to the server, true is to flush the buffer
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
+        //Make the connection between client and server stay open
         while(true) {
             System.out.println("> ");
             String command = keyboard.readLine();
 
             if (command.equals("quit")) break;
-
+            //Sends the info you type to server
             out.println(command);
 
+            //Get response from server
             String serverResponse = input.readLine();
             System.out.println("Server says: " + serverResponse);
 
