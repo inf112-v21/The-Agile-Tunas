@@ -1,5 +1,6 @@
 package card;
 
+
 public class Card implements ICard {
     private final CardType type;
     private final int priority;
