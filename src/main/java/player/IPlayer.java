@@ -19,4 +19,6 @@ public interface IPlayer {
 
     String getName();
     // int getPlayerID();
+
+    void clearProgram();
 }

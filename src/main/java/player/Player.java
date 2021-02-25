@@ -2,11 +2,12 @@ package player;
 
 import card.Card;
 import card.CardDeck;
+import inf112.skeleton.app.GameHandler;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Player implements IPlayer {
+public class Player extends GameHandler implements IPlayer {
     private Robot robot;
     //private int robotID;
     private String name;
@@ -14,6 +15,8 @@ public class Player implements IPlayer {
     private ArrayList<Card> program;
     //private final CardType[] cardHand = new CardType[9];
     private CardDeck cardDeck;
+    private Stack<Card> deck;
+    private GameHandler game;
 
     /**
      * Sets the instance's robot to the given Robot, the instance's name to the given String.
@@ -41,8 +44,10 @@ public class Player implements IPlayer {
      */
     @Override
     public void setProgram(ArrayList<Card> listOfCards) {       // !!! muligens ikke riktig implementert
-        for(Card card : listOfCards) {
-            program.add(card);
+        if (listOfCards.size() == 5) {
+            for (Card card : listOfCards) {
+                program.add(card);
+            }
         }
     }
 
@@ -57,23 +62,19 @@ public class Player implements IPlayer {
     }
 
     /**
-     * Returns the card deck.
-     * @return ArrayList<CardType>
+     * Clears the player's program.
      */
     @Override
-    public Stack<Card> getDeck() {
-        cardDeck = new CardDeck();
-        cardDeck.shuffle();
-        Stack<Card> deck = cardDeck.getCopy();
-
-        return deck;
+    public void clearProgram() {
+        program.clear();
     }
 
     /**
-     * Sets the robot to power down next round.
+     * Sets the player's robot to power down next round.
      */
     @Override
     public void setPowerDown() {
+        robot.setPowerDown();
     }
 
     /**

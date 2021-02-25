@@ -24,4 +24,6 @@ public interface IRobot {
 
     void changeDirection(Direction direction);
 
+    void setPowerDown();
+
 }

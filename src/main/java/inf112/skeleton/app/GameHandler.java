@@ -80,11 +80,9 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // INPUT:
         Gdx.input.setInputProcessor(this);
 
-        /*
         // CARD DECK:
-        this.cardDeck = new CardDeck();
+        cardDeck = new CardDeck();
         cardDeck.shuffle();
-        */
     }
 
     /**
@@ -134,6 +132,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
             return true;
         }
         return false;
+    }
+
+    public Stack<Card> getDeck() {
+        deck = cardDeck.getCopy();
+        return deck;
     }
 
     @Override
