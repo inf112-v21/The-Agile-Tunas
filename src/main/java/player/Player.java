@@ -13,7 +13,7 @@ public class Player extends GameHandler implements IPlayer {
     private String name;
     //private int playerID;
     private ArrayList<Card> program;
-    //private final CardType[] cardHand = new CardType[9];
+    private ArrayList<Card> cardHand;
     private CardDeck cardDeck;
     private Stack<Card> deck;
     private GameHandler game;
@@ -59,6 +59,24 @@ public class Player extends GameHandler implements IPlayer {
     @Override
     public ArrayList<Card> getProgram() {
         return program;
+    }
+
+    /**
+     *
+     * @returns the player's hand.
+     */
+    @Override
+    public ArrayList<Card> getCardHand() {
+        return cardHand;
+    }
+
+    /**
+     * Adds given card to the player's hand.
+     * @param cards
+     */
+    @Override
+    public void addToHand(ArrayList<Card> cards) {
+        cardHand.addAll(cards);
     }
 
     /**

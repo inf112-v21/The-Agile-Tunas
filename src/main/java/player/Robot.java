@@ -18,7 +18,6 @@ public class Robot implements IRobot{
     public Robot(Vector2 start_pos, Direction direction) {
         this.position = start_pos;
         this.direction = direction;
-        this.powerDown = powerDown;
     }
 
     /**
