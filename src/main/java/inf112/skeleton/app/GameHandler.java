@@ -45,6 +45,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
     // endregion
 
+
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
      * the player position, the robot for the player, and input processor.
@@ -80,9 +81,14 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // INPUT:
         Gdx.input.setInputProcessor(this);
 
+        /*
         // CARD DECK:
-        cardDeck = new CardDeck();
+        this.cardDeck = new CardDeck();
         cardDeck.shuffle();
+        */
+
+
+
     }
 
     /**
@@ -132,11 +138,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
             return true;
         }
         return false;
-    }
-
-    public Stack<Card> getDeck() {
-        deck = cardDeck.getCopy();
-        return deck;
     }
 
     @Override
