@@ -13,8 +13,6 @@ public interface IPlayer {
 
     ArrayList<Card> getProgram();
 
-    Stack<Card> getDeck();
-
     void setPowerDown();
 
     String getName();

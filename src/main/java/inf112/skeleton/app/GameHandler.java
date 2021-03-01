@@ -20,8 +20,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import player.Direction;
+import player.Player;
 import player.Robot;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class GameHandler extends InputAdapter implements ApplicationListener {
@@ -41,7 +43,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
     // CARD DECK:
     private CardDeck cardDeck;
-    private Stack<Card> deck;
 
     // endregion
 
@@ -61,7 +62,10 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // CAMERA:
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 16);
-        camera.position.x = 6f;                     // 6f because it's in the middle of the viewportWidth.
+        //camera.setToOrtho(false, 16, 20);
+        camera.position.x = 6f;          // 6f because it's in the middle of the viewportWidth.
+        //camera.position.x = 8f;
+        //camera.position.y = 6f;
         camera.update();
 
         // RENDERER:
@@ -134,9 +138,22 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         return false;
     }
 
-    public Stack<Card> getDeck() {
-        deck = cardDeck.getCopy();
-        return deck;
+    public CardDeck getDeck() {
+        return cardDeck;
+    }
+
+    public ArrayList<Card> pullCards(CardDeck deck, int numberOfCards) {
+        ArrayList<Card> cardList = new ArrayList<Card>();
+        for(int i=0; i < numberOfCards; i++) {
+            Card card = deck.getCard();
+            cardList.add(card);
+        }
+        return cardList;
+    }
+
+    public void giveCardsToPlayer(Player player) {
+        ArrayList<Card> cards = pullCards(getDeck(), 9);
+        player.addToHand(cards);
     }
 
     @Override
