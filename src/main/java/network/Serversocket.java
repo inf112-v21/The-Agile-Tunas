@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Server {
+public class Serversocket {
     private static String[] names = {"Jacob", "Robin", "Lisa", "Olesya"};
     private static String[] adjs = {"the gentle", "the un-gentle", "the overwrought", "the urbane"};
     private static final int PORT = 9090;

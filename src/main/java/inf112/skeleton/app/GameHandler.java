@@ -45,6 +45,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
     // endregion
 
+
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
      * the player position, the robot for the player, and input processor.
@@ -85,6 +86,9 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         this.cardDeck = new CardDeck();
         cardDeck.shuffle();
         */
+
+
+
     }
 
     /**
