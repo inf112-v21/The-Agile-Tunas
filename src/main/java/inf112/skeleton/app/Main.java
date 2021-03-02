@@ -8,7 +8,8 @@ public class Main {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("hello-world");
         //Chose different width and height according to the new map layout
-        cfg.setWindowedMode(600, 800);
+        //cfg.setWindowedMode(600, 800);
+        cfg.setWindowedMode(900, 1000);
 
         new Lwjgl3Application(new GameHandler(), cfg);
     }

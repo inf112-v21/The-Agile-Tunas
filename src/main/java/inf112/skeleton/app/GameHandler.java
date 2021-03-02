@@ -31,6 +31,15 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
 
+    //Programcards
+    private Texture backUp;
+    private Texture move1;
+    private Texture move2;
+    private Texture move3;
+    private Texture rotateLeft;
+    private Texture rotateRight;
+    private Texture uTurn;
+
     // MAP:
     private OrthogonalTiledMapRenderer mapRenderer;
     private MapHandler mapHandler;
@@ -61,11 +70,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
         // CAMERA:
         OrthographicCamera camera = new OrthographicCamera();
-        camera.setToOrtho(false, 12, 16);
-        //camera.setToOrtho(false, 16, 20);
-        camera.position.x = 6f;          // 6f because it's in the middle of the viewportWidth.
-        //camera.position.x = 8f;
-        //camera.position.y = 6f;
+        //camera.setToOrtho(false, 12, 16);
+        camera.setToOrtho(false, 16, 20);
+        //camera.position.x = 6f;
+        camera.position.x = 8f;
+        camera.position.y = 6f;
         camera.update();
 
         // RENDERER:
@@ -174,6 +183,26 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
         // PLAYER:
         mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
+
+        // Card textures
+        backUp = new Texture("assets/cards/backup.png");
+        move1 = new Texture("assets/cards/move1.png");
+        move2 = new Texture("assets/cards/move2.png");
+        move3 = new Texture("assets/cards/move3.png");
+        rotateLeft = new Texture("assets/cards/rotateleft.png");
+        rotateRight = new Texture("assets/cards/rotateright.png");
+        uTurn = new Texture("assets/cards/uturn.png");
+
+        // Draw card on screen
+        batch.begin();
+        batch.draw(backUp, 10, 10);
+        batch.draw(move1, 110, 10);
+        batch.draw(move2, 210, 10);
+        batch.draw(move3, 310, 10);
+        batch.draw(rotateLeft, 410, 10);
+        batch.draw(rotateRight, 510, 10);
+        batch.draw(uTurn, 610, 10);
+        batch.end();
 
         // HOLE AND FLAG CELL:
         TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.HOLES);
