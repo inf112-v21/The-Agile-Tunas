@@ -9,9 +9,9 @@ import java.util.Stack;
 
 public class Player extends GameHandler implements IPlayer {
     private Robot robot;
-    //private int robotID;
+    private int robotID;
     private String name;
-    //private int playerID;
+    private int playerID;
     private ArrayList<Card> program;
     private ArrayList<Card> cardHand;
     private CardDeck cardDeck;
@@ -23,9 +23,11 @@ public class Player extends GameHandler implements IPlayer {
      * @param robot, this player's robot.
      * @param name, this player's name.
      */
-    public Player(Robot robot, String name) {
+    public Player(Robot robot, String name, int robotID, int playerID) {
         this.robot = robot;
         this.name = name;
+        this.robotID = robotID;
+        this.playerID = playerID;
     }
 
     /**
