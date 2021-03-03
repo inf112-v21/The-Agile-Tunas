@@ -2,27 +2,32 @@ package player;
 
 import card.Card;
 import card.CardDeck;
+import inf112.skeleton.app.GameHandler;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Player implements IPlayer {
+public class Player extends GameHandler implements IPlayer {
     private Robot robot;
-    //private int robotID;
+    private int robotID;
     private String name;
-    //private int playerID;
+    private int playerID;
     private ArrayList<Card> program;
-    //private final CardType[] cardHand = new CardType[9];
+    private ArrayList<Card> cardHand;
     private CardDeck cardDeck;
+    private Stack<Card> deck;
+    private GameHandler game;
 
     /**
      * Sets the instance's robot to the given Robot, the instance's name to the given String.
      * @param robot, this player's robot.
      * @param name, this player's name.
      */
-    public Player(Robot robot, String name) {
+    public Player(Robot robot, String name, int robotID, int playerID) {
         this.robot = robot;
         this.name = name;
+        this.robotID = robotID;
+        this.playerID = playerID;
     }
 
     /**
@@ -41,8 +46,10 @@ public class Player implements IPlayer {
      */
     @Override
     public void setProgram(ArrayList<Card> listOfCards) {       // !!! muligens ikke riktig implementert
-        for(Card card : listOfCards) {
-            program.add(card);
+        if (listOfCards.size() == 5) {
+            for (Card card : listOfCards) {
+                program.add(card);
+            }
         }
     }
 
@@ -57,23 +64,37 @@ public class Player implements IPlayer {
     }
 
     /**
-     * Returns the card deck.
-     * @return ArrayList<CardType>
+     *
+     * @returns the player's hand.
      */
     @Override
-    public Stack<Card> getDeck() {
-        cardDeck = new CardDeck();
-        cardDeck.shuffle();
-        Stack<Card> deck = cardDeck.getCopy();
-
-        return deck;
+    public ArrayList<Card> getCardHand() {
+        return cardHand;
     }
 
     /**
-     * Sets the robot to power down next round.
+     * Adds given card to the player's hand.
+     * @param cards
+     */
+    @Override
+    public void addToHand(ArrayList<Card> cards) {
+        cardHand.addAll(cards);
+    }
+
+    /**
+     * Clears the player's program.
+     */
+    @Override
+    public void clearProgram() {
+        program.clear();
+    }
+
+    /**
+     * Sets the player's robot to power down next round.
      */
     @Override
     public void setPowerDown() {
+        robot.setPowerDown();
     }
 
     /**

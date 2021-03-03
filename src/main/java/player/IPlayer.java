@@ -13,10 +13,14 @@ public interface IPlayer {
 
     ArrayList<Card> getProgram();
 
-    Stack<Card> getDeck();
-
     void setPowerDown();
 
     String getName();
     // int getPlayerID();
+
+    void clearProgram();
+
+    ArrayList<Card> getCardHand();
+
+    void addToHand(ArrayList<Card> cards);
 }
