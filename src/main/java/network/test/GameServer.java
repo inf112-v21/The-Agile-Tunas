@@ -15,14 +15,15 @@ import card.CardDeck;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.esotericsoftware.minlog.Log;
 import inf112.skeleton.app.GameHandler;
 import network.test.Network.RegisterName;
 import network.test.Network.GameMessage;
 import network.test.Network.UpdateNames;
 
 public class GameServer extends Listener{
-    private final int MaxPlayers = 4;
-    private int numberOfPlayers;
+    private final int MaxPlayers = 2;
+    public int numberOfPlayers;
     private final GameHandler game;
     private HashMap<Integer, Robot> robots;
     private HashMap<Integer, String> players;
@@ -60,10 +61,11 @@ public class GameServer extends Listener{
                 server.stop();
             }
         });
-        frame.getContentPane().add(new JLabel("Close to stop the Game."));
+        frame.getContentPane().add(new JLabel("Close to stop the server."));
         frame.setSize(320, 200);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
     }
 
 
@@ -93,9 +95,21 @@ public class GameServer extends Listener{
         switch(message[0]){
 
             case "RegisterName:":
-
+                System.out.println("Registered player " + message[1]);
+                players.put(numberOfPlayers,message[1]);
+                numberOfPlayers+=1;
+                GameMessage gameMessage = new GameMessage();
+                gameMessage.text = "Welcome";
+                server.sendToAllTCP(gameMessage);
+                if (numberOfPlayers==MaxPlayers) sendToAllClients("AllReady");
         }
 
+    }
+
+    private void sendToAllClients(String message){
+        GameMessage gameMessage = new GameMessage();
+        gameMessage.text = message;
+        server.sendToAllTCP(gameMessage);
     }
 
 
@@ -117,6 +131,10 @@ public class GameServer extends Listener{
     // This holds per connection state.
     static class ChatConnection extends Connection {
         public String name;
+    }
+    public static void main (String[] args) throws IOException {
+        Log.set(Log.LEVEL_DEBUG);
+        new GameServer(new GameHandler());
     }
 
 }
