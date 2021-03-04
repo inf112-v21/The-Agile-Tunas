@@ -23,6 +23,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
+import java.util.Random;
+
 import player.Direction;
 import player.Player;
 import player.Robot;
@@ -346,6 +348,8 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         temp.set(screenX,screenY,0);
         camera.unproject(temp);
         int numberOfProgramCards = programCards.size();
+        Random rand = new Random();
+        int upperbound = 500; // generate random numbers from 0-499
 
         if(sprites.get(0).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
             if (!programSprites.contains(sprites.get(0))) {
@@ -356,7 +360,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(0).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(0));
-                programCards.add(new Card(CardType.MOVE_ONE, 1));
+                programCards.add(new Card(CardType.MOVE_ONE, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(0).toString());
             }
         }
@@ -369,7 +373,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(1).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(1));
-                programCards.add(new Card(CardType.MOVE_TWO, 1));
+                programCards.add(new Card(CardType.MOVE_TWO, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(1).toString());
             }
         }
@@ -382,7 +386,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(2).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(2));
-                programCards.add(new Card(CardType.MOVE_THREE, 1));
+                programCards.add(new Card(CardType.MOVE_THREE, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(2).toString());
             }
         }
@@ -395,7 +399,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(3).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(3));
-                programCards.add(new Card(CardType.BACK_UP, 1));
+                programCards.add(new Card(CardType.BACK_UP, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(3).toString());
             }
         }
@@ -408,7 +412,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(4).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(4));
-                programCards.add(new Card(CardType.ROTATE_LEFT, 1));
+                programCards.add(new Card(CardType.ROTATE_LEFT, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(4).toString());
             }
         }
@@ -421,7 +425,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(5).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(5));
-                programCards.add(new Card(CardType.ROTATE_RIGHT, 1));
+                programCards.add(new Card(CardType.ROTATE_RIGHT, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(5).toString());
             }
         }
@@ -434,7 +438,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(6).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(6));
-                programCards.add(new Card(CardType.U_TURN, 1));
+                programCards.add(new Card(CardType.U_TURN, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(6).toString());
             }
         }
@@ -447,7 +451,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(7).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(7));
-                programCards.add(new Card(CardType.U_TURN, 1));
+                programCards.add(new Card(CardType.U_TURN, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(7).toString());
             }
         }
@@ -460,7 +464,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.get(8).setPosition(numberOfProgramCards * 100, -200);
                 }
                 programSprites.add(sprites.get(8));
-                programCards.add(new Card(CardType.U_TURN, 1));
+                programCards.add(new Card(CardType.U_TURN, rand.nextInt(upperbound)));
                 System.out.println("Touch on" + sprites.get(8).toString());
             }
         }
