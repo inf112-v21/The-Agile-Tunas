@@ -114,8 +114,10 @@ public class GameClient extends Listener{
             case "Welcome":
                 System.out.println("Got Welcome from server");
                 screen.updateScreen();
-            case"AllReady":
+            case "AllReady":
                 System.out.println("Everyone is ready");
+            case "Card":
+                System.out.println(message[1]);
             default:
                 return;
         }
