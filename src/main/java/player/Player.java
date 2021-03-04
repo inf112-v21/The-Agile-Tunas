@@ -28,6 +28,7 @@ public class Player extends GameHandler implements IPlayer {
         this.name = name;
         this.robotID = robotID;
         this.playerID = playerID;
+        this.cardHand = new ArrayList<>();
     }
 
     /**
