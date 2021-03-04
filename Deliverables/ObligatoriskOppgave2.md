@@ -1,9 +1,100 @@
 # The Agile Tunas
 
-## DELOPPGAVE 1 - Prosjekt og prosjektstruktur
+### DELOPPGAVE 1 - Prosjekt og prosjektstruktur
 
+Etter obligatorisk oppgave 1 så viste det seg at Jacob passet mer og mer inn som teamleader.
+Så han tok over denne posisjonen, noe han syns var helt greit.
+
+##Prosjektmetodikk
+Foreløpig har trello fungert godt til å fasilitere for vår prosjektmetodikk. 
+En blanding av scrum og kanban fungerte veldig bra med tanke på tidsfrister og oversikt. 
+Vi ser for oss å fremdeles oppdatere det i slutten av hvert møte, 
+og på den måten fremdeles opprettholde en oversiktlig struktur over prosjektet.
+
+##Rollene i teamet:
+Etter hvert som kodebasen blir mer omfattende tror vi det vil være fordelaktig
+å ha en rolle som innebærer et overordnet ansvar over koden
+og hvordan alt henger sammen. Dette innebærer ikke nødvendigvis at vedkommende
+skal skrive noe mer kode, men heller at man har et ansvar om  å følge opp andre
+og at all nødvendig dokumentasjon er på plass.
+
+#Team Lead:
+Team lead skal holde oversikt over prosjektet som helhet. 
+Det innebærer å forsikre seg om project board er oppdatert og at alle vet hva som må bli gjort og har
+blitt gjort. Holde laget ved godt mot og motivere samt hjelpe de andre på laget om dette 
+skulle bli nødvendig.
+
+#Kundeansvarlig:
+
+Kundeansvarlig skal ha primærkontakt mellom teamet og kunden. 
+Om vi har spørsmål omkring prosjektet vil kundeansvarlig fungere som kommunikasjonskanalen
+mellom kunde og team.
+
+#Kodeansvarlig:
+
+Som nevnt ser vi for oss at rolleinnehaveren skal ha ansvar for selve koden. 
+Det vil innebære å forsikre seg og sjekke at koden er tilstrekkelig dokumentert, 
+at det eksisterer tester til det som skal testes, samt at koden holder et jevnt godt nivå.
+
+
+##Lagets erfaringer
+
+Foreløpig har trello fungert godt til å fasilitere for vår prosjektmetodikk. 
+En blanding av scrum og kanban fungerte veldig bra med tanke på tidsfrister og oversikt. 
+Vi ser for oss å fremdeles oppdatere det i slutten av hvert møte, 
+og på den måten fremdeles opprettholde en oversiktlig struktur over prosjektet.
+
+
+###Hvordan er gruppedynamikken?
+
+Gruppedynamikken er det så langt ingenting å utsette på. 
+Kommunikasjonen går fint og alle virker trygge på resten av teamet.
+
+#Hvordan fungerer kommunikasjonen for dere?
+Vi benytter oss av Discord for all kommunikasjon. 
+Dette fungerer fint da terskelen er veldig lav for å skrive noe til resten av gruppen.
+
+
+##Retrospekt
+
+Ved forrige retrospekt ble vi enige om å konkretisere rollene og den enkeltes arbeidsoppgaver. 
+Vi føler vi har lykkes med dette gjennom å ha opprettet en ny rolle, 
+samt fordele oppgaver mer spesifikt. Vi har også blitt flinkere til å lage en formell saksliste
+som vi følger i møtene slik at ikke så mye tid går vekk.
+Vi skal også på gruppen bli flinkere å spørre om hjelp istedetfor å bare tenke at de andre
+har så mye å gjøre.
+
+
+##Bidrag til prosjektet
+
+Her fikk vi en liten skjeivfordeling med tanke på commits, dette har med at Robin sin
+multiplayerdel ikke fungerte og han pushet ikke disse små endringene sine. Til slutt så fant laget
+ut at Jacob sin del var best. Robin gjorde også mer
+administrative oppgaver som å skrive ned brukerhistorier og slikt.
+Robin hadde også en hendelse som sjedde i sin familie som gjorde at han ikke fikk jobbet
+med så mye skole i innleveringsuken. De andre på laget viste stor forståelse og tok på seg mer arbeid
+og ansvar slik at den obligatoriske oppgaven gikk så bra den gjorde.
+
+----------------------------------------------------------------------
 
 ## DELOPPGAVE 2 - Krav
+
+Vi hadde møter og diskuterte hva vi såg for oss hva som kom til å bli viktig for prosjektet.
+Så vi delte opp de resterende MVP kravene mellom oss fire, Lisa og Olesya tok hånd om 
+kort MVP kravene og Jacob og Robin prøvde seg på multiplayer delen. 
+
+
+Det viste seg fort at alle begge delene var litt mer komplisert og vanskelige enn antatt. 
+Som igjen førte til en del frustrasjon og høyere tidsbruk enn planlagt. Men vi gjorde ingen endringer
+eller justeringer i kravene.
+
+#Bugs
+
+Om du er sykt flink kan du trykke midt mellom to av kortene du kan velge og begge vil bli valgt,
+dette gjelder kun de kortene rett overnfor hverandre.
+
+
+
 
 
 ## DELOPPGAVE 3 - Kode

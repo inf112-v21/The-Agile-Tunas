@@ -1,5 +1,6 @@
 package network.test;
 
+import com.esotericsoftware.minlog.Log;
 import inf112.skeleton.app.GameHandler;
 import inf112.skeleton.app.Main;
 
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class GameScreen extends JFrame {
     CardLayout cardLayout;
@@ -119,4 +121,6 @@ public class GameScreen extends JFrame {
             messageList.ensureIndexIsVisible(model.size() - 1);
         });
     }
+
+
 }

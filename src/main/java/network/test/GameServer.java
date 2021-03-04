@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import card.CardDeck;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -50,7 +51,12 @@ public class GameServer extends Listener{
         Network.register(server);
         server.addListener(this);
 
-        server.bind(Network.port);
+
+        try {
+            server.bind(Network.port);
+        } catch (IOException e) {
+            System.out.println("Binding of the server failed or obtaining the local IP address failed " + e.getMessage());
+        }
         server.start();
 
         // Open a window to provide an easy way to stop the server.
@@ -67,6 +73,7 @@ public class GameServer extends Listener{
         frame.setVisible(true);
 
     }
+
 
 
     @Override
@@ -112,6 +119,7 @@ public class GameServer extends Listener{
         server.sendToAllTCP(gameMessage);
     }
 
+    
 
 
     void updateNames () {
