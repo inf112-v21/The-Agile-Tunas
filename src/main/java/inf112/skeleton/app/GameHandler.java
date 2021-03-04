@@ -4,7 +4,6 @@ import card.Card;
 import card.CardDeck;
 import card.CardType;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector3;
 import map.Layers;
 import map.MapHandler;
@@ -23,13 +22,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import java.util.ArrayList;
 import player.Direction;
 import player.Player;
 import player.Robot;
-
-import javax.sound.midi.Soundbank;
-import java.util.ArrayList;
-import java.util.Stack;
 
 public class GameHandler extends InputAdapter implements ApplicationListener {
     // Region Class Variable Initialization:
@@ -297,7 +293,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
         batch.setProjectionMatrix(camera.combined);
         // DRAW CARDS ON SCREEN:
-
         batch.begin();
         sprites.get(0).draw(batch);
         sprites.get(1).draw(batch);

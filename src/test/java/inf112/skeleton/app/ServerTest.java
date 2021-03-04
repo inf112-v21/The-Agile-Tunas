@@ -16,7 +16,7 @@ public class ServerTest {
      * @throws IOException
      */
     @Test
-    public void TwoClientsConnectToServer() throws IOException, InterruptedException {
+    public void twoClientsConnectToServer() throws IOException, InterruptedException {
         GameServer server = new GameServer(new GameHandler());
         GameClient client1 = new GameClient();
         GameClient client2 = new GameClient();

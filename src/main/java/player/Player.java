@@ -3,7 +3,6 @@ package player;
 import card.Card;
 import card.CardDeck;
 import inf112.skeleton.app.GameHandler;
-
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -46,7 +45,7 @@ public class Player extends GameHandler implements IPlayer {
      * @param listOfCards, an ArrayList of type Card.
      */
     @Override
-    public void setProgram(ArrayList<Card> listOfCards) {       // !!! muligens ikke riktig implementert
+    public void setProgram(ArrayList<Card> listOfCards) {
         if (listOfCards.size() == 5) {
             for (Card card : listOfCards) {
                 program.add(card);
