@@ -9,7 +9,7 @@ public class Main {
         cfg.setTitle("RoboRally");
         //Chose different width and height according to the new map layout
         //cfg.setWindowedMode(600, 800);
-        cfg.setWindowedMode(900, 1000);
+        cfg.setWindowedMode(700, 900);
 
         new Lwjgl3Application(new GameHandler(), cfg);
     }
