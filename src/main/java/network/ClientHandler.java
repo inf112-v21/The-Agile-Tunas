@@ -24,7 +24,7 @@ public class ClientHandler implements Runnable {
             while (true) {
                 String request = in.readLine();
                 if (request.contains("name")) {
-                    out.println(Server.getRandomName());
+                    out.println(Serversocket.getRandomName());
                 } else {
                     out.println("Type 'tell me a name' to get a random name");
                 }
