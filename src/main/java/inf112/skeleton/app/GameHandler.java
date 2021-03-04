@@ -23,6 +23,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Random;
 
 import player.Direction;
@@ -68,6 +70,9 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     // TEMPORARY:
     ArrayList<Card> programCards;
 
+    //MOVEMENTS FOR ROBOT
+    Queue<CardType> movementForRobot = new PriorityQueue<>();
+
     // End Region
 
     /**
@@ -102,6 +107,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
         robot = new Robot(playerPosition, Direction.NORTH);          // Instantiating a player Robot.
         player = new Player(robot, "Player1", 1, 1);
+
 
         // CARD TEXTURES:
         backUpCard = new Texture("assets/cards/backup.png");
@@ -193,7 +199,8 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < mapHandler.getMapWidth()-1) {
                 robot.moveEast();
-                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
+
+                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);// Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
         }
@@ -215,6 +222,8 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         }
         return false;
     }
+
+
 
     /**
      * @returns the current game's deck.

@@ -3,10 +3,11 @@ package inf112.skeleton.app;
 import card.Card;
 import card.CardType;
 import static org.junit.Assert.*;
+
+import com.badlogic.gdx.graphics.Texture;
 import org.junit.Test;
 
 public class CardTest {
-
     @Test
     public void CardHasCorrectType(){
 

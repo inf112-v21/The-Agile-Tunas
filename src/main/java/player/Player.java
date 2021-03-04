@@ -8,14 +8,11 @@ import java.util.Stack;
 
 public class Player extends GameHandler implements IPlayer {
     private Robot robot;
-    private int robotID;
     private String name;
-    private int playerID;
     private ArrayList<Card> program;
     private ArrayList<Card> cardHand;
-    private CardDeck cardDeck;
     private Stack<Card> deck;
-    private GameHandler game;
+
 
     /**
      * Sets the instance's robot to the given Robot, the instance's name to the given String.
@@ -25,8 +22,6 @@ public class Player extends GameHandler implements IPlayer {
     public Player(Robot robot, String name, int robotID, int playerID) {
         this.robot = robot;
         this.name = name;
-        this.robotID = robotID;
-        this.playerID = playerID;
         this.cardHand = new ArrayList<>();
     }
 

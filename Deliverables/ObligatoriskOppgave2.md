@@ -51,6 +51,7 @@ Gruppedynamikken er det så langt ingenting å utsette på.
 Kommunikasjonen går fint og alle virker trygge på resten av teamet.
 
 #Hvordan fungerer kommunikasjonen for dere?
+
 Vi benytter oss av Discord for all kommunikasjon. 
 Dette fungerer fint da terskelen er veldig lav for å skrive noe til resten av gruppen.
 
@@ -94,31 +95,65 @@ Om du er sykt flink kan du trykke midt mellom to av kortene du kan velge og begg
 dette gjelder kun de kortene rett overnfor hverandre.
 
 
-
+----------------------------------------------------------------------
 
 
 ## DELOPPGAVE 3 - Kode
 
-
+----------------------------------------------------------------------
 
 ### Brukerhistorier
 
 
 #### Brukerhistorie MVP 6 - Spille fra flere maskiner (multiplayer)
 
+#Som (host) spiller ønsker jeg: 
+
+Å kunne velge å spille med flere personer, enten det er AI eller andre mennesker.
+Da vil jeg ha valget om å kunne velge, helst fra en slags meny som gjør dette oversiktlig. Jeg
+vil også kunne velge antall spillere som jeg skal spille mot. 
+
+#Løsningsbeskrivelse:
+
+Skrive en kode basert på kryo slik at vi kan få opp et nettverk slik at man kan spille mot AI eller 
+andre mennesker.
+
+#Akseptansekriterier:
+
+At man skal kunne lett se en slags meny over hva slags valg man har, slik at man kan da velge hva eller
+hvem man skal spille mot.
+
+#Som (klient) spiller, ønsker jeg:
+
+Å kunne få opp en slags meny slik at jeg kan velge hvem jeg skal joine, også vil jeg muligens se reglene 
+over spillet. Også når jeg velger et spill vil jeg kunne se brettet og min egen robot. Også
+vil jeg få de ni kortene mine utlevert, så vil jeg velge fem også skal roboten min gjøre trekkene
+som jeg har valgt.
+
+#Løsningskriterier
+
+Få fikset netverk koden slik at det er kontakt mellom de ulike spillerene og at alle
+kan se det samme, hele tiden.
+
+#Akseptansekriterier 
+
+At en spiller blir host, også blir de andre klienter. Så skal alle spillerene få opp samme brettet, men
+de skal få opp forskjellige kort som de kan velge mellom fra samme bunke. Også skal robotene til hver spiller
+utføre de bevegelsene som hver spiller har valgt.
+
 #### Brukerhistorie MVP 7 - Dele ut kort
 
-Som spiller:
+#Som spiller:
 
 Ønsker jeg å få utlevert ni kort fra en bunke som jeg kan se slik at jeg kan basert på kartet 
 og kortene jeg får utlevert planlegge min ferd mot de ulike målene mine.
 
-Løsningsbeskrivelse:
+#Løsningsbeskrivelse:
 
 Lage en kode som leverer ut riktig antall tilfeldige kort fra 
 bunken til hver spiller som inneholder kun gyldige bevegelser.
 
-Akseptansekriterier:
+#Akseptansekriterier:
 
 Gitt at spillerbrettet, roboten til spiller er synlige og at kortene
 er synlige. Så skal jeg kunne legge opp den optimale ruten basert på de trekkene
@@ -126,16 +161,17 @@ jeg har fått utlevert.
 
 #### Brukerhistorie MVP 8 - Velge 5 kort
 
-Som spiller:
+#Som spiller:
+
 Ønsker jeg at ut ifra de ni kortene jeg har fått utlevert å velge fem av de som
 gjør at jeg mest effektivt kan nå målet mitt og vinne.
 
-Løsningskriterier:
+#Løsningskriterier:
 
 Gitt at jeg har sett brettet, roboten min og de andre sine roboter og fått utlevert
 de ni kortene mine skal jeg kunne velge ut fem av de som passer meg best.
 
-Akseptansekriterier:
+#Akseptansekriterier:
 
 Gitt at spillerbrettet er synlig, jeg kan se min egen robot og de andre sine roboter og
 at jeg har fått opp ni kort som jeg velger fem av så skal da roboten min utføre
@@ -145,18 +181,18 @@ de fem bevegelsene som jeg har valgt.
 
 #### Brukerhistorie MVP 9 - Bevege robot ut fra valgte kort
 
-Som spiller:
+#Som spiller:
 
 Gitt at jeg kan se brettet, min robot og de 5 kortene som jeg valgte ut fra de 9 kortene. 
 Så skal roboten for hver runde gjøre den aksjonen som jeg valgte, aksjonene utføres fra venstre 
 til høyre.
 
-Løsningskriterier:
+#Løsningskriterier:
 
 Programmere kode slik at spillerene kan se at roboten utfører de aksjonene som de har valgt ut,
 den bevegelsen som er gjort forsvinner eller markeres med gjort.
 
-Akseptansekriterier:
+#Akseptansekriterier:
 
 Gitt at alle spillerbrettet er synlig, robotene kan sees, så skal alle robotene utføre
 en aksjon for hver runde som de forskjellige spillerene har valgt. 

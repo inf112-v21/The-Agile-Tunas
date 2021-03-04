@@ -6,7 +6,6 @@ public class Robot implements IRobot{
     private Vector2 position;
     private boolean flag = false;
     private Direction direction;
-    private boolean powerDown = false;
 
     /**
      * Creates an instance of a robot.
@@ -91,6 +90,6 @@ public class Robot implements IRobot{
      */
     @Override
     public void setPowerDown() {
-        powerDown = true;
+        boolean powerDown = true;
     }
 }
