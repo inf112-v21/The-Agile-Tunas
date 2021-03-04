@@ -22,8 +22,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import player.Direction;
 import player.Player;
@@ -37,15 +39,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     // CAMERA:
     OrthographicCamera camera;
     private Vector3 temp;
-
-    // CARD TEXTURES:
-    private Texture backUpCard;
-    private Texture move1card;
-    private Texture move2card;
-    private Texture move3card;
-    private Texture rotateLeftCard;
-    private Texture rotateRightCard;
-    private Texture uTurnCard;
 
     // SPRITE LIST:
     ArrayList<Sprite> sprites;
@@ -63,7 +56,8 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerDiedCell;
 
     // CARD DECK:
-    private CardDeck cardDeck;
+    //TODO
+    public CardDeck cardDeck;
 
     // TEMPORARY:
     ArrayList<Card> programCards;
@@ -83,7 +77,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // CAMERA:
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        //camera.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0f);
         camera.position.y = 200;
         camera.update();
         temp = new Vector3();
@@ -101,17 +94,8 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
         Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
-        robot = new Robot(playerPosition, Direction.NORTH);          // Instantiating a player Robot.
-        player = new Player(robot, "Player1", 1, 1);
-
-        // CARD TEXTURES:
-        backUpCard = new Texture("assets/cards/backup.png");
-        move1card = new Texture("assets/cards/move1.png");
-        move2card = new Texture("assets/cards/move2.png");
-        move3card = new Texture("assets/cards/move3.png");
-        rotateLeftCard = new Texture("assets/cards/rotateleft.png");
-        rotateRightCard = new Texture("assets/cards/rotateright.png");
-        uTurnCard = new Texture("assets/cards/uturn.png");
+        robot = new Robot(playerPosition, Direction.NORTH, 1);          // Instantiating a player Robot.
+        player = new Player(robot, "Player1", 1, robot.getID());
 
         // PLAYER PROGRAM CARDS (temporary):
         programCards = new ArrayList<>();
@@ -122,37 +106,14 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         cardDeck.shuffle();
         giveCardsToPlayer(player);
 
-        // MAKING SPRITES FOR PLAYER CARD HAND:
+        // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
         sprites = new ArrayList<>();
         for(int i=0; i<9; i++) {
             Card card = player.getCardHand().get(i);
-            CardType type = card.getType();
-            switch(type) {
-                case MOVE_ONE:
-                    sprites.add(i, new Sprite(move1card));
-                    break;
-                case MOVE_TWO:
-                    sprites.add(i, new Sprite(move2card));
-                    break;
-                case MOVE_THREE:
-                    sprites.add(i, new Sprite(move3card));
-                    break;
-                case BACK_UP:
-                    sprites.add(i, new Sprite(backUpCard));
-                    break;
-                case ROTATE_LEFT:
-                    sprites.add(i, new Sprite(rotateLeftCard));
-                    break;
-                case ROTATE_RIGHT:
-                    sprites.add(i, new Sprite(rotateRightCard));
-                    break;
-                case U_TURN:
-                    sprites.add(i, new Sprite(uTurnCard));
-                    break;
-                default:
-                    System.out.println("No matching type :)");
-            }
+            Sprite sprite = card.getSprite();
+            sprites.add(i, sprite);
         }
+
         // SPRITES POSITION:
         sprites.get(0).setPosition(470, 450);
         sprites.get(1).setPosition(570, 450);
@@ -185,7 +146,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the left arrow key is pressed:
         if (keycode == Input.Keys.LEFT) {
             if (playerPosX > 0) {
-                robot.moveWest();
+                robot.moveWest(1);
                 mapHandler.setCell(playerPosX,playerPosY, Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -193,7 +154,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < mapHandler.getMapWidth()-1) {
-                robot.moveEast();
+                robot.moveEast(1);
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -201,7 +162,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the upwards arrow key is pressed:
         else if (keycode == Input.Keys.UP) {
             if (playerPosY < mapHandler.getMapHeight()-1) {
-                robot.moveNorth();
+                robot.moveNorth(1);
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -209,7 +170,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the downwards arrow key is pressed:
         else if (keycode == Input.Keys.DOWN) {
             if (playerPosY > 0 ) {
-                robot.moveSouth();
+                robot.moveSouth(1);
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -252,30 +213,10 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     public void giveCardsToPlayer(Player player) {
         ArrayList<Card> cards = pullCards(getDeck(), 9);
         player.addToHand(cards);
-        //ArrayList<Card> cardHand = player.getCardHand();
-        //System.out.println(cardHand);
-    }
-
-    /**
-     * Method for drawing a card. Not used atm.
-     * @param batch
-     * @param sprite
-     */
-    private void renderCard(SpriteBatch batch, Sprite sprite) {
-        //sprite.setPosition(position * 100, -200);
-        sprite.draw(batch);
     }
 
     @Override
     public void dispose() {
-        backUpCard.dispose();
-        move1card.dispose();
-        move2card.dispose();
-        move3card.dispose();
-        rotateLeftCard.dispose();
-        rotateRightCard.dispose();
-        uTurnCard.dispose();
-
         batch.dispose();
         font.dispose();
     }
@@ -295,19 +236,24 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // PLAYER:
         mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
 
+        // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
-        // DRAW CARDS ON SCREEN:
         batch.begin();
-        sprites.get(0).draw(batch);
-        sprites.get(1).draw(batch);
-        sprites.get(2).draw(batch);
-        sprites.get(3).draw(batch);
-        sprites.get(4).draw(batch);
-        sprites.get(5).draw(batch);
-        sprites.get(6).draw(batch);
-        sprites.get(7).draw(batch);
-        sprites.get(8).draw(batch);
+        for(Sprite sprite : sprites) {
+            sprite.draw(batch);
+        }
         batch.end();
+
+        if (programCards.size() == 5) {
+            for (Card card : programCards) {
+                CardType type = card.getType();
+                mapHandler.setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
+                player.getRobot().doMove(type);
+                mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
+                System.out.println(robot.getDirection().toString());
+            }
+            programCards.clear();
+        }
 
         // HOLE AND FLAG CELL:
         TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.HOLES);
@@ -321,15 +267,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         if (flag != null) {
             mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerWonCell);
         }
-    }
-
-    /**
-     *
-     * @param character
-     * @return
-     */
-    @Override public boolean keyTyped(char character) {
-        return false;
     }
 
     /**
@@ -348,126 +285,26 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         temp.set(screenX,screenY,0);
         camera.unproject(temp);
         int numberOfProgramCards = programCards.size();
-        Random rand = new Random();
-        int upperbound = 500; // generate random numbers from 0-499
 
-        if(sprites.get(0).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(0))) {
+        for (Card card : player.getCardHand()) {
+            Sprite sprite = card.getSprite();
+            if (sprite.getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5
+                && !programSprites.contains(sprites.get(0))) {
                 if (numberOfProgramCards == 0) {
-                    sprites.get(0).setPosition(0, -200);
+                    sprite.setPosition(0, -200);
                 }
                 else {
-                    sprites.get(0).setPosition(numberOfProgramCards * 100, -200);
+                    sprite.setPosition(numberOfProgramCards * 100, -200);
                 }
-                programSprites.add(sprites.get(0));
-                programCards.add(new Card(CardType.MOVE_ONE, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(0).toString());
+                programCards.add(card);
+                System.out.println("Touch on" + card.toString());
             }
         }
-        if(sprites.get(1).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(1))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(1).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(1).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(1));
-                programCards.add(new Card(CardType.MOVE_TWO, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(1).toString());
-            }
-        }
-        if(sprites.get(2).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(2))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(2).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(2).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(2));
-                programCards.add(new Card(CardType.MOVE_THREE, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(2).toString());
-            }
-        }
-        if(sprites.get(3).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(3))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(3).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(3).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(3));
-                programCards.add(new Card(CardType.BACK_UP, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(3).toString());
-            }
-        }
-        if(sprites.get(4).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(4))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(4).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(4).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(4));
-                programCards.add(new Card(CardType.ROTATE_LEFT, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(4).toString());
-            }
-        }
-        if(sprites.get(5).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(5))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(5).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(5).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(5));
-                programCards.add(new Card(CardType.ROTATE_RIGHT, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(5).toString());
-            }
-        }
-        if(sprites.get(6).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(6))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(6).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(6).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(6));
-                programCards.add(new Card(CardType.U_TURN, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(6).toString());
-            }
-        }
-        if(sprites.get(7).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(7))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(7).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(7).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(7));
-                programCards.add(new Card(CardType.U_TURN, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(7).toString());
-            }
-        }
-        if(sprites.get(8).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
-            if (!programSprites.contains(sprites.get(8))) {
-                if (numberOfProgramCards == 0) {
-                    sprites.get(8).setPosition(0, -200);
-                }
-                else {
-                    sprites.get(8).setPosition(numberOfProgramCards * 100, -200);
-                }
-                programSprites.add(sprites.get(8));
-                programCards.add(new Card(CardType.U_TURN, rand.nextInt(upperbound)));
-                System.out.println("Touch on" + sprites.get(8).toString());
-            }
-        }
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
         return false;
     }
 

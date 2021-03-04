@@ -18,7 +18,6 @@ public class GameClient extends Listener{
     Client client;
     String name;
     private CardDeck deck;
-    private boolean DEBUGAuto = false;
 
     public GameClient () {
         client = new Client();
@@ -26,7 +25,10 @@ public class GameClient extends Listener{
         client.addListener(this);
         Network.register(client);
 
+        //For testing purposes
         final String host;
+        boolean DEBUGAuto = false;
+
         if (DEBUGAuto) {
             host = "localhost";
             name = "Tester"; }
@@ -79,6 +81,7 @@ public class GameClient extends Listener{
     }
 
 
+    //Do nothing when connected
    @Override
    public void connected (Connection connection) {
 

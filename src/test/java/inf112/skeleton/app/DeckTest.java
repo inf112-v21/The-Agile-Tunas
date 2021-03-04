@@ -1,6 +1,5 @@
 package inf112.skeleton.app;
 
-
 import card.Card;
 import card.CardDeck;
 import card.CardType;

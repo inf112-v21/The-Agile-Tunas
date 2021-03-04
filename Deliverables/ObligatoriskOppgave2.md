@@ -67,13 +67,12 @@ har så mye å gjøre.
 
 ##Bidrag til prosjektet
 
-Her fikk vi en liten skjeivfordeling med tanke på commits, dette har med at Robin sin
+Her fikk vi en liten skeivfordeling med tanke på commits, dette har med at Robin sin
 multiplayerdel ikke fungerte og han pushet ikke disse små endringene sine. Til slutt så fant laget
-ut at Jacob sin del var best. Robin gjorde også mer
-administrative oppgaver som å skrive ned brukerhistorier og slikt.
-Robin hadde også en hendelse som sjedde i sin familie som gjorde at han ikke fikk jobbet
+ut at Jacob sin del var best. Robin gjorde også mer administrative oppgaver som å skrive ned brukerhistorier 
+og slikt. Robin hadde også en hendelse som sjedde i sin familie som gjorde at han ikke fikk jobbet
 med så mye skole i innleveringsuken. De andre på laget viste stor forståelse og tok på seg mer arbeid
-og ansvar slik at den obligatoriske oppgaven gikk så bra den gjorde.
+og ansvar slik at den obligatoriske oppgaven gikk så bra som den gjorde.
 
 ----------------------------------------------------------------------
 
@@ -81,20 +80,38 @@ og ansvar slik at den obligatoriske oppgaven gikk så bra den gjorde.
 
 Vi hadde møter og diskuterte hva vi såg for oss hva som kom til å bli viktig for prosjektet.
 Så vi delte opp de resterende MVP kravene mellom oss fire, Lisa og Olesya tok hånd om 
-kort MVP kravene og Jacob og Robin prøvde seg på multiplayer delen. 
-
+MVP kravene som gjelder kort, og Jacob og Robin prøvde seg på multiplayer delen. 
 
 Det viste seg fort at alle begge delene var litt mer komplisert og vanskelige enn antatt. 
-Som igjen førte til en del frustrasjon og høyere tidsbruk enn planlagt. Men vi gjorde ingen endringer
-eller justeringer i kravene.
+Som igjen førte til en del frustrasjon og høyere tidsbruk enn planlagt. 
+
+Mot slutten så fikk Lisa og Olesya åpenbart for lite tid til å gjøre ferdig implementasjonen
+av MVP krav 9 (å bevege robot utifra program kort). Vi bestemte oss derfor for å gjøre det mulig
+for roboten å (visuelt) bevege seg, men ikke på alle mulige måter. For eksempel, man kan ikke se at 
+roboten roterer visuelt, men det skrives ut hvilken retning robot har for hvert "steg" i programmet,
+i terminalen i stedet. I tillegg kan ikke robot falle ut av kartet akkurat nå, og om robot skal 
+bevege seg etter "Move Three"-kortet og står 2 felt unna kanten av kartet, så vil ikke bevegelsen utføres.
+Med andre ord: bevegelser der antall felt robot skal bevege seg framover er større en antall felt fra robot
+til kanten til kartet.
+
+Vi prioriterte å jobbe med MVP krav 6,7 og 8, og ville se an hvor mye av 9 som vi rakk. 
+Siden forrige innlevering, har vi implementasjon for at spilleren får 9 tilfeldige kort fra en kortstokk (CardDeck)
+når man starter applikasjonen (MVP krav 7). Disse vil ligge på høyre side av kartet. I tillegg har vi implementert 
+at man kan trykke på 5 av de 9 kortene (spillerens hånd) slik at de legges i området under kartet (MVP krav8). 
+Når 5 kort er valgt vil roboten automatisk (med en gang) bevege seg til "endepunktet" etter at kortene i programmet 
+har blitt "evaluert" (MVP krav 9). Som sagt, mangler det noe implementasjon og ikke all bevegelse kan utføres.
+I tillegg ser man ikke hver "move" for seg selv, hele programmet skjer i ett.
+
+
+##Følgende justeringer ble gjort til MVP-kravene:
+- Robin og Jacob måtte endre MVP-krav 6 til å bare få kontakt mellom en server og klienter. Dette skjedde pga. at 
+Robin sin implementasjon ikke fungerte og Jacob fant ut at han manglet noe for å få fullført sin versjon.
+
 
 #Bugs
 
 Om du er sykt flink kan du trykke midt mellom to av kortene du kan velge og begge vil bli valgt,
-dette gjelder kun de kortene rett overnfor hverandre.
-
-
-
+dette gjelder kun de kortene rett overfor hverandre.
 
 
 ## DELOPPGAVE 3 - Kode
@@ -140,8 +157,6 @@ Akseptansekriterier:
 Gitt at spillerbrettet er synlig, jeg kan se min egen robot og de andre sine roboter og
 at jeg har fått opp ni kort som jeg velger fem av så skal da roboten min utføre
 de fem bevegelsene som jeg har valgt.
-
-
 
 #### Brukerhistorie MVP 9 - Bevege robot ut fra valgte kort
 

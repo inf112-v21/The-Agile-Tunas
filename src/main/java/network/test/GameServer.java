@@ -25,29 +25,23 @@ import network.test.Network.UpdateNames;
 public class GameServer extends Listener{
     private final int MaxPlayers = 2;
     public int numberOfPlayers;
-    private final GameHandler game;
-    private HashMap<Integer, Robot> robots;
+
     private HashMap<Integer, String> players;
     private CardDeck deck;
     Server server;
 
-    public GameServer (GameHandler game) throws IOException {
-        this.game = game;
-        deck = new CardDeck();
-        robots = new HashMap<>(MaxPlayers);
+    public GameServer () throws IOException{
+
         players = new HashMap<>(MaxPlayers);
         numberOfPlayers = 0;
         server = new Server() {
             protected Connection newConnection () {
-                // By providing our own connection implementation, we can store per
-                // connection state without a connection ID to state look up.
-                return new ChatConnection();
+                // Using a custom connection
+                return new GameConnection();
             }
         };
 
-
-        // For consistency, the classes to be sent over the network are
-        // registered by the same method for both the client and server.
+        // Uses a separate class for registering the client and server
         Network.register(server);
         server.addListener(this);
 
@@ -55,7 +49,7 @@ public class GameServer extends Listener{
         try {
             server.bind(Network.port);
         } catch (IOException e) {
-            System.out.println("Binding of the server failed or obtaining the local IP address failed " + e.getMessage());
+            System.out.println("Binding of the server failed " + e.getMessage());
         }
         server.start();
 
@@ -78,7 +72,7 @@ public class GameServer extends Listener{
 
     @Override
     public void disconnected (Connection c) {
-        ChatConnection connection = (ChatConnection)c;
+        GameConnection connection = (GameConnection)c;
         if (connection.name != null) {
             // Announce to everyone that someone (with a registered name) has left.
             GameMessage gameMessage = new GameMessage();
@@ -89,14 +83,16 @@ public class GameServer extends Listener{
     }
 
     @Override
+    //Method for receiving messages from clients
     public void received (Connection c, Object object) {
         // We know all connections for this server are actually ChatConnections.
-        ChatConnection connection = (ChatConnection)c;
+        GameConnection connection = (GameConnection)c;
         if (object instanceof GameMessage){
             parseMessage(c,(GameMessage) object);
         }
     }
 
+    //Method for handling incoming messages
     private void parseMessage(Connection connection, GameMessage gm){
         String[] message = gm.text.split(" ");
         switch(message[0]){
@@ -113,21 +109,19 @@ public class GameServer extends Listener{
 
     }
 
+    //Sends a message to all connected clients
     private void sendToAllClients(String message){
         GameMessage gameMessage = new GameMessage();
         gameMessage.text = message;
         server.sendToAllTCP(gameMessage);
     }
 
-    
-
-
     void updateNames () {
-        // Collect the names for each connection.
+        // Stores the names of all clients
         Connection[] connections = server.getConnections();
         ArrayList<String> names = new ArrayList<>();
         for (int i = connections.length - 1; i >= 0; i--) {
-            ChatConnection connection = (ChatConnection)connections[i];
+            GameConnection connection = (GameConnection)connections[i];
             names.add(connection.name);
         }
         // Send the names to everyone.
@@ -137,12 +131,12 @@ public class GameServer extends Listener{
     }
 
     // This holds per connection state.
-    static class ChatConnection extends Connection {
+    static class GameConnection extends Connection {
         public String name;
     }
     public static void main (String[] args) throws IOException {
         Log.set(Log.LEVEL_DEBUG);
-        new GameServer(new GameHandler());
+        new GameServer();
     }
 
 }

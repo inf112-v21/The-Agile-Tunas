@@ -10,9 +10,11 @@ Teamnavn: The Agile Tunas
 Teammedlemmer: Jacob Hagan, Robin Lee Lange, Olesya Pasichnyk, Lisa Maria Eliassen
 
 ## Kjente bugs:
-Ingen kjente bugs.
-Alle testene passerer med glans!
--CTO
+- Om man er veldig flink og klarer å velge 2 kort som ligger ovenfor hverandre
+samtidig ved å trykke midt mellom dem, så legger de seg oppå hverandre i neste plass
+for programkort.
+- Robot kan ikke falle av kartet.
+
 
 ## Krav - MVP:
 - Vise et spillebrett

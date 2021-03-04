@@ -34,7 +34,7 @@ public class GameScreen extends JFrame {
 
         {
             JPanel panel = new JPanel(new BorderLayout());
-            contentPane.add(panel, "chat");
+            contentPane.add(panel, "game");
             {
                 JPanel topPanel = new JPanel(new GridLayout(1, 2));
                 panel.add(topPanel);
@@ -95,7 +95,7 @@ public class GameScreen extends JFrame {
         // This listener is run on the client's update thread, which was started by client.start().
         // We must be careful to only interact with Swing components on the Swing event thread.
         EventQueue.invokeLater(() -> {
-            cardLayout.show(getContentPane(), "chat");
+            cardLayout.show(getContentPane(), "game");
             DefaultListModel model = (DefaultListModel)nameList.getModel();
             model.removeAllElements();
             for (String name : names)
