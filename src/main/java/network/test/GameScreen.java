@@ -1,5 +1,8 @@
 package network.test;
 
+import inf112.skeleton.app.GameHandler;
+import inf112.skeleton.app.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,14 +12,16 @@ import java.awt.event.WindowEvent;
 
 public class GameScreen extends JFrame {
     CardLayout cardLayout;
-    JProgressBar progressBar;
     JList messageList;
     JTextField sendText;
     JButton sendButton;
     JList nameList;
+    GameHandler game;
 
     public GameScreen (String host) {
-        super("Chat Client");
+        super("Game Client");
+        game = new GameHandler();
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(640, 200);
         setLocationRelativeTo(null);
@@ -24,15 +29,7 @@ public class GameScreen extends JFrame {
         Container contentPane = getContentPane();
         cardLayout = new CardLayout();
         contentPane.setLayout(cardLayout);
-        {
-            JPanel panel = new JPanel(new BorderLayout());
-            contentPane.add(panel, "progress");
-            panel.add(new JLabel("Connecting to " + host + "..."));
-            {
-                panel.add(progressBar = new JProgressBar(), BorderLayout.SOUTH);
-                progressBar.setIndeterminate(true);
-            }
-        }
+
         {
             JPanel panel = new JPanel(new BorderLayout());
             contentPane.add(panel, "chat");
@@ -64,21 +61,15 @@ public class GameScreen extends JFrame {
             }
         }
 
-        sendText.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
-                sendButton.doClick();
-            }
-        });
+        sendText.addActionListener(e -> sendButton.doClick());
     }
 
     public void setSendListener (final Runnable listener) {
-        sendButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent evt) {
-                if (getSendText().length() == 0) return;
-                listener.run();
-                sendText.setText("");
-                sendText.requestFocus();
-            }
+        sendButton.addActionListener(evt -> {
+            if (getSendText().length() == 0) return;
+            listener.run();
+            sendText.setText("");
+            sendText.requestFocus();
         });
     }
 
@@ -101,24 +92,31 @@ public class GameScreen extends JFrame {
     public void setNames (final String[] names) {
         // This listener is run on the client's update thread, which was started by client.start().
         // We must be careful to only interact with Swing components on the Swing event thread.
-        EventQueue.invokeLater(new Runnable() {
-            public void run () {
-                cardLayout.show(getContentPane(), "chat");
-                DefaultListModel model = (DefaultListModel)nameList.getModel();
-                model.removeAllElements();
-                for (String name : names)
-                    model.addElement(name);
-            }
+        EventQueue.invokeLater(() -> {
+            cardLayout.show(getContentPane(), "chat");
+            DefaultListModel model = (DefaultListModel)nameList.getModel();
+            model.removeAllElements();
+            for (String name : names)
+                model.addElement(name);
         });
+    }
+    public void updateScreen() {
+        Container contentPane = getContentPane();
+        cardLayout = new CardLayout();
+        contentPane.setLayout(cardLayout);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        contentPane.add(panel, "progress");
+        panel.add(new JLabel("Welcome player"));
+        System.out.println("Updated screen");
+
     }
 
     public void addMessage (final String message) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run () {
-                DefaultListModel model = (DefaultListModel)messageList.getModel();
-                model.addElement(message);
-                messageList.ensureIndexIsVisible(model.size() - 1);
-            }
+        EventQueue.invokeLater(() -> {
+            DefaultListModel model = (DefaultListModel)messageList.getModel();
+            model.addElement(message);
+            messageList.ensureIndexIsVisible(model.size() - 1);
         });
     }
 }

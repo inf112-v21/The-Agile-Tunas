@@ -18,6 +18,7 @@ public class GameClient extends Listener{
     Client client;
     String name;
     private CardDeck deck;
+    private boolean DEBUGAuto = false;
 
     public GameClient () {
         client = new Client();
@@ -25,20 +26,24 @@ public class GameClient extends Listener{
         client.addListener(this);
         Network.register(client);
 
+        final String host;
+        if (DEBUGAuto) {
+            host = "localhost";
+            name = "Tester"; }
+        else {
+            // Request the host from the user.
+            String input = (String) JOptionPane.showInputDialog(null, "Host:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE,
+                    null, null, "localhost");
+            if (input == null || input.trim().length() == 0) System.exit(1);
+            host = input.trim();
 
 
-        // Request the host from the user.
-        String input = (String)JOptionPane.showInputDialog(null, "Host:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE,
-                null, null, "localhost");
-        if (input == null || input.trim().length() == 0) System.exit(1);
-        final String host = input.trim();
-
-
-        // Request the user's name.
-        input = (String)JOptionPane.showInputDialog(null, "Name:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE, null,
-                null, "");
-        if (input == null || input.trim().length() == 0) System.exit(1);
-        name = input.trim();
+            // Request the user's name.
+            input = (String) JOptionPane.showInputDialog(null, "Name:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE, null,
+                    null, "");
+            if (input == null || input.trim().length() == 0) System.exit(1);
+            name = input.trim();
+        }
 
 
         screen = new GameScreen(host);
@@ -60,6 +65,10 @@ public class GameClient extends Listener{
             public void run () {
                 try {
                     client.connect(5000, host, Network.port);
+                    GameMessage gm = new GameMessage();
+                    gm.text = "RegisterName: " + name;
+                    if (client.isConnected()) System.out.println("Connected to server");
+                    client.sendTCP(gm);
                     // Server communication after connection can go here, or in Listener#connected().
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -102,6 +111,11 @@ public class GameClient extends Listener{
         String[] message = gameMessage.text.split(" ");
         switch(message[0]){
 
+            case "Welcome":
+                System.out.println("Got Welcome from server");
+                screen.updateScreen();
+            case"AllReady":
+                System.out.println("Everyone is ready");
             default:
                 return;
         }
@@ -111,4 +125,5 @@ public class GameClient extends Listener{
         Log.set(Log.LEVEL_DEBUG);
         new GameClient();
     }
+
 }

@@ -2,6 +2,8 @@ package inf112.skeleton.app;
 
 import card.Card;
 import card.CardDeck;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector3;
 import map.Layers;
 import map.MapHandler;
 import com.badlogic.gdx.ApplicationListener;
@@ -27,9 +29,23 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class GameHandler extends InputAdapter implements ApplicationListener {
-    // region Class Variable Initialization:
+    // Region Class Variable Initialization:
     private SpriteBatch batch;
     private BitmapFont font;
+
+    OrthographicCamera camera;
+
+    //Programcards
+    private Sprite backUp, move1,move2,move3,rotateLeft,rotateRight,uTurn;
+    private Texture backUpCard;
+    private Texture move1card;
+    private Texture move2card;
+    private Texture move3card;
+    private Texture rotateLeftCard;
+    private Texture rotateRightCard;
+    private Texture uTurnCard;
+
+    private Vector3 temp;
 
     // MAP:
     private OrthogonalTiledMapRenderer mapRenderer;
@@ -44,7 +60,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     // CARD DECK:
     private CardDeck cardDeck;
 
-    // endregion
+    // End Region
 
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
@@ -56,21 +72,48 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         font = new BitmapFont();
         font.setColor(Color.RED);
 
-        // MAP::
-        this.mapHandler = new MapHandler("assets/riskyexchange.tmx");
-
         // CAMERA:
-        OrthographicCamera camera = new OrthographicCamera();
-        camera.setToOrtho(false, 12, 16);
-        //camera.setToOrtho(false, 16, 20);
-        camera.position.x = 6f;          // 6f because it's in the middle of the viewportWidth.
-        //camera.position.x = 8f;
-        //camera.position.y = 6f;
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        camera.position.y = 300;
         camera.update();
 
+        // MAP:
+        this.mapHandler = new MapHandler("assets/riskyexchange.tmx");
         // RENDERER:
-        mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap, (float) 1/300);
-        mapRenderer.setView(camera);
+        mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/6);
+
+        // CARD TEXTURES:
+        backUpCard = new Texture("assets/cards/backup.png");
+        move1card = new Texture("assets/cards/move1.png");
+        move2card = new Texture("assets/cards/move2.png");
+        move3card = new Texture("assets/cards/move3.png");
+        rotateLeftCard = new Texture("assets/cards/rotateleft.png");
+        rotateRightCard = new Texture("assets/cards/rotateright.png");
+        uTurnCard = new Texture("assets/cards/uturn.png");
+
+        temp = new Vector3();
+
+        // CARD SPRITES:
+        backUp = new Sprite(backUpCard);
+        move1 = new Sprite(move1card);
+        move2 = new Sprite(move2card);
+        move3 = new Sprite(move3card);
+        rotateLeft = new Sprite(rotateLeftCard);
+        rotateRight = new Sprite(rotateRightCard);
+        uTurn = new Sprite(uTurnCard);
+
+
+        // SPRITES POSITION:
+        backUp.setPosition(0,-200);
+        move1.setPosition(100,-200);
+        move2.setPosition(200,-200);
+        move3.setPosition(300,-200);
+        rotateLeft.setPosition(400,-200);
+        rotateRight.setPosition(500,-200);
+        uTurn.setPosition(600,-200);
+
 
         // PLAYER CONFIG:
         Texture pictureAll = new Texture("assets/player.png");
@@ -158,6 +201,14 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
     @Override
     public void dispose() {
+        backUpCard.dispose();
+        move1card.dispose();
+        move2card.dispose();
+        move3card.dispose();
+        rotateLeftCard.dispose();
+        rotateRightCard.dispose();
+        uTurnCard.dispose();
+
         batch.dispose();
         font.dispose();
     }
@@ -170,10 +221,25 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
+        camera.update();
+        mapRenderer.setView(camera);
         mapRenderer.render();
 
         // PLAYER:
         mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
+
+
+        batch.setProjectionMatrix(camera.combined);
+        // DRAW CARDS ON SCREEN:
+        batch.begin();
+        backUp.draw(batch);
+        move1.draw(batch);
+        move2.draw(batch);
+        move3.draw(batch);
+        rotateLeft.draw(batch);
+        rotateRight.draw(batch);
+        uTurn.draw(batch);
+        batch.end();
 
         // HOLE AND FLAG CELL:
         TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.HOLES);
@@ -187,6 +253,61 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         if (flag != null) {
             mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerWonCell);
         }
+    }
+
+    @Override public boolean keyTyped(char character) {
+        return false;
+    }
+
+    // Register touch:
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        temp.set(screenX,screenY,0);
+        camera.unproject(temp);
+
+        if(backUp.getBoundingRectangle().contains(temp.x,temp.y))
+            System.out.println("Touch on backUp");
+
+        if(move1.getBoundingRectangle().contains(temp.x,temp.y))
+            System.out.println("Touch on move1");
+
+        if(move2.getBoundingRectangle().contains(temp.x,temp.y))
+            System.out.println("Touch on move2");
+
+        if(move3.getBoundingRectangle().contains(temp.x,temp.y))
+            System.out.println("Touch on move3");
+
+        if(rotateLeft.getBoundingRectangle().contains(temp.x,temp.y))
+            System.out.println("Touch on rotateLeft");
+
+        if(rotateRight.getBoundingRectangle().contains(temp.x,temp.y))
+            System.out.println("Touch on rotateRight");
+
+        if(uTurn.getBoundingRectangle().contains(temp.x,temp.y))
+            System.out.println("Touch on uTurn");
+
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 
     @Override
