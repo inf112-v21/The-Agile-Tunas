@@ -83,7 +83,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // CAMERA:
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        //camera.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0f);
         camera.position.y = 200;
         camera.update();
         temp = new Vector3();
@@ -135,7 +134,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                     sprites.add(i, new Sprite(move2card));
                     break;
                 case MOVE_THREE:
-                    sprites.add(i, new Sprite(move3card));
+                sprites.add(i, new Sprite(move3card));
                     break;
                 case BACK_UP:
                     sprites.add(i, new Sprite(backUpCard));
