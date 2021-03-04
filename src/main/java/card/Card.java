@@ -3,6 +3,8 @@ package card;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Card implements ICard {
     private final CardType type;
     private final int priority;
@@ -10,9 +12,9 @@ public class Card implements ICard {
 
     /**
      * Sets the instance's type to the given CardType, and the instance's priority to the given int.
-     *
-     * @param type
+     *  @param type
      * @param priority
+     * @param move1
      */
     public Card(CardType type, int priority, Texture texture){
         this.type = type;
