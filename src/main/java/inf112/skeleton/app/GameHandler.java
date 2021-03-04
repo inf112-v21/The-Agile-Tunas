@@ -343,54 +343,107 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         temp.set(screenX,screenY,0);
         camera.unproject(temp);
+        int numberOfProgramCards = programCards.size();
 
-        if(sprites.get(0).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            sprites.get(0).setPosition(0, -200);
+        if(sprites.get(0).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(0).setPosition(0, -200);
+            }
+            else {
+                sprites.get(0).setPosition(numberOfProgramCards * 100, -200);
+            }
+
             programCards.add(new Card(CardType.MOVE_ONE, 1));
-            //player.setProgram();
             System.out.println("Touch on" + sprites.get(0).toString());
         }
-        if(sprites.get(1).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            sprites.get(1).setPosition(100, -200);
+        if(sprites.get(1).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(1).setPosition(0, -200);
+            }
+            else {
+                sprites.get(1).setPosition(numberOfProgramCards * 100, -200);
+            }
+
             programCards.add(new Card(CardType.MOVE_TWO, 1));
             System.out.println("Touch on" + sprites.get(1).toString());
         }
-        if(sprites.get(2).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            sprites.get(2).setPosition(200, -200);
+        if(sprites.get(2).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(2).setPosition(0, -200);
+            }
+            else {
+                sprites.get(2).setPosition(numberOfProgramCards * 100, -200);
+            }
+
             programCards.add(new Card(CardType.MOVE_THREE, 1));
             System.out.println("Touch on" + sprites.get(2).toString());
         }
-        if(sprites.get(3).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            System.out.println("Touch on" + sprites.get(3).toString());
-            programCards.add(new Card(CardType.BACK_UP, 1));
-            sprites.get(3).setPosition(300, -200);
-        }
-        if(sprites.get(4).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            System.out.println("Touch on" + sprites.get(4).toString());
-            programCards.add(new Card(CardType.ROTATE_LEFT, 1));
-            sprites.get(4).setPosition(400, -200);
-        }
-        if(sprites.get(5).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            System.out.println("Touch on" + sprites.get(5).toString());
-            programCards.add(new Card(CardType.ROTATE_RIGHT, 1));
-            sprites.get(5).setPosition(500, -200);
-        }
-        if(sprites.get(6).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            System.out.println("Touch on" + sprites.get(6).toString());
-            programCards.add(new Card(CardType.U_TURN, 1));
-            sprites.get(6).setPosition(600, -200);
-        }
-        if(sprites.get(7).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            System.out.println("Touch on" + sprites.get(7).toString());
-            programCards.add(new Card(CardType.U_TURN, 1));
-            sprites.get(7).setPosition(700, -200);
-        }
-        if(sprites.get(8).getBoundingRectangle().contains(temp.x,temp.y) && programCards.size()<5) {
-            System.out.println("Touch on" + sprites.get(8).toString());
-            programCards.add(new Card(CardType.U_TURN, 1));
-            sprites.get(8).setPosition(800, -200);
-        }
+        if(sprites.get(3).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(3).setPosition(0, -200);
+            }
+            else {
+                sprites.get(3).setPosition(numberOfProgramCards * 100, -200);
+            }
 
+            programCards.add(new Card(CardType.BACK_UP, 1));
+            System.out.println("Touch on" + sprites.get(3).toString());
+        }
+        if(sprites.get(4).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(4).setPosition(0, -200);
+            }
+            else {
+                sprites.get(4).setPosition(numberOfProgramCards * 100, -200);
+            }
+
+            programCards.add(new Card(CardType.ROTATE_LEFT, 1));
+            System.out.println("Touch on" + sprites.get(4).toString());
+        }
+        if(sprites.get(5).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(5).setPosition(0, -200);
+            }
+            else {
+                sprites.get(5).setPosition(numberOfProgramCards * 100, -200);
+            }
+
+            programCards.add(new Card(CardType.ROTATE_RIGHT, 1));
+            System.out.println("Touch on" + sprites.get(5).toString());
+        }
+        if(sprites.get(6).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(6).setPosition(0, -200);
+            }
+            else {
+                sprites.get(6).setPosition(numberOfProgramCards * 100, -200);
+            }
+
+            programCards.add(new Card(CardType.U_TURN, 1));
+            System.out.println("Touch on" + sprites.get(6).toString());
+        }
+        if(sprites.get(7).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(7).setPosition(0, -200);
+            }
+            else {
+                sprites.get(7).setPosition(numberOfProgramCards * 100, -200);
+            }
+
+            programCards.add(new Card(CardType.U_TURN, 1));
+            System.out.println("Touch on" + sprites.get(7).toString());
+        }
+        if(sprites.get(8).getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5) {
+            if (numberOfProgramCards == 0) {
+                sprites.get(8).setPosition(0, -200);
+            }
+            else {
+                sprites.get(8).setPosition(numberOfProgramCards * 100, -200);
+            }
+
+            programCards.add(new Card(CardType.U_TURN, 1));
+            System.out.println("Touch on" + sprites.get(8).toString());
+        }
         return false;
     }
 
