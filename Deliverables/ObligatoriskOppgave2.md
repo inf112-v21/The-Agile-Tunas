@@ -123,6 +123,41 @@ dette gjelder kun de kortene rett overfor hverandre.
 
 #### Brukerhistorie MVP 6 - Spille fra flere maskiner (multiplayer)
 
+#Som (host) spiller ønsker jeg:
+
+Å kunne velge å spille med flere personer, enten det er AI eller andre mennesker.
+Da vil jeg ha valget om å kunne velge, helst fra en slags meny som gjør dette oversiktlig. Jeg
+vil også kunne velge antall spillere som jeg skal spille mot.
+
+#Løsningsbeskrivelse:
+
+Skrive en kode basert på kryo slik at vi kan få opp et nettverk slik at man kan spille mot AI eller
+andre mennesker.
+
+#Akseptansekriterier:
+
+At man skal kunne lett se en slags meny over hva slags valg man har, slik at man kan da velge hva eller
+hvem man skal spille mot.
+
+#Som (klient) spiller, ønsker jeg:
+
+Å kunne få opp en slags meny slik at jeg kan velge hvem jeg skal joine, også vil jeg muligens se reglene
+over spillet. Også når jeg velger et spill vil jeg kunne se brettet og min egen robot. Også
+vil jeg få de ni kortene mine utlevert, så vil jeg velge fem også skal roboten min gjøre trekkene
+som jeg har valgt.
+
+#Løsningskriterier
+
+Få fikset netverk koden slik at det er kontakt mellom de ulike spillerene og at alle
+kan se det samme, hele tiden.
+
+#Akseptansekriterier
+
+At en spiller blir host, også blir de andre klienter. Så skal alle spillerene få opp samme brettet, men
+de skal få opp forskjellige kort som de kan velge mellom fra samme bunke. Også skal robotene til hver spiller
+utføre de bevegelsene som hver spiller har valgt.
+
+
 #### Brukerhistorie MVP 7 - Dele ut kort
 
 Som spiller:
