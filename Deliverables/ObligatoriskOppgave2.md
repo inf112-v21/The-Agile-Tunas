@@ -150,12 +150,19 @@ Robin sin implementasjon ikke fungerte og Jacob fant ut at han manglet noe for �
 #Bugs
 
 Om du er sykt flink kan du trykke midt mellom to av kortene du kan velge og begge vil bli valgt,
-dette gjelder kun de kortene rett overfor hverandre.
+dette gjelder kun de kortene rett overfor hverandre. 
+
+Etter å ha valgt de 5 kortene og roboten har 
+beveget seg kan en trykke på de andre kortene og endre de en allerede har valgt. Dette er fordi
+vi ikke har implementert det ferdig.
 
 
 ## DELOPPGAVE 3 - Kode
 
-
+Klassediagrammet vårt er lagt ved i Deliverables: KlassediagramOblig2.png.
+Manuelle tester som CardDeck og CardTest passerer ikke lenger. Vi endret på Card-klassen 
+slik at den tar inn en texture og prøvde å tilpasse testene til den. Dessverre fikk vi NullPointerException
+som vi ikke har fått til å fikse per dags dato. 
 
 ### Brukerhistorier
 
