@@ -3,10 +3,13 @@ package inf112.skeleton.app;
 import card.Card;
 import card.CardDeck;
 import card.CardType;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector3;
 import map.Layers;
 import map.MapHandler;
+import player.Direction;
+import player.Player;
+import player.Robot;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -22,14 +25,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-import player.Direction;
-import player.Player;
-import player.Robot;
+
 
 public class GameHandler extends InputAdapter implements ApplicationListener {
     // Region Class Variable Initialization:
@@ -95,7 +93,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
         Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
         robot = new Robot(playerPosition, Direction.NORTH, 1);          // Instantiating a player Robot.
-        player = new Player(robot, "Player1", 1, robot.getID());
+        player = new Player(robot, "Player1", 1);
 
         // PLAYER PROGRAM CARDS (temporary):
         programCards = new ArrayList<>();

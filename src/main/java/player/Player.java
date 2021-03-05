@@ -1,17 +1,15 @@
 package player;
 
 import card.Card;
-import card.CardDeck;
 import inf112.skeleton.app.GameHandler;
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class Player extends GameHandler implements IPlayer {
     private Robot robot;
     private String name;
+    private int playerID;
     private ArrayList<Card> program;
     private ArrayList<Card> cardHand;
-    private Stack<Card> deck;
 
 
     /**
@@ -19,10 +17,12 @@ public class Player extends GameHandler implements IPlayer {
      * @param robot, this player's robot.
      * @param name, this player's name.
      */
-    public Player(Robot robot, String name, int robotID, int playerID) {
+    public Player(Robot robot, String name, int playerID) {
         this.robot = robot;
         this.name = name;
+        this.playerID = playerID;
         this.cardHand = new ArrayList<>();
+        this.program = new ArrayList<>();
     }
 
     /**
