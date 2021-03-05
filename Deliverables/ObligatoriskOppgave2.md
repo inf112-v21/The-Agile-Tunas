@@ -22,7 +22,8 @@ og at all nødvendig dokumentasjon er på plass.
 Team lead skal holde oversikt over prosjektet som helhet. 
 Det innebærer å forsikre seg om project board er oppdatert og at alle vet hva som må bli gjort og har
 blitt gjort. Holde laget ved godt mot og motivere samt hjelpe de andre på laget om dette 
-skulle bli nødvendig.
+skulle bli nødvendig. Teamleder har også vært flink til å gi beskjed om når han/hun syns vi må
+ha et ekstra møte for å diskutere hvor vi er i prosjektet og hvor vi vil.
 
 #Kundeansvarlig:
 
@@ -49,10 +50,13 @@ og på den måten fremdeles opprettholde en oversiktlig struktur over prosjektet
 
 Gruppedynamikken er det så langt ingenting å utsette på. 
 Kommunikasjonen går fint og alle virker trygge på resten av teamet.
+Vi har funnet ut hvile arbeidsoppgaver noen foretrekker og ikke liker så fordeler
+vi oppgavene deretter.
 
 #Hvordan fungerer kommunikasjonen for dere?
 Vi benytter oss av Discord for all kommunikasjon. 
 Dette fungerer fint da terskelen er veldig lav for å skrive noe til resten av gruppen.
+
 
 
 ##Retrospekt
@@ -62,7 +66,8 @@ Vi føler vi har lykkes med dette gjennom å ha opprettet en ny rolle,
 samt fordele oppgaver mer spesifikt. Vi har også blitt flinkere til å lage en formell saksliste
 som vi følger i møtene slik at ikke så mye tid går vekk.
 Vi skal også på gruppen bli flinkere å spørre om hjelp istedetfor å bare tenke at de andre
-har så mye å gjøre.
+har så mye å gjøre. Bedre å spørre slik at de ihvertfall ser at du trenger hjelp, så kan de se
+på det om de har tid. Enn at de ikke aner at du sliter og trenger litt hjelp.
 
 
 ##Bidrag til prosjektet
@@ -85,6 +90,11 @@ MVP kravene som gjelder kort, og Jacob og Robin prøvde seg på multiplayer dele
 Det viste seg fort at alle begge delene var litt mer komplisert og vanskelige enn antatt. 
 Som igjen førte til en del frustrasjon og høyere tidsbruk enn planlagt. 
 
+Robin sin implementasjon fungerte ikke slik han ville og viste seg å bli for vanskelig, så han måtte
+avbryte sitt forsøk. Jacob sin fungerte utrolig bra, men skapte litt problemer når vi skulle
+implementere spillet i multiplayer delen. Det vi såg for oss i akseptansekriteriene gikk ikke og 
+vi ble da tvunget til å endre kravet til noe vi syns ble akseptabelt. 
+
 Mot slutten så fikk Lisa og Olesya åpenbart for lite tid til å gjøre ferdig implementasjonen
 av MVP krav 9 (å bevege robot utifra program kort). Vi bestemte oss derfor for å gjøre det mulig
 for roboten å (visuelt) bevege seg, men ikke på alle mulige måter. For eksempel, man kan ikke se at 
@@ -104,6 +114,7 @@ I tillegg ser man ikke hver "move" for seg selv, hele programmet skjer i ett.
 
 
 ##Følgende justeringer ble gjort til MVP-kravene:
+
 - Robin og Jacob måtte endre MVP-krav 6 til å bare få kontakt mellom en server og klienter. Dette skjedde pga. at 
 Robin sin implementasjon ikke fungerte og Jacob fant ut at han manglet noe for å få fullført sin versjon.
 
@@ -121,41 +132,23 @@ dette gjelder kun de kortene rett overfor hverandre.
 ### Brukerhistorier
 
 
-#### Brukerhistorie MVP 6 - Spille fra flere maskiner (multiplayer)
+#### Brukerhistorier MVP 6 - Kontakt mellom en Server og flere klienter
 
-#Som (host) spiller ønsker jeg:
+#Som host ønsker jeg:
 
-Å kunne velge å spille med flere personer, enten det er AI eller andre mennesker.
-Da vil jeg ha valget om å kunne velge, helst fra en slags meny som gjør dette oversiktlig. Jeg
-vil også kunne velge antall spillere som jeg skal spille mot.
+Å kunne starte en server og få en toveis kontakt mellom server og klienter
 
-#Løsningsbeskrivelse:
+#Løsningskriterier:
 
-Skrive en kode basert på kryo slik at vi kan få opp et nettverk slik at man kan spille mot AI eller
-andre mennesker.
+Bruke kryonet og koding til å etablere kontakt mellom partene
 
 #Akseptansekriterier:
 
-At man skal kunne lett se en slags meny over hva slags valg man har, slik at man kan da velge hva eller
-hvem man skal spille mot.
+Å få tydelig kontakt mellom en server og klienter samt at man kan kommunisere toveis mellom de, 
+dette gjøres gjennom prints og skriving i en slags for for chat.
 
-#Som (klient) spiller, ønsker jeg:
 
-Å kunne få opp en slags meny slik at jeg kan velge hvem jeg skal joine, også vil jeg muligens se reglene
-over spillet. Også når jeg velger et spill vil jeg kunne se brettet og min egen robot. Også
-vil jeg få de ni kortene mine utlevert, så vil jeg velge fem også skal roboten min gjøre trekkene
-som jeg har valgt.
 
-#Løsningskriterier
-
-Få fikset netverk koden slik at det er kontakt mellom de ulike spillerene og at alle
-kan se det samme, hele tiden.
-
-#Akseptansekriterier
-
-At en spiller blir host, også blir de andre klienter. Så skal alle spillerene få opp samme brettet, men
-de skal få opp forskjellige kort som de kan velge mellom fra samme bunke. Også skal robotene til hver spiller
-utføre de bevegelsene som hver spiller har valgt.
 
 
 #### Brukerhistorie MVP 7 - Dele ut kort
