@@ -29,3 +29,10 @@ for programkort.
 
 ## Hvordan kjøre spillet:
 Naviger til src/main/java/inf112.skeleton.app/Main og kjør Main filen for å starte spillet.
+Man får da opp en skjerm som viser brettet samt hvilke kort du har fått utdelt. 
+Trykk på de kortene man vil ha i den rekkefølgen man vil ha de. 
+
+For å teste serveren og klienten starter man først GameServer. Man får da opp et lite vindu.
+Så kan man starte GameClient. Skriv inn adressen du vil koble til. Den legger inn localhost 
+automatisk om man ikke vil endre noe der. Så skriver man inn navnet sitt og man kan sende meldinger til
+serveren. Skriv inn Ping, og serveren vil svare deg med Pong. 
