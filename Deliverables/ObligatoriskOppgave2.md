@@ -145,19 +145,15 @@ har blitt "evaluert" (MVP krav 9). Som sagt, mangler det noe implementasjon og i
 I tillegg ser man ikke hver "move" for seg selv, hele programmet skjer i ett.
 
 
-##Følgende justeringer ble gjort til MVP-kravene:
+### Følgende justeringer ble gjort til MVP-kravene:
 
 - Robin og Jacob måtte endre MVP-krav 6 til å bare få kontakt mellom en server og klienter. Dette skjedde pga. at 
 Robin sin implementasjon ikke fungerte og Jacob fant ut at han manglet noe for å få fullført sin versjon.
 
 
-#Bugs
-
-Om du er sykt flink kan du trykke midt mellom to av kortene du kan velge og begge vil bli valgt,
-dette gjelder kun de kortene rett overfor hverandre. 
-
-Kan ikke bevege roboten på den nederste linjen pga. at vi ikke er ferdig med implementasjonen av koden
-
+### Bugs
+Om du er sykt flink så fungerer det å trykke midt mellom to av kortene du kan velge (på høyre side) og begge 
+vil bli valgt og lagt i program kort listen. Dette gjelder kun de kortene rett overfor hverandre. 
 
 
 ## DELOPPGAVE 3 - Kode
