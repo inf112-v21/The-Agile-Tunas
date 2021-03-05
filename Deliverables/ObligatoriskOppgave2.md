@@ -22,7 +22,10 @@ og at all nødvendig dokumentasjon er på plass.
 Team lead skal holde oversikt over prosjektet som helhet. 
 Det innebærer å forsikre seg om project board er oppdatert og at alle vet hva som må bli gjort og har
 blitt gjort. Holde laget ved godt mot og motivere samt hjelpe de andre på laget om dette 
-skulle bli nødvendig.
+skulle bli nødvendig. Team leder har vært flink til å kalle inn til ekstra møter når dette
+har vært nødvendig. For å finne ut hvor vi står og veien videre, om vi prioriterer ressursene våre 
+riktig eller ikke. Dette skjedde med Robin sin del, her bestemte Robin og Jacob seg at vi måtte
+bare avbryte Robin sin del og fortsette med noe annet.
 
 #Kundeansvarlig:
 
@@ -47,6 +50,8 @@ og på den måten fremdeles opprettholde en oversiktlig struktur over prosjektet
 
 Gruppedynamikken er det så langt ingenting å utsette på. 
 Kommunikasjonen går fint og alle virker trygge på resten av teamet.
+Vi har funnet ut hva slags oppgaver noen foretrekker fremfor andre og gir ut oppgavene
+ut ifra dette.
 
 #Hvordan fungerer kommunikasjonen for dere?
 Vi benytter oss av Discord for all kommunikasjon. 
@@ -59,7 +64,8 @@ Vi føler vi har lykkes med dette gjennom å ha opprettet en ny rolle,
 samt fordele oppgaver mer spesifikt. Vi har også blitt flinkere til å lage en formell saksliste
 som vi følger i møtene slik at ikke så mye tid går vekk.
 Vi skal også på gruppen bli flinkere å spørre om hjelp istedetfor å bare tenke at de andre
-har så mye å gjøre.
+har så mye å gjøre. Vi skal heller legge ut problemet vårt slik at de andre i teamet kan se på det
+om de har tid enn å ikke si noe, for da kan man ikke få hjelp.
 
 ##Bidrag til prosjektet
 
@@ -128,41 +134,20 @@ som vi ikke har fått til å fikse per dags dato.
 ### Brukerhistorier
 
 
-#### Brukerhistorie MVP 6 - Spille fra flere maskiner (multiplayer)
+#### Brukerhistorier MVP 6 - Kontakt mellom en Server og flere klienter
 
-#Som (host) spiller ønsker jeg:
+#Som host ønsker jeg:
 
-Å kunne velge å spille med flere personer, enten det er AI eller andre mennesker.
-Da vil jeg ha valget om å kunne velge, helst fra en slags meny som gjør dette oversiktlig. Jeg
-vil også kunne velge antall spillere som jeg skal spille mot.
+Å kunne starte en server og få en toveis kontakt mellom server og klienter
 
-#Løsningsbeskrivelse:
+#Løsningskriterier:
 
-Skrive en kode basert på kryo slik at vi kan få opp et nettverk slik at man kan spille mot AI eller
-andre mennesker.
+Bruke kryonet og koding til å etablere kontakt mellom partene
 
 #Akseptansekriterier:
 
-At man skal kunne lett se en slags meny over hva slags valg man har, slik at man kan da velge hva eller
-hvem man skal spille mot.
-
-#Som (klient) spiller, ønsker jeg:
-
-Å kunne få opp en slags meny slik at jeg kan velge hvem jeg skal joine, også vil jeg muligens se reglene
-over spillet. Også når jeg velger et spill vil jeg kunne se brettet og min egen robot. Også
-vil jeg få de ni kortene mine utlevert, så vil jeg velge fem også skal roboten min gjøre trekkene
-som jeg har valgt.
-
-#Løsningskriterier
-
-Få fikset netverk koden slik at det er kontakt mellom de ulike spillerene og at alle
-kan se det samme, hele tiden.
-
-#Akseptansekriterier
-
-At en spiller blir host, også blir de andre klienter. Så skal alle spillerene få opp samme brettet, men
-de skal få opp forskjellige kort som de kan velge mellom fra samme bunke. Også skal robotene til hver spiller
-utføre de bevegelsene som hver spiller har valgt.
+Å få tydelig kontakt mellom en server og klienter samt at man kan kommunisere toveis mellom de,
+dette gjøres gjennom prints og skriving i en slags for for chat.
 
 
 #### Brukerhistorie MVP 7 - Dele ut kort
