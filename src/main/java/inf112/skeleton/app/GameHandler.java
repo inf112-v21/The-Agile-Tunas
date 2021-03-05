@@ -39,8 +39,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     private Vector3 temp;
 
     // CARD SPRITE LIST:
-    ArrayList<Sprite> cardSprites;
-    ArrayList<Sprite> programSprites;
+    private ArrayList<Sprite> cardSprites;
 
     // MAP:
     private OrthogonalTiledMapRenderer mapRenderer;
@@ -94,9 +93,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
         robot = new Robot(playerPosition, Direction.NORTH, 1);          // Instantiating a player Robot.
         player = new Player(robot, 1);
-
-        // PLAYER PROGRAM CARDS (temporary):
-        programSprites = new ArrayList<>();
 
         // CARD DECK:
         cardDeck = new CardDeck();
