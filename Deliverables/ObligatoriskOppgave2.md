@@ -36,14 +36,12 @@ Som nevnt ser vi for oss at rolleinnehaveren skal ha ansvar for selve koden.
 Det vil innebære å forsikre seg og sjekke at koden er tilstrekkelig dokumentert, 
 at det eksisterer tester til det som skal testes, samt at koden holder et jevnt godt nivå.
 
-
 ##Lagets erfaringer
 
 Foreløpig har trello fungert godt til å fasilitere for vår prosjektmetodikk. 
 En blanding av scrum og kanban fungerte veldig bra med tanke på tidsfrister og oversikt. 
 Vi ser for oss å fremdeles oppdatere det i slutten av hvert møte, 
 og på den måten fremdeles opprettholde en oversiktlig struktur over prosjektet.
-
 
 ###Hvordan er gruppedynamikken?
 
@@ -54,7 +52,6 @@ Kommunikasjonen går fint og alle virker trygge på resten av teamet.
 Vi benytter oss av Discord for all kommunikasjon. 
 Dette fungerer fint da terskelen er veldig lav for å skrive noe til resten av gruppen.
 
-
 ##Retrospekt
 
 Ved forrige retrospekt ble vi enige om å konkretisere rollene og den enkeltes arbeidsoppgaver. 
@@ -64,7 +61,6 @@ som vi følger i møtene slik at ikke så mye tid går vekk.
 Vi skal også på gruppen bli flinkere å spørre om hjelp istedetfor å bare tenke at de andre
 har så mye å gjøre.
 
-
 ##Bidrag til prosjektet
 
 Her fikk vi en liten skeivfordeling med tanke på commits, dette har med at Robin sin
@@ -73,6 +69,10 @@ ut at Jacob sin del var best. Robin gjorde også mer administrative oppgaver som
 og slikt. Robin hadde også en hendelse som sjedde i sin familie som gjorde at han ikke fikk jobbet
 med så mye skole i innleveringsuken. De andre på laget viste stor forståelse og tok på seg mer arbeid
 og ansvar slik at den obligatoriske oppgaven gikk så bra som den gjorde.
+
+Trello-board 05.03.2021:
+![img.png](ProjectBoardOblig2.png)
+Link til trello-board: https://trello.com/b/9pKSo8yI/project-board
 
 ----------------------------------------------------------------------
 

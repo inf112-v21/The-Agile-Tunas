@@ -50,4 +50,76 @@
 - Siste innspurt for å se over innleveringen.
 - Laget fil for møtereferat.
 - Oppretter første release.
-- Slettet AppTest fordi den ikke brukes
+- Slettet AppTest fordi den ikke brukes.
+
+###Møte 15.02.2021
+- Møttes i discord og brukte 5 min på å snakke om livet.
+- Gikk gjennom obligatorisk oppgave 2, del 1.
+- La til en ekstra rolle i gruppen, kodeansvarlig.
+- Prosjektmetodikken vi bestemte oss for i starten fungerte bra.
+- Diskuterte gruppedynamikken.
+- Diskuterte kommunikasjonen.
+- Retrospekt av arbeidet vi har gjort.
+- Forbedringer i gruppen.
+- Fordeling av gruppeoppgaver.
+- Laget sakliste.
+
+###Møte 18.02.2021
+- Teambuilding, 5 min med lett snakk for å starte møtet.
+- Diskutering angående multiplayer.
+- Refaktorering av kode.
+- Code with me.
+- Skrevet brukerhistorier.
+- Startet på UML.
+
+###Møte 22.02.2021
+- Teambuilding, 5 min med smalltalk om helgen.
+- Diskuterte multiplayer.
+- Snakket med Sindre om oblig 1.
+- Jobbet med refaktorering og multiplayer.
+
+###Spontant møte 25.02.2021
+####Tid: kl 09.30-12:00
+####Deltakere: Olesya, Lisa
+- Diskusjon om MVP krav 8 - Velge 5 kort, må det vises på skjermen? Eller er kun metoder for funksjonalitet innanfor?
+- Implementerte resten av Player: 
+  * Metode for å slette innhold i listen for programmet til en player/robot.
+  * Metode som kaller metode i robot for å sette roboten i powerdown. 
+  * Fjernet getDeck() som nå ligger i GameHandler i stedet.
+- Er deloppgave 1 ferdig skrevet?
+
+###Møte 25.02.2021
+####Deltakere: Robin, Olesya, Lisa, Jacob
+- Teamtalk, dagens funfact.
+- Siden sist har vi lagt til tester i programmet.
+- Diskuterte oblig 1, hva gjorde vi bra og hva kan vi gjøre bedre?
+- Endret på oblig 1 det som gruppelederne mente vi skulle endre.
+- La en fremdriftsplan, delte oss opp i grupper.
+- Jobbe mer med multiplayer og MVP kravene til oblig 2.
+
+###Møte 01.03.2021
+####Deltakere: Lisa, Olesya, Jacob, Robin
+- Tok oss 5 min til å snakke om helgen og hvordan vi hadde det.
+- Vi har laget oppgraderinger til network og fått multiplayer til å fungere.
+- Fullførte del 1 av oblig 2 siden vi hadde fått tilbake oblig 1.
+- Diskuterte  og fordelte arbeidsoppgaver til neste gang.
+- Delte oss i to:
+  * Olesya og Lisa koder sammen.
+  * Jacob og Robin styrer med multiplayer sammen.
+
+###Møte 04.03.2021 
+####Deltakere: Robin, Lisa, Jacob, Olesya
+- Situasjonen i dag, hva har blitt gjort frem til nå, og veien fremover.
+- Lisa og Olesya har greid å få frem kortene på kartet.
+- Jacob har greid å kommunisere mellom klient og server, må bare få frem kartet til alle spillerne.
+- Code with me, få kartet til å se bra ut og fikset MVP med kortene.
+  * MVP krav 7 og 8 er ferdige.
+- Planla å ha et møte til senere på dagen klokken: 19:00-20:00.
+
+###Møte 04.03.2021
+####Deltakere: Olesya, Lisa, Jacob, Robin
+- Fant ut hva vi hadde gjort fra forrige møte tidligere i dag.
+- Robin hadde laget et forslag på obligatorisk oppgave 2 tekst delen.
+- Jacob hadde laget forslag på UML.
+- Lisa har jobbet med tester på kort klassene.
+- Debugging av kode på code with me.
