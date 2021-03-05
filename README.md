@@ -13,7 +13,7 @@ Teammedlemmer: Jacob Hagan, Robin Lee Lange, Olesya Pasichnyk, Lisa Maria Eliass
 - Om man er veldig flink og klarer å velge 2 kort som ligger ovenfor hverandre
 samtidig ved å trykke midt mellom dem, så legger de seg oppå hverandre i neste plass
 for programkort.
-- Robot kan ikke falle av kartet.
+- Robot kan ikke falle av kartet. (ikke egentlig en bug, men noe vi har valgt at ikke skal kunne skje)
 
 
 ## Krav - MVP:

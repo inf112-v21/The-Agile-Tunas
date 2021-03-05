@@ -8,15 +8,16 @@ public interface IPlayer {
 
     void setProgram(ArrayList<Card> programCards);
 
+    void addToProgram(Card card);
+
     ArrayList<Card> getProgram();
 
-    void setPowerDown();
-
-    String getName();
+    int getID();
 
     void clearProgram();
 
     ArrayList<Card> getCardHand();
 
     void addToHand(ArrayList<Card> cards);
+
 }

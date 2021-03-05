@@ -136,7 +136,7 @@ public class Robot implements IRobot{
      */
     @Override
     public void moveSouth(int i) {
-        if (position.y > 1) {
+        if (position.y > 0) {
             position.y -= i;
         }
     }
@@ -146,7 +146,7 @@ public class Robot implements IRobot{
      */
     @Override
     public void moveWest(int i) {
-        if (position.x > 1) {
+        if (position.x > 0) {
             position.x -= i;
         }
     }

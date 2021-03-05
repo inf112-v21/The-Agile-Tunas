@@ -38,9 +38,8 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     OrthographicCamera camera;
     private Vector3 temp;
 
-    // SPRITE LIST:
-    ArrayList<Sprite> sprites;
-    ArrayList<Sprite> programSprites;
+    // CARD SPRITE LIST:
+    private ArrayList<Sprite> cardSprites;
 
     // MAP:
     private OrthogonalTiledMapRenderer mapRenderer;
@@ -58,7 +57,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     public CardDeck cardDeck;
 
     // TEMPORARY:
-    ArrayList<Card> programCards;
+    private boolean firstRound = true;      // needed so that the game only plays for one "round".
 
     // End Region
 
@@ -93,11 +92,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
         Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
         robot = new Robot(playerPosition, Direction.NORTH, 1);          // Instantiating a player Robot.
-        player = new Player(robot, "Player1", 1);
-
-        // PLAYER PROGRAM CARDS (temporary):
-        programCards = new ArrayList<>();
-        programSprites = new ArrayList<>();
+        player = new Player(robot, 1);
 
         // CARD DECK:
         cardDeck = new CardDeck();
@@ -105,23 +100,23 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         giveCardsToPlayer(player);
 
         // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
-        sprites = new ArrayList<>();
+        cardSprites = new ArrayList<>();
         for(int i=0; i<9; i++) {
             Card card = player.getCardHand().get(i);
             Sprite sprite = card.getSprite();
-            sprites.add(i, sprite);
+            cardSprites.add(i, sprite);
         }
 
         // SPRITES POSITION:
-        sprites.get(0).setPosition(470, 450);
-        sprites.get(1).setPosition(570, 450);
-        sprites.get(2).setPosition(470, 300);
-        sprites.get(3).setPosition(570, 300);
-        sprites.get(4).setPosition(470, 150);
-        sprites.get(5).setPosition(570, 150);
-        sprites.get(6).setPosition(470, 0);
-        sprites.get(7).setPosition(570, 0);
-        sprites.get(8).setPosition(570, -150);
+        cardSprites.get(0).setPosition(470, 450);
+        cardSprites.get(1).setPosition(570, 450);
+        cardSprites.get(2).setPosition(470, 300);
+        cardSprites.get(3).setPosition(570, 300);
+        cardSprites.get(4).setPosition(470, 150);
+        cardSprites.get(5).setPosition(570, 150);
+        cardSprites.get(6).setPosition(470, 0);
+        cardSprites.get(7).setPosition(570, 0);
+        cardSprites.get(8).setPosition(570, -150);
 
 
         // INPUT:
@@ -218,6 +213,10 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     public void dispose() {
         batch.dispose();
         font.dispose();
+
+        for (Sprite sprite : cardSprites) {
+            sprite.getTexture().dispose();
+        }
     }
 
     /**
@@ -238,20 +237,22 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        for(Sprite sprite : sprites) {
+        for(Sprite sprite : cardSprites) {
             sprite.draw(batch);
         }
         batch.end();
 
-        if (programCards.size() == 5) {
-            for (Card card : programCards) {
+        if (player.getProgram().size() == 5 && firstRound) {
+            for (Card card : player.getProgram()) {
                 CardType type = card.getType();
                 mapHandler.setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
                 player.getRobot().doMove(type);
                 mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
                 System.out.println(robot.getDirection().toString());
+
             }
-            programCards.clear();
+            firstRound = false;
+            player.clearProgram();
         }
 
         // HOLE AND FLAG CELL:
@@ -283,19 +284,19 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         temp.set(screenX,screenY,0);
         camera.unproject(temp);
-        int numberOfProgramCards = programCards.size();
+        int numberOfProgramCards = player.getProgram().size();
 
         for (Card card : player.getCardHand()) {
             Sprite sprite = card.getSprite();
             if (sprite.getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5
-                && !programSprites.contains(sprites.get(0))) {
+                && !player.getProgram().contains(card) && firstRound) {
                 if (numberOfProgramCards == 0) {
                     sprite.setPosition(0, -200);
                 }
                 else {
                     sprite.setPosition(numberOfProgramCards * 100, -200);
                 }
-                programCards.add(card);
+                player.addToProgram(card);
                 System.out.println("Touch on" + card.toString());
             }
         }
