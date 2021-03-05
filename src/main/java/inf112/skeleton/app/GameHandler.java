@@ -123,6 +123,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         sprites.get(7).setPosition(570, 0);
         sprites.get(8).setPosition(570, -150);
 
+
         // INPUT:
         Gdx.input.setInputProcessor(this);
     }

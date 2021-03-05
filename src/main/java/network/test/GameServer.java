@@ -1,24 +1,18 @@
 package network.test;
 
 
-import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import card.CardDeck;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
-import inf112.skeleton.app.GameHandler;
-import network.test.Network.RegisterName;
 import network.test.Network.GameMessage;
 import network.test.Network.UpdateNames;
 
@@ -26,8 +20,7 @@ public class GameServer extends Listener{
     private final int MaxPlayers = 2;
     public int numberOfPlayers;
 
-    private HashMap<Integer, String> players;
-    private CardDeck deck;
+    private final HashMap<Integer, String> players;
     Server server;
 
     public GameServer () throws IOException{
@@ -74,7 +67,7 @@ public class GameServer extends Listener{
     public void disconnected (Connection c) {
         GameConnection connection = (GameConnection)c;
         if (connection.name != null) {
-            // Announce to everyone that someone (with a registered name) has left.
+            // Announce to everyone that someone left.
             GameMessage gameMessage = new GameMessage();
             gameMessage.text = connection.name + " disconnected.";
             server.sendToAllTCP(gameMessage);
@@ -86,13 +79,13 @@ public class GameServer extends Listener{
     //Method for receiving messages from clients
     public void received (Connection c, Object object) {
         // We know all connections for this server are actually ChatConnections.
-        GameConnection connection = (GameConnection)c;
         if (object instanceof GameMessage){
             parseMessage(c,(GameMessage) object);
         }
     }
 
     //Method for handling incoming messages
+    //You can send "Ping" from the client and you will recieve Pong if the server is connected.
     private void parseMessage(Connection connection, GameMessage gm){
         String[] message = gm.text.split(" ");
         switch(message[0]){
@@ -105,6 +98,12 @@ public class GameServer extends Listener{
                 gameMessage.text = "Welcome";
                 server.sendToAllTCP(gameMessage);
                 if (numberOfPlayers==MaxPlayers) sendToAllClients("AllReady");
+                this.startGame();
+                break;
+            case "Ping":
+                GameMessage gameMessage2 = new GameMessage();
+                gameMessage2.text = "Pong";
+                server.sendToAllTCP(gameMessage2);
         }
 
     }
@@ -126,7 +125,7 @@ public class GameServer extends Listener{
         }
         // Send the names to everyone.
         UpdateNames updateNames = new UpdateNames();
-        updateNames.names = (String[])names.toArray(new String[names.size()]);
+        updateNames.names = names.toArray(new String[names.size()]);
         server.sendToAllTCP(updateNames);
     }
 
@@ -134,6 +133,10 @@ public class GameServer extends Listener{
     static class GameConnection extends Connection {
         public String name;
     }
+    public void startGame(){
+        sendToAllClients("Start");
+    }
+
     public static void main (String[] args) throws IOException {
         Log.set(Log.LEVEL_DEBUG);
         new GameServer();

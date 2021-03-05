@@ -36,7 +36,6 @@ public class GameClient extends Listener{
             // Request the host from the user.
             String input = (String) JOptionPane.showInputDialog(null, "Host:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE,
                     null, null, "localhost");
-            if (input == null || input.trim().length() == 0) System.exit(1);
             host = input.trim();
 
 
@@ -48,7 +47,7 @@ public class GameClient extends Listener{
         }
 
 
-        screen = new GameScreen(host);
+        screen = new GameScreen(this.client);
 
         // This listener is called when the send button is clicked.
         screen.setSendListener(() -> {
@@ -74,7 +73,6 @@ public class GameClient extends Listener{
                     // Server communication after connection can go here, or in Listener#connected().
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    System.exit(1);
                 }
             }
         }.start();
@@ -96,15 +94,9 @@ public class GameClient extends Listener{
 
    @Override
    public void received (Connection connection, Object object) {
-       if (object instanceof UpdateNames) {
-           UpdateNames updateNames = (UpdateNames)object;
-           screen.setNames(updateNames.names);
-           return;
-       }
 
        if (object instanceof GameMessage) {
            GameMessage gameMessage = (GameMessage)object;
-           screen.addMessage(gameMessage.text);
            parseMessage(connection, gameMessage);
            return;
        }
@@ -115,12 +107,14 @@ public class GameClient extends Listener{
         switch(message[0]){
 
             case "Welcome":
-                System.out.println("Got Welcome from server");
-                screen.updateScreen();
+                screen.updateScreen(message[0]);
+                break;
             case "AllReady":
+                screen.updateScreen(message[0]);
                 System.out.println("Everyone is ready");
-            case "Card":
-                System.out.println(message[1]);
+                break;
+            case "Pong":
+                screen.updateScreen(message[0]);
             default:
                 return;
         }
