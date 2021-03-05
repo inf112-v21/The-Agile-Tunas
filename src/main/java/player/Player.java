@@ -6,20 +6,17 @@ import java.util.ArrayList;
 
 public class Player extends GameHandler implements IPlayer {
     private Robot robot;
-    private String name;
     private int playerID;
     private ArrayList<Card> program;
     private ArrayList<Card> cardHand;
 
-
     /**
      * Sets the instance's robot to the given Robot, the instance's name to the given String.
      * @param robot, this player's robot.
-     * @param name, this player's name.
+     * @param playerID, this player's ID.
      */
-    public Player(Robot robot, String name, int playerID) {
+    public Player(Robot robot, int playerID) {
         this.robot = robot;
-        this.name = name;
         this.playerID = playerID;
         this.cardHand = new ArrayList<>();
         this.program = new ArrayList<>();
@@ -48,6 +45,11 @@ public class Player extends GameHandler implements IPlayer {
         }
     }
 
+    @Override
+    public void addToProgram(Card card) {
+        program.add(card);
+    }
+
     /**
      * Returns player's current program.
      *
@@ -59,8 +61,7 @@ public class Player extends GameHandler implements IPlayer {
     }
 
     /**
-     *
-     * @returns the player's hand.
+     * @return the player's hand.
      */
     @Override
     public ArrayList<Card> getCardHand() {
@@ -85,19 +86,12 @@ public class Player extends GameHandler implements IPlayer {
     }
 
     /**
-     * Sets the player's robot to power down next round.
+     * Gets ID of player.
+     * @return the ID of the player.
      */
     @Override
-    public void setPowerDown() {
-        robot.setPowerDown();
+    public int getID() {
+        return playerID;
     }
 
-    /**
-     * Gets name of player.
-     * @return the name of the player.
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
 }
