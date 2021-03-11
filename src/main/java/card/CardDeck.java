@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
-import java.util.Random;
 
 public class CardDeck implements card.ICardDeck {
     private final Stack<Card> deck;

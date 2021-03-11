@@ -8,13 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 public class Card implements ICard {
     private final CardType type;
     private final int priority;
-    private Sprite sprite;
+    private final Sprite sprite;
 
     /**
-     * Sets the instance's type to the given CardType, and the instance's priority to the given int.
-     *  @param type
-     * @param priority
-     * @param move1
+     * Instanse of a Card in the CardDeck.
+     * @param type The type of the Card
+     * @param priority The Card's priority
+     * @param texture The Texture for Card's Sprite.
      */
     public Card(CardType type, int priority, Texture texture){
         this.type = type;
@@ -23,26 +23,21 @@ public class Card implements ICard {
     }
 
     /**
-     * Returns the card's type.
-     *
-     * @return
+     * @return the Card's type.
      */
     public CardType getType(){
         return type;
     }
 
     /**
-     * Returns the card's priority.
-     *
-     * @return
+     * @return the Card's priority.
      */
     public int getPriority(){
         return priority;
     }
 
     /**
-     * Returns the card's sprite.
-     * @return
+     * @return the Card's sprite.
      */
     public Sprite getSprite() {
         return sprite;

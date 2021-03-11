@@ -8,7 +8,7 @@ public class Robot implements IRobot{
     private boolean flag = false;
     private Direction direction;
     private boolean powerDown = false;
-    private int robotID;
+    private final int robotID;
 
     /**
      * Creates an instance of a robot.
