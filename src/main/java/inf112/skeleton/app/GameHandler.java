@@ -48,9 +48,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     // PLAYER CONFIG:
     private Player player;
     private Robot robot;
-    private TiledMapTileLayer.Cell playerCell;
-    private TiledMapTileLayer.Cell playerWonCell;
-    private TiledMapTileLayer.Cell playerDiedCell;
 
     // CARD DECK:
     //TODO
@@ -85,11 +82,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
 
         // PLAYER CONFIG:
-        Texture pictureAll = new Texture("assets/player.png");
-        TextureRegion[][] pictureOne = new TextureRegion().split(pictureAll, 300, 300);
-        this.playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][0]));
-        this.playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
-        this.playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
         Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
         robot = new Robot(playerPosition, Direction.NORTH, 1);          // Instantiating a player Robot.
         player = new Player(robot, 1);
@@ -232,7 +224,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         mapRenderer.render();
 
         // PLAYER:
-        mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
+        mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getTextures().get(0));
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
@@ -247,7 +239,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                 CardType type = card.getType();
                 mapHandler.setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
                 player.getRobot().doMove(type);
-                mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, playerCell);
+                mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getTextures().get(0));
                 System.out.println(robot.getDirection().toString());
 
             }
@@ -261,11 +253,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
-            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerDiedCell);
+            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getTextures().get(2));
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
-            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, playerWonCell);
+            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getTextures().get(1));
         }
     }
 

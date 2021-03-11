@@ -1,12 +1,16 @@
 package player;
 
 import card.Card;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import inf112.skeleton.app.GameHandler;
 import java.util.ArrayList;
 
 public class Player extends GameHandler implements IPlayer {
-    private Robot robot;
-    private int playerID;
+    private final Robot robot;
+    private final int playerID;
     private ArrayList<Card> program;
     private ArrayList<Card> cardHand;
 
@@ -29,6 +33,21 @@ public class Player extends GameHandler implements IPlayer {
     @Override
     public Robot getRobot() {
         return robot;
+    }
+
+    public ArrayList<TiledMapTileLayer.Cell> getTextures() {
+        ArrayList<TiledMapTileLayer.Cell> textureList = new ArrayList<>();
+        Texture pictureAll = new Texture("assets/player.png");
+        TextureRegion[][] pictureOne = new TextureRegion().split(pictureAll, 300, 300);
+        TiledMapTileLayer.Cell playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][0]));
+        TiledMapTileLayer.Cell playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
+        TiledMapTileLayer.Cell playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
+
+        textureList.add(0, playerCell);
+        textureList.add(1, playerWonCell);
+        textureList.add(2, playerDiedCell);
+
+        return textureList;
     }
 
     /**
