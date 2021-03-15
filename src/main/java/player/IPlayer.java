@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface IPlayer {
     Robot getRobot();
     
-    ArrayList<TiledMapTileLayer.Cell> getTextures();
+    ArrayList<TiledMapTileLayer.Cell> getCells();
 
     void setProgram(ArrayList<Card> programCards);
 

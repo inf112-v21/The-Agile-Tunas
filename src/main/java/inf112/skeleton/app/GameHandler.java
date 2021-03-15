@@ -45,7 +45,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     private Robot robot;
 
     // CARD DECK:
-    //TODO
     public CardDeck cardDeck;
 
     // TEMPORARY:
@@ -104,7 +103,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         cardSprites.get(6).setPosition(470, 0);
         cardSprites.get(7).setPosition(570, 0);
         cardSprites.get(8).setPosition(570, -150);
-
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
@@ -219,7 +217,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         mapRenderer.render();
 
         // PLAYER:
-        mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getTextures().get(0));
+        mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
@@ -234,7 +232,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
                 CardType type = card.getType();
                 mapHandler.setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
                 player.getRobot().doMove(type);
-                mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getTextures().get(0));
+                mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
                 System.out.println(robot.getDirection().toString());
 
             }
@@ -248,11 +246,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
-            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getTextures().get(2));
+            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(2));
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
-            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getTextures().get(1));
+            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(1));
         }
     }
 

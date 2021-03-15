@@ -35,19 +35,23 @@ public class Player extends GameHandler implements IPlayer {
         return robot;
     }
 
-    public ArrayList<TiledMapTileLayer.Cell> getTextures() {
-        ArrayList<TiledMapTileLayer.Cell> textureList = new ArrayList<>();
+    /**
+     * @return list of Player Cells.
+     */
+    @Override
+    public ArrayList<TiledMapTileLayer.Cell> getCells() {
+        ArrayList<TiledMapTileLayer.Cell> playerCellList = new ArrayList<>();
         Texture pictureAll = new Texture("assets/player.png");
         TextureRegion[][] pictureOne = new TextureRegion().split(pictureAll, 300, 300);
         TiledMapTileLayer.Cell playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][0]));
         TiledMapTileLayer.Cell playerWonCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][2]));
         TiledMapTileLayer.Cell playerDiedCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[0][1]));
 
-        textureList.add(0, playerCell);
-        textureList.add(1, playerWonCell);
-        textureList.add(2, playerDiedCell);
+        playerCellList.add(0, playerCell);
+        playerCellList.add(1, playerWonCell);
+        playerCellList.add(2, playerDiedCell);
 
-        return textureList;
+        return playerCellList;
     }
 
     /**
