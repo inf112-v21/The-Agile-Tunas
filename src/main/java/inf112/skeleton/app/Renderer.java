@@ -14,8 +14,12 @@ public class Renderer extends OrthogonalTiledMapRenderer {
         this.mapHandler = mapHandler;
     }
 
+    @Override
     public void render() {
+        super.render();
+        this.beginRender();
 
+        this.endRender();
     }
 
     private void clearMap() {

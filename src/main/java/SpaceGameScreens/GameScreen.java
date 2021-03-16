@@ -15,11 +15,11 @@ public class GameScreen implements Screen {
     Texture img;
     float x, y;
 
-     SpaceGame game;
+    SpaceGame game;
 
-     public GameScreen(SpaceGame game) {
+    public GameScreen(SpaceGame game) {
         this.game = game;
-     }
+    }
 
     public static final float SPEED = 5;
 
