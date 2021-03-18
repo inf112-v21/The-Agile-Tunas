@@ -6,6 +6,5 @@ public class MainScreen {
 
     public MainScreen(ScreenOrchestrator screenOrchestrator) {
         parent = screenOrchestrator;
-
     }
 }

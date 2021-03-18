@@ -19,11 +19,7 @@ public class MainMenuScreen implements Screen {
     public static final int EXIT_BUTTON_Y = 50;
     public static final int PLAY_BUTTON_Y = 250;
 
-
-
-
     SpaceGame game;
-
 
     Texture exitButtonActive;
     Texture exitButtonInActive;
@@ -36,12 +32,10 @@ public class MainMenuScreen implements Screen {
         playButtonInActive = new Texture("playbuttoninactive.jpg");
         exitButtonActive = new Texture("exitbuttonactive.jpg");
         exitButtonInActive = new Texture("exitbuttoninactive.jpg");
-
     }
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -49,7 +43,6 @@ public class MainMenuScreen implements Screen {
         //Gdx.gl.glClearColor(1,0,0,1);
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         texture = new Texture("backgroundTest.jpg");
-
 
         game.batch.begin();
         game.batch.draw(texture, 0, 0);
@@ -78,35 +71,26 @@ public class MainMenuScreen implements Screen {
         } else {
             game.batch.draw(playButtonInActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
         }
-
-
         game.batch.end();
-
-
     }
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void dispose() {
-
     }
 }

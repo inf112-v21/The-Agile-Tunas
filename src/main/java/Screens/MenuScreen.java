@@ -14,7 +14,6 @@ public class MenuScreen implements Screen {
     private ScreenOrchestrator parent;
     private Stage stage;
 
-
     public MenuScreen(ScreenOrchestrator screenOrchestrator) {
         parent = screenOrchestrator;
         stage = new Stage(new ScreenViewport());
@@ -45,7 +44,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -54,32 +52,26 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
         stage.draw();
-
     }
 
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void dispose() {
-
     }
 }

@@ -7,6 +7,5 @@ public class PreferencesScreen {
 
     public PreferencesScreen(ScreenOrchestrator screenOrchestrator) {
         parent = screenOrchestrator;
-
     }
 }

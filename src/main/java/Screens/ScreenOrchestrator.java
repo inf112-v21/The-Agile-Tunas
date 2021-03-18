@@ -23,7 +23,6 @@ public class ScreenOrchestrator extends Game {
     public void create() {
         loadingScreen = new LoadingScreen(this);
         setScreen(loadingScreen);
-
     }
 
     public void changeScreen(int screen) {
