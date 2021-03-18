@@ -40,8 +40,6 @@ public class MenuScreen implements Screen {
         table.add(exit).fillX().uniformX();
     }
 
-
-
     @Override
     public void show() {
     }

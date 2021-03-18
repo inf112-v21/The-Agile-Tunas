@@ -9,7 +9,7 @@ import inf112.skeleton.app.GameHandler;
 import org.lwjgl.system.CallbackI;
 
 public class MainMenuScreen implements Screen {
-
+    // Region Class Variable Initialization:
     private Texture texture;
 
     public static final int EXIT_BUTTON_WIDTH = 200;
@@ -26,6 +26,12 @@ public class MainMenuScreen implements Screen {
     Texture playButtonActive;
     Texture playButtonInActive;
 
+    // End Region
+
+    /**
+     *
+     * @param game
+     */
     public MainMenuScreen(SpaceGame game) {
         this.game = game;
         playButtonActive = new Texture("playbuttonactive.jpg");
@@ -65,8 +71,6 @@ public class MainMenuScreen implements Screen {
             if(Gdx.input.isTouched()) {
                 this.dispose();
                 //game.setScreen(new GameScreen(game));
-
-
             }
         } else {
             game.batch.draw(playButtonInActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);

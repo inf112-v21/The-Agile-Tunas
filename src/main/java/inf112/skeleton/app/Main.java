@@ -14,6 +14,8 @@ public class Main {
         cfg.setTitle("RoboRally");
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+
+        // SpaceGame configuration:
         config.setTitle("SpaceGame");
         config.setResizable(true);
         config.setWindowedMode(SpaceGame.WIDTH, SpaceGame.HEIGHT);
@@ -22,11 +24,13 @@ public class Main {
         cfg.setWindowedMode(700, 900);
 
 
-        //new Lwjgl3Application(new SpaceGame(), config);
-
-        new Lwjgl3Application(new GameHandler(), cfg);
-
         //new Lwjgl3Application(new ScreenOrchestrator(), cfg);
+
+        new Lwjgl3Application(new SpaceGame(), config);
+
+        //new Lwjgl3Application(new GameHandler(), cfg);
+
+
 
 
 
