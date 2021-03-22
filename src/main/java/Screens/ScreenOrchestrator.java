@@ -28,18 +28,17 @@ public class ScreenOrchestrator extends Game {
 
 
         setScreen(loadingScreen);
-
     }
 
     public void changeScreen(int screen) {
         switch(screen) {
             case MENU:
                 if(menuScreen == null) menuScreen = new MenuScreen(this);
-                this.setScreen((Screen) menuScreen);
+                this.setScreen(menuScreen);
                 break;
             case PREFERENCES:
                 if(preferencesScreen == null) preferencesScreen = new PreferencesScreen(this);
-                this.setScreen((Screen) preferencesScreen);
+                this.setScreen(preferencesScreen);
                 break;
             case RULES:
                 if(ruleScreen == null) ruleScreen = new RuleScreen(this);
@@ -47,7 +46,7 @@ public class ScreenOrchestrator extends Game {
                 break;
             case APPLICATION:
                 if(mainScreen == null) mainScreen = new MainScreen(this);
-                this.setScreen((Screen) mainScreen);
+                this.setScreen(mainScreen);
                 break;
             case MULTIPLAYER:
                 if(multiplayerScreen == null) multiplayerScreen = new MultiplayerScreen(this);
@@ -55,8 +54,14 @@ public class ScreenOrchestrator extends Game {
                 break;
             case ENDGAME:
                 if(endScreen == null) endScreen = new EndScreen(this);
-                this.setScreen((Screen) endScreen);
+                this.setScreen(endScreen);
                 break;
         }
     }
+
+    public GamePreferences getPreferences() {
+        return this.preferences;
+    }
+
+
 }
