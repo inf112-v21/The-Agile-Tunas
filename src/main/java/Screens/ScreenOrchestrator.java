@@ -2,6 +2,9 @@ package Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import roboRallyLoader.RoboRallyAssetManager;
 
 public class ScreenOrchestrator extends Game {
 
@@ -20,14 +23,24 @@ public class ScreenOrchestrator extends Game {
     private RuleScreen ruleScreen;
     private GamePreferences preferences;
     private MultiplayerScreen multiplayerScreen;
+    public RoboRallyAssetManager assetManager = new RoboRallyAssetManager();
+    private Music playingSong;
+
+
+
 
     @Override
     public void create() {
         loadingScreen = new LoadingScreen(this);
         preferences = new GamePreferences();
-
-
         setScreen(loadingScreen);
+
+        assetManager.addMusic();
+        assetManager.assetManager.finishLoading();
+        playingSong = assetManager.assetManager.get("music/testmusikk.mp3");
+        playingSong.play();
+
+
     }
 
     public void changeScreen(int screen) {
