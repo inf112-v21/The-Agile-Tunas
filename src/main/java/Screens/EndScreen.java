@@ -1,8 +1,8 @@
 package Screens;
 
-public class EndScreen {
+import com.badlogic.gdx.Screen;
 
-
+public class EndScreen implements Screen {
 
     private ScreenOrchestrator parent;
 

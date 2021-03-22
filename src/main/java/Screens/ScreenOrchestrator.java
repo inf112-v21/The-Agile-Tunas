@@ -9,19 +9,24 @@ public class ScreenOrchestrator extends Game {
     public static final int PREFERENCES = 1;
     public static final int APPLICATION = 2;
     public static final int ENDGAME = 3;
+    public static final int MULTIPLAYER = 4;
+    public static final int RULES = 5;
 
     private LoadingScreen loadingScreen;
     private PreferencesScreen preferencesScreen;
     private MenuScreen menuScreen;
     private MainScreen mainScreen;
     private EndScreen endScreen;
-
-
-
+    private RuleScreen ruleScreen;
+    private GamePreferences preferences;
+    private MultiplayerScreen multiplayerScreen;
 
     @Override
     public void create() {
         loadingScreen = new LoadingScreen(this);
+        preferences = new GamePreferences();
+
+
         setScreen(loadingScreen);
 
     }
@@ -36,9 +41,17 @@ public class ScreenOrchestrator extends Game {
                 if(preferencesScreen == null) preferencesScreen = new PreferencesScreen(this);
                 this.setScreen((Screen) preferencesScreen);
                 break;
+            case RULES:
+                if(ruleScreen == null) ruleScreen = new RuleScreen(this);
+                this.setScreen(ruleScreen);
+                break;
             case APPLICATION:
                 if(mainScreen == null) mainScreen = new MainScreen(this);
                 this.setScreen((Screen) mainScreen);
+                break;
+            case MULTIPLAYER:
+                if(multiplayerScreen == null) multiplayerScreen = new MultiplayerScreen(this);
+                this.setScreen(multiplayerScreen);
                 break;
             case ENDGAME:
                 if(endScreen == null) endScreen = new EndScreen(this);
