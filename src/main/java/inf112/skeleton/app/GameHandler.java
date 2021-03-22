@@ -3,6 +3,7 @@ package inf112.skeleton.app;
 import card.Card;
 import card.CardDeck;
 import card.CardType;
+import com.badlogic.gdx.maps.MapRenderer;
 import map.Layers;
 import map.MapHandler;
 import player.Direction;
@@ -24,6 +25,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
+/**
+ * The class that handles game logic.
+ */
 public class GameHandler extends InputAdapter implements ApplicationListener {
     // Region Class Variable Initialization:
     private SpriteBatch batch;
@@ -73,6 +77,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         this.mapHandler = new MapHandler("assets/riskyexchange.tmx");
 
         // RENDERER:
+        mapHandler = new MapHandler("assets/riskyexchange.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
 
         // PLAYER CONFIG:
@@ -80,29 +85,8 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         robot = new Robot(playerPosition, Direction.NORTH, 1);          // Instantiating a player Robot.
         player = new Player(robot, 1);
 
-        // CARD DECK:
-        cardDeck = new CardDeck();
-        cardDeck.shuffle();
-        giveCardsToPlayer(player);
-
-        // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
-        cardSprites = new ArrayList<>();
-        for(int i=0; i<9; i++) {
-            Card card = player.getCardHand().get(i);
-            Sprite sprite = card.getSprite();
-            cardSprites.add(i, sprite);
-        }
-
-        // SPRITES POSITION:
-        cardSprites.get(0).setPosition(470, 450);
-        cardSprites.get(1).setPosition(570, 450);
-        cardSprites.get(2).setPosition(470, 300);
-        cardSprites.get(3).setPosition(570, 300);
-        cardSprites.get(4).setPosition(470, 150);
-        cardSprites.get(5).setPosition(570, 150);
-        cardSprites.get(6).setPosition(470, 0);
-        cardSprites.get(7).setPosition(570, 0);
-        cardSprites.get(8).setPosition(570, -150);
+        // Prepare for turn:
+        doTurn();
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
@@ -155,6 +139,51 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Prepare for the only turn we have so far.
+     */
+    public void doTurn() {
+        // CARD DECK:
+        cardDeck = new CardDeck();
+        cardDeck.shuffle();
+        giveCardsToPlayer(player);
+
+        // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
+        cardSprites = new ArrayList<>();
+        for(int i=0; i<9; i++) {
+            Card card = player.getCardHand().get(i);
+            Sprite sprite = card.getSprite();
+            cardSprites.add(i, sprite);
+        }
+
+        // SPRITES POSITION:
+        cardSprites.get(0).setPosition(470, 450);
+        cardSprites.get(1).setPosition(570, 450);
+        cardSprites.get(2).setPosition(470, 300);
+        cardSprites.get(3).setPosition(570, 300);
+        cardSprites.get(4).setPosition(470, 150);
+        cardSprites.get(5).setPosition(570, 150);
+        cardSprites.get(6).setPosition(470, 0);
+        cardSprites.get(7).setPosition(570, 0);
+        cardSprites.get(8).setPosition(570, -150);
+    }
+
+    /**
+     * Does the moves corresponding to the cards in Player's program.
+     */
+    public void doCards() {
+        for (Card card : player.getProgram()) {
+            CardType type = card.getType();
+            mapHandler.setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
+            player.getRobot().doMove(type);
+            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
+            System.out.println(robot.getDirection().toString());
+
+        }
+        firstRound = false;     // we have only one round atm, so after all moves have been made, we want to end the only turn, so that nothing turn-related can be done.
+        player.clearProgram();
     }
 
     /**
@@ -228,16 +257,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         batch.end();
 
         if (player.getProgram().size() == 5 && firstRound) {
-            for (Card card : player.getProgram()) {
-                CardType type = card.getType();
-                mapHandler.setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
-                player.getRobot().doMove(type);
-                mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
-                System.out.println(robot.getDirection().toString());
-
-            }
-            firstRound = false;
-            player.clearProgram();
+            doCards();
         }
 
         // HOLE AND FLAG CELL:
@@ -325,4 +345,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     public void resume() {
     }
 
+    public MapHandler getMapHandler() {
+        return mapHandler;
+    }
+
+    public MapRenderer getMapRenderer() {
+        return mapRenderer;
+    }
 }

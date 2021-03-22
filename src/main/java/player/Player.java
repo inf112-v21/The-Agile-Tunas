@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import inf112.skeleton.app.GameHandler;
 import java.util.ArrayList;
 
-public class Player extends GameHandler implements IPlayer {
+public class Player implements IPlayer {
     private final Robot robot;
     private final int playerID;
     private ArrayList<Card> program;
