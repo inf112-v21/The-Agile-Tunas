@@ -77,7 +77,6 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         this.mapHandler = new MapHandler("assets/riskyexchange.tmx");
 
         // RENDERER:
-        mapHandler = new MapHandler("assets/riskyexchange.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
 
         // PLAYER CONFIG:
