@@ -29,6 +29,11 @@ public class MenuScreen implements Screen {
         parent = screenOrchestrator;
         stage = new Stage(new ScreenViewport());
 
+        parent.assetManager.addSkin();
+        parent.assetManager.assetManager.finishLoading();
+        skin = parent.assetManager.assetManager.get("skin/glassy-ui.json");
+
+
     }
 
 

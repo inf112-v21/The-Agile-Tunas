@@ -38,7 +38,8 @@ public class ScreenOrchestrator extends Game {
         assetManager.addMusic();
         assetManager.assetManager.finishLoading();
         playingSong = assetManager.assetManager.get("music/testmusikk.mp3");
-        playingSong.play();
+        //playingSong.play();
+
 
 
     }
@@ -74,6 +75,12 @@ public class ScreenOrchestrator extends Game {
 
     public GamePreferences getPreferences() {
         return this.preferences;
+    }
+
+    @Override
+    public void dispose() {
+        playingSong.dispose();
+        assetManager.assetManager.dispose();
     }
 
 

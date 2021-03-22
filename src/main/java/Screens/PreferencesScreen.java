@@ -52,6 +52,7 @@ public class PreferencesScreen implements Screen {
             @Override
             public boolean handle(Event event) {
                 parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
+                //updateVolumeLabel();
                 return false;
             }
         });
@@ -62,6 +63,7 @@ public class PreferencesScreen implements Screen {
             @Override
             public boolean handle(Event event) {
                 parent.getPreferences().setSoundVolume(volumeSoundSlider.getValue());
+                //updateVolumeLabel();
                 return false;
             }
         });

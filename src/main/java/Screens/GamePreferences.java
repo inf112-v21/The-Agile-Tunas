@@ -7,8 +7,8 @@ import com.badlogic.gdx.Preferences;
 public class GamePreferences {
 
     private static final String PREF_MUSIC_VOLUME = "volume";
-    private static final String PREF_MUSIC_ENABLED = "music enabled";
-    private static final String PREF_SOUND_ENABLED = "sound enabled";
+    private static final String PREF_MUSIC_ENABLED = "music.enabled";
+    private static final String PREF_SOUND_ENABLED = "sound.enabled";
     private static final String PREF_SOUND_VOL = "sound";
     private static final String PREFS_NAME = "roborally";
     
@@ -49,6 +49,7 @@ public class GamePreferences {
 
     public void setSoundVolume(float volume) {
         getPrefs().getFloat(PREF_SOUND_VOL, volume);
+        getPrefs().flush();
     }
 
 
