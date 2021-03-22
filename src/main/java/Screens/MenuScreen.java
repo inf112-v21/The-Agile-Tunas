@@ -29,11 +29,6 @@ public class MenuScreen implements Screen {
         parent = screenOrchestrator;
         stage = new Stage(new ScreenViewport());
 
-
-
-
-
-
     }
 
 
