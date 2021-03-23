@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 
 public class ApplicationTest {
-    private static Application app;
+    public static Application app;
 
     /**
      *
@@ -42,6 +42,8 @@ public class ApplicationTest {
             @Override
             public void dispose() {
             }
+
+
         });
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
@@ -52,4 +54,5 @@ public class ApplicationTest {
         app.exit();
         app = null;
     }
+
 }

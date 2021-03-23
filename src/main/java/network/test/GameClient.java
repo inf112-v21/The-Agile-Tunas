@@ -1,10 +1,13 @@
 package network.test;
 
 
-import java.awt.EventQueue;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import card.CardDeck;
+
+import card.Card;
+
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -14,51 +17,16 @@ import network.test.Network.UpdateNames;
 import com.esotericsoftware.minlog.Log;
 
 public class GameClient extends Listener{
-    GameScreen screen;
     Client client;
     String name;
-    private CardDeck deck;
+    private ArrayList<Card> deck;
 
-    public GameClient () {
+    public GameClient (String host, String name) {
         client = new Client();
         client.start();
         client.addListener(this);
         Network.register(client);
-
-        //For testing purposes
-        final String host;
-        boolean DEBUGAuto = false;
-
-        if (DEBUGAuto) {
-            host = "localhost";
-            name = "Tester"; }
-        else {
-            // Request the host from the user.
-            String input = (String) JOptionPane.showInputDialog(null, "Host:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE,
-                    null, null, "localhost");
-            host = input.trim();
-
-
-            // Request the user's name.
-            input = (String) JOptionPane.showInputDialog(null, "Name:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE, null,
-                    null, "");
-            if (input == null || input.trim().length() == 0) System.exit(1);
-            name = input.trim();
-        }
-
-
-        screen = new GameScreen(this.client);
-
-        // This listener is called when the send button is clicked.
-        screen.setSendListener(() -> {
-            GameMessage gameMessage = new GameMessage();
-            gameMessage.text = screen.getSendText();
-            client.sendTCP(gameMessage);
-        });
-
-        // This listener is called when the chat window is closed.
-        screen.setCloseListener(() -> client.stop());
-        screen.setVisible(true);
+        this.name = name;
 
         // We'll do the connect on a new thread so the ChatFrame can show a progress bar.
         // Connecting to localhost is usually so fast you won't see the progress bar.
@@ -87,9 +55,7 @@ public class GameClient extends Listener{
 
    @Override
    public void disconnected (Connection connection) {
-       EventQueue.invokeLater(() -> {
-           screen.dispose();
-       });
+
    }
 
    @Override
@@ -107,22 +73,19 @@ public class GameClient extends Listener{
         switch(message[0]){
 
             case "Welcome":
-                screen.updateScreen(message[0]);
+
                 break;
             case "AllReady":
-                screen.updateScreen(message[0]);
+
                 System.out.println("Everyone is ready");
                 break;
             case "Pong":
-                screen.updateScreen(message[0]);
+
             default:
                 return;
         }
    }
 
-    public static void main (String[] args) {
-        Log.set(Log.LEVEL_DEBUG);
-        new GameClient();
-    }
+
 
 }

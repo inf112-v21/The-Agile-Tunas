@@ -1,7 +1,6 @@
 package inf112.skeleton.app;
 
 import card.Card;
-import card.CardDeck;
 import card.CardType;
 import static org.junit.Assert.*;
 
@@ -23,9 +22,6 @@ public class CardTest extends ApplicationTest {
 
     @Test
     public void cardHasCorrectType(){
-        CardDeck deck = new CardDeck();
-
-        //this.move1Texture = deck.move1Texture;
         this.move1Texture = new Texture("assets/cards/move1.png");
         for (CardType type : CardType.values()){
             Card card = new Card(type, 1000, move1Texture);  // må endre slik at hvert kort har riktig texture.
@@ -35,10 +31,9 @@ public class CardTest extends ApplicationTest {
 
     @Test
     public void cardReturnsCorrectPriority(){
-        CardDeck deck = new CardDeck();
-        //Texture move1Texture = new Texture("assets/cards/move1.png");
+        Texture move1Texture = new Texture("assets/cards/move1.png");
         int priority = 1337;
-        Card card = new Card(CardType.MOVE_ONE, priority, deck.move1Texture);
+        Card card = new Card(CardType.MOVE_ONE, priority, move1Texture);
 
         assertEquals(priority,card.getPriority());
     }

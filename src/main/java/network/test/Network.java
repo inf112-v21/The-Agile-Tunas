@@ -2,8 +2,11 @@ package network.test;
 
 
 
+import card.Card;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+
+import java.util.ArrayList;
 
 // This class is a convenient place to keep things common to both the client and server.
 public class Network {
@@ -16,6 +19,7 @@ public class Network {
         kryo.register(String[].class);
         kryo.register(UpdateNames.class);
         kryo.register(GameMessage.class);
+        kryo.register(CardMessage.class);
     }
 
     static public class RegisterName {
@@ -28,5 +32,9 @@ public class Network {
 
     static public class GameMessage {
         public String text;
+    }
+
+    static public class CardMessage {
+        public ArrayList<Card> cards;
     }
 }

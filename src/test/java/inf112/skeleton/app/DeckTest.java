@@ -3,15 +3,19 @@ package inf112.skeleton.app;
 import card.Card;
 import card.CardDeck;
 import card.CardType;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-
 import java.util.Stack;
-
 import static org.junit.Assert.*;
 
-public class DeckTest {
+public class DeckTest extends ApplicationTest{
     private CardDeck deck;
+
+    @Before
+    public void initializeTest(){
+        ApplicationTest game = new ApplicationTest();
+        deck = new CardDeck();
+    }
 
     @Test
     public void DeckHasCorrectNumberOfCards() {

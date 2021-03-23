@@ -18,8 +18,8 @@ public class ServerTest {
     @Test
     public void twoClientsConnectToServer() throws IOException, InterruptedException {
         GameServer server = new GameServer();
-        GameClient client1 = new GameClient();
-        GameClient client2 = new GameClient();
+        GameClient client1 = new GameClient("localhost","test");
+        GameClient client2 = new GameClient("localhost","test");
 
         //Wait for the server to update
         TimeUnit.SECONDS.sleep(3);

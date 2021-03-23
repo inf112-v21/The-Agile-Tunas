@@ -7,15 +7,15 @@ import java.util.Stack;
 
 public class CardDeck implements card.ICardDeck {
     private final Stack<Card> deck;
-    public Texture move1Texture;
-    public Texture backUpTexture;
+
+
 
     /**
      * Makes a standard deck consisting of the different available cards.
      */
     public CardDeck() {
-        backUpTexture = new Texture("assets/cards/backup.png");
-        move1Texture = new Texture("assets/cards/move1.png");
+        Texture backUpTexture = new Texture("assets/cards/backup.png");
+        Texture move1Texture = new Texture("assets/cards/move1.png");
         Texture move2Texture = new Texture("assets/cards/move2.png");
         Texture move3Texture = new Texture("assets/cards/move3.png");
         Texture rotateLeftTexture = new Texture("assets/cards/rotateleft.png");
