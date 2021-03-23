@@ -48,12 +48,20 @@ public class CardDeck implements card.ICardDeck {
     }
 
     /**
-     *
      * @return the card at the top of the deck.
      */
     @Override
     public Card getCard() {
         return deck.pop();
+    }
+
+    /**
+     * Puts the given card back into the deck.
+     * @param card Card to put back.
+     */
+    @Override
+    public void putBack(Card card) {
+        this.deck.push(card);
     }
 
     /**

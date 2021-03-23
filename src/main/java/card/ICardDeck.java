@@ -8,5 +8,7 @@ public interface ICardDeck {
 
     Card getCard();
 
+    void putBack(Card card);
+
     Stack<Card> getCopy();
 }
