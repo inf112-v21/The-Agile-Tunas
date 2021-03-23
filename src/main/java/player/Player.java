@@ -54,20 +54,6 @@ public class Player implements IPlayer {
         return playerCellList;
     }
 
-    /**
-     * Sets the program for the player.
-     *
-     * @param listOfCards, an ArrayList of type Card.
-     */
-    @Override
-    public void setProgram(ArrayList<Card> listOfCards) {
-        if (listOfCards.size() == 5) {
-            for (Card card : listOfCards) {
-                program.add(card);
-            }
-        }
-    }
-
     @Override
     public void addToProgram(Card card) {
         program.add(card);
@@ -93,11 +79,20 @@ public class Player implements IPlayer {
 
     /**
      * Adds given card to the player's hand.
-     * @param cards
+     * @param cards Card to add.
      */
     @Override
     public void addToHand(ArrayList<Card> cards) {
         cardHand.addAll(cards);
+    }
+
+    /**
+     * Removes given card from Player's hand.
+     * @param card Card to remove.
+     */
+    @Override
+    public void removeFromHand(Card card) {
+        getCardHand().remove(card);
     }
 
     /**

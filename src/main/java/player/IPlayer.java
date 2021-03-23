@@ -10,8 +10,6 @@ public interface IPlayer {
     
     ArrayList<TiledMapTileLayer.Cell> getCells();
 
-    void setProgram(ArrayList<Card> programCards);
-
     void addToProgram(Card card);
 
     ArrayList<Card> getProgram();
@@ -23,5 +21,7 @@ public interface IPlayer {
     ArrayList<Card> getCardHand();
 
     void addToHand(ArrayList<Card> cards);
+
+    void removeFromHand(Card card);
 
 }

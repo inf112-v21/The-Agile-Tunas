@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * The class that handles game logic.
  */
 public class GameHandler extends InputAdapter implements ApplicationListener {
-    // Region Class Variable Initialization:
+    // Class Variable Initialization:
     private SpriteBatch batch;
     private BitmapFont font;
 
@@ -52,9 +52,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     public CardDeck cardDeck;
 
     // TEMPORARY:
-    private boolean firstRound = true;      // needed so that the game only plays for one "round".
-
-    // End Region
+    private boolean chooseProgram = true;      // needed so that the game only plays for one "round".
 
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
@@ -85,6 +83,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         player = new Player(robot, 1);
 
         // Prepare for turn:
+        cardDeck = new CardDeck(); // Card deck
         doTurn();
 
         // INPUT:
@@ -92,11 +91,25 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     }
 
     /**
+     * @return the MapHandler for this game.
+     */
+    public MapHandler getMapHandler() {
+        return mapHandler;
+    }
+
+    /**
+     * @return thee MapRenderer for this game.
+     */
+    public MapRenderer getMapRenderer() {
+        return mapRenderer;
+    }
+
+    /**
      * Takes a keycode which corresponds to one of the four arrow keys on the keyboard.
      * Then moves the robot accordingly by calling one the movement-methods in the Robot class,
      * and sets the cell on the position the robot was on before moving, to null.
      *
-     * @param keycode
+     * @param keycode of arrow.
      * @return true if a key has been pressed, else false.
      */
     @Override
@@ -144,11 +157,20 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
      * Prepare for the only turn we have so far.
      */
     public void doTurn() {
+        if (cardSprites != null) {
+            clearCards();
+        }
         // CARD DECK:
-        cardDeck = new CardDeck();
         cardDeck.shuffle();
         giveCardsToPlayer(player);
+        showCardHand();
+        chooseProgram = true;
+    }
 
+    /**
+     * Shows the card that have been given to player at the start of a round.
+     */
+    private void showCardHand() {
         // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
         cardSprites = new ArrayList<>();
         for(int i=0; i<9; i++) {
@@ -170,23 +192,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     }
 
     /**
-     * Does the moves corresponding to the cards in Player's program.
-     */
-    public void doCards() {
-        for (Card card : player.getProgram()) {
-            CardType type = card.getType();
-            mapHandler.setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
-            player.getRobot().doMove(type);
-            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
-            System.out.println(robot.getDirection().toString());
-
-        }
-        firstRound = false;     // we have only one round atm, so after all moves have been made, we want to end the only turn, so that nothing turn-related can be done.
-        player.clearProgram();
-    }
-
-    /**
-     * @returns the current game's deck.
+     * @return the current game's deck.
      */
     public CardDeck getDeck() {
         if (!cardDeck.equals(null)){
@@ -194,15 +200,39 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         }
         else
             System.out.println("Empty CardDeck");
-            return null;
+        return null;
     }
 
     /**
-     * Takes a CardDeck and gets the same number of Cards as numberOfCards parameter
+     * Does the moves corresponding to the cards in Player's program.
+     */
+    public void doCards() {
+        for (Card card : player.getProgram()) {
+            CardType type = card.getType();
+            getMapHandler().setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
+            player.getRobot().doMove(type);
+            getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
+            System.out.println(robot.getDirection().toString());
+
+        }
+        chooseProgram = false;     // we have only one round atm, so after all moves have been made, we want to end the only turn, so that nothing turn-related can be done.
+        doTurn();
+    }
+
+    /**
+     * Removes the Card sprites and clears the Player's program.
+     */
+    private void clearCards() {
+        cardSprites.clear();
+        player.clearProgram();
+    }
+
+    /**
+     * Given a CardDeck, gets as many Cards as the number of Cards given,
      * from the CardDeck.
-     * @param deck
-     * @param numberOfCards
-     * @returns an ArraList of Cards which have been taken from the CardDeck.
+     * @param deck The given CardDeck
+     * @param numberOfCards The numberOfCards
+     * @return an ArrayList of Cards which have been taken from the CardDeck.
      */
     public ArrayList<Card> pullCards(CardDeck deck, int numberOfCards) {
         ArrayList<Card> cardList = new ArrayList<>();
@@ -215,7 +245,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
     /**
      * Pulls 9 cards from current game's CardDeck and adds them to the player's hand.
-     * @param player
+     * @param player The Player given
      */
     public void giveCardsToPlayer(Player player) {
         ArrayList<Card> cards = pullCards(getDeck(), 9);
@@ -241,11 +271,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        mapRenderer.setView(camera);
-        mapRenderer.render();
+        getMapRenderer().setView(camera);
+        getMapRenderer().render();
 
         // PLAYER:
-        mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
+        getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
@@ -255,21 +285,21 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         }
         batch.end();
 
-        if (player.getProgram().size() == 5 && firstRound) {
+        if (player.getProgram().size() == 5) {
             doCards();
         }
 
         // HOLE AND FLAG CELL:
-        TiledMapTileLayer.Cell hole = mapHandler.getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.HOLES);
-        TiledMapTileLayer.Cell flag = mapHandler.getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.FLAGS);
+        TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.HOLES);
+        TiledMapTileLayer.Cell flag = getMapHandler().getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.FLAGS);
 
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
-            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(2));
+            getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(2));
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
-            mapHandler.setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(1));
+            getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(1));
         }
     }
 
@@ -290,18 +320,23 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         camera.unproject(temp);
         int numberOfProgramCards = player.getProgram().size();
 
-        for (Card card : player.getCardHand()) {
-            Sprite sprite = card.getSprite();
-            if (sprite.getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5
-                && !player.getProgram().contains(card) && firstRound) {
-                if (numberOfProgramCards == 0) {
-                    sprite.setPosition(0, -200);
+        if (chooseProgram) {
+            for (Card card : player.getCardHand()) {
+                Sprite sprite = card.getSprite();
+                if (sprite.getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5
+                        && !player.getProgram().contains(card) && chooseProgram) {
+                    if (numberOfProgramCards == 0) {
+                        sprite.setPosition(0, -200);
+                    }
+                    else {
+                        sprite.setPosition(numberOfProgramCards * 100, -200);
+                    }
+                    player.addToProgram(card);
+                    System.out.println("Touch on" + card.toString());
                 }
-                else {
-                    sprite.setPosition(numberOfProgramCards * 100, -200);
-                }
-                player.addToProgram(card);
-                System.out.println("Touch on" + card.toString());
+            }
+            for (Card card : player.getProgram()) {
+                player.removeFromHand(card);
             }
         }
         return false;
@@ -342,13 +377,5 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
     @Override
     public void resume() {
-    }
-
-    public MapHandler getMapHandler() {
-        return mapHandler;
-    }
-
-    public MapRenderer getMapRenderer() {
-        return mapRenderer;
     }
 }
