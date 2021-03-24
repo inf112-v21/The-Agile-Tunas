@@ -8,16 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.esotericsoftware.minlog.Log;
 import network.test.GameClient;
-import network.test.GameServer;
 
-import java.io.IOException;
 
 public class RegisterClientScreen implements Screen {
 
     private ScreenOrchestrator parent;
     private Stage stage;
+    private String hostAddress;
+    private String nameString;
 
     public RegisterClientScreen(ScreenOrchestrator screenOrchestrator) {
         this.parent = screenOrchestrator;
@@ -44,16 +43,12 @@ public class RegisterClientScreen implements Screen {
         tfAddress.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String input = tfAddress.getText();
-                System.out.println(input);
             }
         });
 
         tfName.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String input = tfName.getText();
-                System.out.println(input);
             }
         });
 
@@ -66,6 +61,18 @@ public class RegisterClientScreen implements Screen {
             }
         });
 
+        //Button for returning to the main menu
+        final TextButton joinButton = new TextButton("Join", skin, "small");
+        joinButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                hostAddress = tfAddress.getText();
+                nameString = tfName.getText();
+                GameClient client = new GameClient(hostAddress, nameString);
+
+            }
+        });
+
         table.add(host);
         table.row().pad(10,0,0,10);
         table.add(tfAddress);
@@ -73,6 +80,8 @@ public class RegisterClientScreen implements Screen {
         table.add(name);
         table.row().pad(10,0,0,10);
         table.add(tfName);
+        table.row().pad(10,0,0,10);
+        table.add(joinButton);
         table.row().pad(10,0,0,10);
         table.add(returnButton).colspan(2);
         table.row().pad(10,0,0,10);

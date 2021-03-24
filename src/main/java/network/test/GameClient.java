@@ -85,6 +85,10 @@ public class GameClient extends Listener{
                 return;
         }
    }
+    public static void main (String[] args) {
+        Log.set(Log.LEVEL_DEBUG);
+        new GameClient("localhost","Test");
+    }
 
 
 
