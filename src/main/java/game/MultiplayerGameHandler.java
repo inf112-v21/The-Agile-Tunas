@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MultiplayerGameHandler extends GameHandler {
 
     // LIST OF PLAYERS:
-    private ArrayList<Player> playerList;
+    public ArrayList<Player> playerList;
 
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
@@ -31,9 +31,6 @@ public class MultiplayerGameHandler extends GameHandler {
 
         // PLAYER CONFIG:
         playerList = new ArrayList<>();
-        initiatePlayer(1);
-        initiatePlayer(2);
-        initiatePlayer(3);
 
         doTurn();
     }
@@ -162,7 +159,7 @@ public class MultiplayerGameHandler extends GameHandler {
      * @param screenY
      * @param pointer
      * @param button
-     * @return boolean true or false (find out why!)
+     * @return boolean true or false
      */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
