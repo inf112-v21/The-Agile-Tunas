@@ -1,7 +1,7 @@
-package Screens;
+package screens;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
+import game.GameHandler;
 
 public class ScreenOrchestrator extends Game {
 

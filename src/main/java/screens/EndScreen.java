@@ -1,4 +1,4 @@
-package Screens;
+package screens;
 
 
 public class EndScreen extends AbstractScreen {
