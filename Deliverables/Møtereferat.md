@@ -123,3 +123,61 @@
 - Jacob hadde laget forslag på UML.
 - Lisa har jobbet med tester på kort klassene.
 - Debugging av kode på code with me.
+
+###Møte 08.03.2021
+####Deltakere: Olesya, Jacob, Lisa og Robin
+- Diskuterte forrige oblig, hva som vi følte gikk bra og hva som vi kunne gjort bedre.
+- Planla fremover, om noen fag krasjet med hverandre frem mot neste oblig.
+- Såg på neste oblig hva som skulle gjøres og la frem en plan.
+- Diskuterte presentasjonen som vi skal ha på onsdag.
+
+###Møte 11.03.2021
+####Deltakere: Jacob, Lisa, Olesya, Robin
+- 5 min med small talk.
+- Diskuterte presentasjonen, hva gikk bra? Hva gikk dårlig?
+- Planlegge veien fremover.
+- Oppdatert Trello board.
+- Fordele arbeidsoppgaver.
+- Lagde saksliste.
+
+###Møte 15.03.2021
+####Deltakere: Robin, Lisa, Jacob
+- Snakket om hvordan helgen hadde vært.
+- Gikk gjennom sakslisten.
+- Code with me.
+- Robin fortsatte på skjermer klassene og fikk det endelig til med hjelp fra Lisa og Jacob.
+- Planla oppgavene for hver av oss til neste møte.
+
+###Møte 18.03.2021
+####Tid: kl. 10:00 - 12:00
+####Deltakare: Olesya, Lisa
+- Prøvde å forstå koden til Robin (alle screens og ScreenOrchestrator).
+- Lagde UML for hvordan Screens henger sammen.
+- Skrev noe JavaDoc.
+- Refaktorering.
+
+###Møte 18.03.2021
+####Deltakere: Jacob, Olesya, Lisa, Robin
+- Gikk gjennom screens koden.
+- Code with me.
+- Fordelt arbeidsoppgaver til neste gang.
+- Kurant møte (:
+
+###Møte 22.03.2021
+####Deltakere: Robin, Lisa, Jacob, Olesya
+- Snakket om helgen.
+- Diskuterte en feil som oppsto hos Jacob når han skulle kjøre spillet.
+- Oppdatert Trello board.
+- Olesya og Lisa gjorde code with me.
+- Jacob fikk fikset feilen han hadde, han ble meget glad da.
+- Jacob jobbet med multiplayer kode delen.
+- Robin jobbet med skjermer.
+
+###Møte 25.03.2021
+####Deltakere: Olesya, Jacob, Lisa
+- Oppdaterte Trello board.
+- Oppdaterte hverandre om hva som ble gjort siden sist.
+- Planla de to neste dagene mtp at Robin har blitt syk.
+- Jobbet i Code-with-me med å refaktorere og med implementering av multiplayer.
+- Gjennomførte et retrospekt og diskuterte hva vi kan gjøre bedre til neste innlevering.
+- Olesya og Lisa satt til kl 17:00. 

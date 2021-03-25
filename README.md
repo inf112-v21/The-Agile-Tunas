@@ -28,9 +28,8 @@ for programkort.
 - Bevege robot ut fra valgte kort
 
 ## Hvordan kjøre spillet:
-Følg følgende link: https://github.com/inf112-v21/The-Agile-Tunas 
 
-Når du er inne på linken, finn den nyeste releasen og last ned Source Code. Du må unzippe zip filen
+Finn den nyeste releasen og last ned Source Code. Du må unzippe zip filen
 og åpne den i en java IDE (for eksempel IntelliJ). Dette prosjektet er bygget på Maven. 
 
 Naviger til src/main/java/game/Main. Her inne velger du selv om du vil bare kjøre spillet 
