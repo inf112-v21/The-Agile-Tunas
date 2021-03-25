@@ -5,7 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.minlog.Log;
-import network.test.GameServer;
+import game.MultiplayerGameHandler;
+import network.GameClient;
+import network.GameServer;
 import java.io.IOException;
 
 public class MultiplayerScreen extends AbstractScreen {
@@ -35,7 +37,8 @@ public class MultiplayerScreen extends AbstractScreen {
                 try {
                     Log.set(Log.LEVEL_DEBUG);
                     GameServer server = new GameServer();
-                    System.out.println("Server initiated");
+                    GameClient client = new GameClient("localhost","host", stage, new MultiplayerGameHandler());
+                    parent.changeScreen(ScreenOrchestrator.ENDGAME);
 
                 } catch (IOException e) {
                     e.printStackTrace();

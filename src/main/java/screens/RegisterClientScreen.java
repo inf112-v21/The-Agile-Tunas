@@ -3,7 +3,10 @@ package screens;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import network.test.GameClient;
+import game.MultiplayerGameHandler;
+import network.GameClient;
+
+import java.io.IOException;
 
 public class RegisterClientScreen extends AbstractScreen {
 
@@ -50,7 +53,13 @@ public class RegisterClientScreen extends AbstractScreen {
             public void changed(ChangeEvent event, Actor actor) {
                 hostAddress = tfAddress.getText();
                 nameString = tfName.getText();
-                GameClient client = new GameClient(hostAddress, nameString);
+                GameClient client = null;
+                try {
+                    client = new GameClient(hostAddress, nameString, stage, new MultiplayerGameHandler());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    addToTable("Wait for host to start the server");
+                }
 
 
             }

@@ -7,7 +7,5 @@ public class EndScreen extends AbstractScreen {
 
     public EndScreen(ScreenOrchestrator screenOrchestrator) {
         super(screenOrchestrator);
-
     }
-
 }
