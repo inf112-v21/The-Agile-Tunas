@@ -33,11 +33,13 @@ Følg følgende link: https://github.com/inf112-v21/The-Agile-Tunas
 Når du er inne på linken, finn den nyeste releasen og last ned Source Code. Du må unzippe zip filen
 og åpne den i en java IDE (for eksempel IntelliJ). Dette prosjektet er bygget på Maven. 
 
-Naviger til src/main/java/inf112.skeleton.app/Main og kjør Main filen for å starte spillet.
-Man får da opp en skjerm som viser brettet samt hvilke kort du har fått utdelt. 
-Trykk på de kortene man vil ha i den rekkefølgen man vil ha de. 
+Naviger til src/main/java/game/Main. Her inne velger du selv om du vil bare kjøre spillet 
+eller å se skjermene vi har laget. Om du vil kjøre spillet kommenter ut "new Lwjgl3Application(new MultiplayerGameHandler(), cfg);"
+og kjør Main filen for å starte spillet. Man får da opp en skjerm som viser brettet samt hvilke kort du har fått utdelt.
+Trykk på de kortene man vil ha i den rekkefølgen man vil ha de. Man vinner ved å besøke flagget.
+Om du vil se skjermene til spillet kommenter ut "new Lwjgl3Application(new ScreenOrchestrator(), cfg);" og kjør Main filen.
+Man får da opp en meny skjerm der man kan velge mellom singleplayer, multiplayer, preferences, rules og exit. Singleplayer 
+og rules er ikke implementert. Om man velger multiplayer så får man opp en skjerm der en får valget om å vere host, eller
+vanlig spiller. Velger man å være en vanlig spiller vil man kunne skrive inn IP'en man vil koble seg til og nevnet man ønsker å benytte. 
 
-For å teste serveren og klienten starter man først GameServer. Man får da opp et lite vindu.
-Så kan man starte GameClient. Skriv inn adressen du vil koble til. Den legger inn localhost 
-automatisk om man ikke vil endre noe der. Så skriver man inn navnet sitt og man kan sende meldinger til
-serveren. Skriv inn Ping, og serveren vil svare deg med Pong. 
+
