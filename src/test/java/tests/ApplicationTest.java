@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package tests;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;

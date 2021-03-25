@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package tests;
 
 import card.CardType;
 import com.badlogic.gdx.math.Vector2;
