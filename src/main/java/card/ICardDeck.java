@@ -11,4 +11,6 @@ public interface ICardDeck {
     void putBack(Card card);
 
     Stack<Card> getCopy();
+
+    int size();
 }

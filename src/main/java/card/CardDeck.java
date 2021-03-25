@@ -76,4 +76,12 @@ public class CardDeck implements card.ICardDeck {
         }
         return deckCopy;
     }
+
+    /**
+     * @return the number of Cards in this CardDeck.
+     */
+    @Override
+    public int size() {
+        return this.deck.size();
+    }
 }
