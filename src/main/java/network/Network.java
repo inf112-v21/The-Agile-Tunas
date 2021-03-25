@@ -1,12 +1,14 @@
-package network.test;
+package network;
 
 
 
 import card.Card;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import player.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // This class is a convenient place to keep things common to both the client and server.
 public class Network {
@@ -19,7 +21,8 @@ public class Network {
         kryo.register(String[].class);
         kryo.register(UpdateNames.class);
         kryo.register(GameMessage.class);
-        kryo.register(CardMessage.class);
+        kryo.register(CardPacket.class);
+        kryo.register(PlayerListMessage.class);
     }
 
     static public class RegisterName {
@@ -34,7 +37,12 @@ public class Network {
         public String text;
     }
 
-    static public class CardMessage {
+    static public class PlayerListMessage {
+        HashMap<String, Player> playerList;
+    }
+
+    static public class CardPacket {
         public ArrayList<Card> cards;
     }
+
 }

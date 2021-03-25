@@ -1,43 +1,42 @@
-package network.test;
+package network;
 
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import card.CardDeck;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.esotericsoftware.minlog.Log;
-import network.test.Network.GameMessage;
-import network.test.Network.UpdateNames;
+import game.MultiplayerGameHandler;
+import network.Network.GameMessage;
+import network.Network.UpdateNames;
+import player.Direction;
+import player.Player;
+import player.Robot;
 
 public class GameServer extends Listener{
-    private final int MaxPlayers = 2;
+    private final int MaxPlayers = 4;
     public int numberOfPlayers;
+    private CardDeck deck;
+    private MultiplayerGameHandler game;
 
-    private final HashMap<Integer, String> players;
+    private final HashMap<Integer, String> names;
+    private final HashMap<String, Player> players;
     Server server;
 
-    public GameServer () throws IOException{
+    public GameServer() throws IOException{
 
+        names = new HashMap<>(MaxPlayers);
         players = new HashMap<>(MaxPlayers);
+        deck = new CardDeck();
+        game = new MultiplayerGameHandler();
         numberOfPlayers = 0;
-        server = new Server() {
-            protected Connection newConnection () {
-                // Using a custom connection
-                return new GameConnection();
-            }
-        };
+        server = new Server();
 
         // Uses a separate class for registering the client and server
         Network.register(server);
         server.addListener(this);
-
 
         try {
             server.bind(Network.port);
@@ -45,20 +44,6 @@ public class GameServer extends Listener{
             System.out.println("Binding of the server failed " + e.getMessage());
         }
         server.start();
-
-        // Open a window to provide an easy way to stop the server.
-        JFrame frame = new JFrame("Game Server");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosed (WindowEvent evt) {
-                server.stop();
-            }
-        });
-        frame.getContentPane().add(new JLabel("Close to stop the server."));
-        frame.setSize(320, 200);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
     }
 
 
@@ -92,12 +77,15 @@ public class GameServer extends Listener{
 
             case "RegisterName:":
                 System.out.println("Registered player " + message[1]);
-                players.put(numberOfPlayers,message[1]);
+                names.put(numberOfPlayers,message[1]);
                 numberOfPlayers+=1;
                 GameMessage gameMessage = new GameMessage();
                 gameMessage.text = "Welcome";
                 server.sendToAllTCP(gameMessage);
-                if (numberOfPlayers==MaxPlayers) sendToAllClients("AllReady");
+                if (numberOfPlayers==MaxPlayers) {
+                    sendToAllClients("AllReady");
+                    sendRobotsToAllClients();
+                }
                 this.startGame();
                 break;
             case "Ping":
@@ -113,6 +101,16 @@ public class GameServer extends Listener{
         GameMessage gameMessage = new GameMessage();
         gameMessage.text = message;
         server.sendToAllTCP(gameMessage);
+    }
+
+    private void sendRobotsToAllClients(){
+        for (int i = 0; i < numberOfPlayers; i++) {
+            Robot bot = new Robot(game.mapHandler.getStartingPositions().get(i), Direction.NORTH,i);
+            players.put(names.get(i),new Player(bot,i));
+        }
+        Network.PlayerListMessage message = new Network.PlayerListMessage();
+        message.playerList=players;
+        server.sendToAllTCP(message);
     }
 
     void updateNames () {
@@ -137,9 +135,9 @@ public class GameServer extends Listener{
         sendToAllClients("Start");
     }
 
-    public static void main (String[] args) throws IOException {
-        Log.set(Log.LEVEL_DEBUG);
-        new GameServer();
+    private void doTurn(){
+
     }
+
 
 }

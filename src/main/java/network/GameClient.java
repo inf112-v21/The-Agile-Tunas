@@ -1,49 +1,49 @@
-package network.test;
+package network;
 
 
 
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-
 import card.Card;
-
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import network.test.Network.RegisterName;
-import network.test.Network.GameMessage;
-import network.test.Network.UpdateNames;
-import com.esotericsoftware.minlog.Log;
+import game.MultiplayerGameHandler;
+import network.Network.GameMessage;
+import player.Player;
 
 public class GameClient extends Listener{
-    Client client;
-    String name;
-    private ArrayList<Card> deck;
+    public Client client;
+    public String name;
+    private Player player;
+    private Stage stage;
+    private MultiplayerGameHandler game;
+    private ArrayList<Card> currentHand;
 
-    public GameClient (String host, String name) {
+    public GameClient (String host, String name, Stage stage, final MultiplayerGameHandler game) throws IOException {
         client = new Client();
         client.start();
         client.addListener(this);
         Network.register(client);
         this.name = name;
+        this.stage =stage;
+        this.game = game;
 
         // We'll do the connect on a new thread so the ChatFrame can show a progress bar.
-        // Connecting to localhost is usually so fast you won't see the progress bar.
-        new Thread("Connect") {
-            public void run () {
-                try {
-                    client.connect(5000, host, Network.port);
-                    GameMessage gm = new GameMessage();
-                    gm.text = "RegisterName: " + name;
-                    if (client.isConnected()) System.out.println("Connected to server");
-                    client.sendTCP(gm);
-                    // Server communication after connection can go here, or in Listener#connected().
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }.start();
+
+        client.connect(5000, host, Network.port);
+        GameMessage gm = new GameMessage();
+        gm.text = "RegisterName: " + name;
+        client.sendTCP(gm);
+
+        Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
+        cfg.setTitle("RoboRally for player "+ name);
+        cfg.setWindowedMode(700, 900);
+
+        new Lwjgl3Application(game, cfg);
     }
 
 
@@ -66,6 +66,10 @@ public class GameClient extends Listener{
            parseMessage(connection, gameMessage);
            return;
        }
+       if (object instanceof Network.PlayerListMessage){
+           player = ((Network.PlayerListMessage) object).playerList.get(name);
+           game.playerList.addAll(((Network.PlayerListMessage) object).playerList.values());
+       }
    }
 
    private void parseMessage(Connection connection, GameMessage gameMessage){
@@ -79,17 +83,11 @@ public class GameClient extends Listener{
 
                 System.out.println("Everyone is ready");
                 break;
-            case "Pong":
+            case "Start":
+
 
             default:
                 return;
         }
    }
-    public static void main (String[] args) {
-        Log.set(Log.LEVEL_DEBUG);
-        new GameClient("localhost","Test");
-    }
-
-
-
 }

@@ -3,8 +3,10 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import network.test.GameClient;
-import network.test.GameServer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import game.MultiplayerGameHandler;
+import network.GameClient;
+import network.GameServer;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,8 +20,8 @@ public class ServerTest {
     @Test
     public void twoClientsConnectToServer() throws IOException, InterruptedException {
         GameServer server = new GameServer();
-        GameClient client1 = new GameClient("localhost","test");
-        GameClient client2 = new GameClient("localhost","test");
+        GameClient client1 = new GameClient("localhost","test", new Stage(), new MultiplayerGameHandler());
+        GameClient client2 = new GameClient("localhost","test", new Stage(), new MultiplayerGameHandler());
 
         //Wait for the server to update
         TimeUnit.SECONDS.sleep(3);
