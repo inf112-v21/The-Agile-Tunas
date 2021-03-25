@@ -1,8 +1,9 @@
-package inf112.skeleton.app;
+package game;
 
 import card.Card;
 import card.CardDeck;
 import card.CardType;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.maps.MapRenderer;
 import map.Layers;
 import map.MapHandler;
@@ -11,10 +12,6 @@ import player.Player;
 import player.Robot;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,31 +25,30 @@ import java.util.ArrayList;
 /**
  * The class that handles game logic.
  */
-public class GameHandler extends InputAdapter implements ApplicationListener {
+public class GameHandler extends Game implements InputProcessor {
     // Class Variable Initialization:
-    private SpriteBatch batch;
-    private BitmapFont font;
+    SpriteBatch batch;
+    BitmapFont font;
 
     // CAMERA:
     OrthographicCamera camera;
-    private Vector3 temp;
+    Vector3 temp;
 
     // CARD SPRITE LIST:
-    private ArrayList<Sprite> cardSprites;
+    ArrayList<Sprite> cardSprites;
 
     // MAP:
-    private OrthogonalTiledMapRenderer mapRenderer;
-    private MapHandler mapHandler;
+    public OrthogonalTiledMapRenderer mapRenderer;
+    public MapHandler mapHandler;
 
     // PLAYER CONFIG:
     private Player player;
-    private Robot robot;
 
     // CARD DECK:
     public CardDeck cardDeck;
 
     // TEMPORARY:
-    private boolean chooseProgram = true;      // needed so that the game only plays for one "round".
+    public boolean chooseProgram = true;      // needed so that the game only plays for one "round".
 
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
@@ -78,16 +74,26 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
 
         // PLAYER CONFIG:
-        Vector2 playerPosition = mapHandler.getStartingPositions().get(0);
-        robot = new Robot(playerPosition, Direction.NORTH, 1);          // Instantiating a player Robot.
-        player = new Player(robot, 1);
+        //initiatePlayer(1);
 
         // Prepare for turn:
-        cardDeck = new CardDeck(); // Card deck
-        doTurn();
+        createDeck();
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
+    }
+
+    public void createDeck() {
+        this.cardDeck = new CardDeck();
+    }
+
+    /**
+     * Creates a new Player with given ID, and gives it a Robot. Also adds the Player to the list of players.
+     * @param i The Player ID.
+     */
+    public void initiatePlayer(int i) {
+        Vector2 playerPosition = mapHandler.getStartingPositions().get(i-1);
+        player = new Player(new Robot(playerPosition, Direction.NORTH, i), i);
     }
 
     /**
@@ -98,7 +104,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     }
 
     /**
-     * @return thee MapRenderer for this game.
+     * @return the MapRenderer for this game.
      */
     public MapRenderer getMapRenderer() {
         return mapRenderer;
@@ -115,13 +121,13 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int keycode) {
         // Current player coordinates:
-        int playerPosX = (int) robot.getPosition().x;
-        int playerPosY = (int) robot.getPosition().y;
+        int playerPosX = (int) player.getRobot().getPosition().x;
+        int playerPosY = (int) player.getRobot().getPosition().y;
 
         // If the left arrow key is pressed:
         if (keycode == Input.Keys.LEFT) {
             if (playerPosX > 0) {
-                robot.moveWest(1);
+                player.getRobot().moveWest(1);
                 mapHandler.setCell(playerPosX,playerPosY, Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -129,7 +135,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < mapHandler.getMapWidth()-1) {
-                robot.moveEast(1);
+                player.getRobot().moveEast(1);
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -137,7 +143,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the upwards arrow key is pressed:
         else if (keycode == Input.Keys.UP) {
             if (playerPosY < mapHandler.getMapHeight()-1) {
-                robot.moveNorth(1);
+                player.getRobot().moveNorth(1);
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -145,7 +151,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         // If the downwards arrow key is pressed:
         else if (keycode == Input.Keys.DOWN) {
             if (playerPosY > 0 ) {
-                robot.moveSouth(1);
+                player.getRobot().moveSouth(1);
                 mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
             }
             return true;
@@ -157,20 +163,26 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
      * Prepare for the only turn we have so far.
      */
     public void doTurn() {
-        if (cardSprites != null) {
-            clearCards();
-        }
         // CARD DECK:
-        cardDeck.shuffle();
+        if (getDeck().size() < 9) {
+            System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
+            this.cardDeck = new CardDeck();
+            getDeck().shuffle();
+            giveCardsToPlayer(player);
+            showCardHand();
+            chooseProgram = true;
+        }
+        getDeck().shuffle();
         giveCardsToPlayer(player);
         showCardHand();
         chooseProgram = true;
+
     }
 
     /**
      * Shows the card that have been given to player at the start of a round.
      */
-    private void showCardHand() {
+    public void showCardHand() {
         // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
         cardSprites = new ArrayList<>();
         for(int i=0; i<9; i++) {
@@ -206,23 +218,25 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     /**
      * Does the moves corresponding to the cards in Player's program.
      */
-    public void doCards() {
+    public void doCards(Player player) {
+        chooseProgram = false;
         for (Card card : player.getProgram()) {
             CardType type = card.getType();
-            getMapHandler().setCell((int)player.getRobot().getPosition().x,(int)player.getRobot().getPosition().y,Layers.PLAYER,null);
+            getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
             player.getRobot().doMove(type);
-            getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
-            System.out.println(robot.getDirection().toString());
-
+            getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
+            System.out.println(player.getRobot().getDirection().toString());
         }
-        chooseProgram = false;     // we have only one round atm, so after all moves have been made, we want to end the only turn, so that nothing turn-related can be done.
+        if (cardSprites != null) {
+            clearCards();
+        }
         doTurn();
     }
 
     /**
      * Removes the Card sprites and clears the Player's program.
      */
-    private void clearCards() {
+    public void clearCards() {
         cardSprites.clear();
         player.clearProgram();
     }
@@ -263,6 +277,16 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     }
 
     /**
+     * Sets the given player to the position given.
+     * @param player The Player to set to a position.
+     * @param x x-coordinate of the position.
+     * @param y y-coordinate of the position.
+     */
+    public void setPlayerPosition(Player player, int x, int y) {
+        getMapHandler().setCell(x, y, Layers.PLAYER, player.getCells().get(0));
+    }
+
+    /**
      * Method for rendering.
      */
     @Override
@@ -275,7 +299,15 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         getMapRenderer().render();
 
         // PLAYER:
-        getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.PLAYER, player.getCells().get(0));
+        if (player == null) {
+            initiatePlayer(1);
+            doTurn();
+        }
+        setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y);
+
+        if (player.getProgram().size() == 5) {
+            doCards(player);
+        }
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
@@ -285,21 +317,17 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
         }
         batch.end();
 
-        if (player.getProgram().size() == 5) {
-            doCards();
-        }
-
         // HOLE AND FLAG CELL:
-        TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.HOLES);
-        TiledMapTileLayer.Cell flag = getMapHandler().getCell((int) robot.getPosition().x, (int) robot.getPosition().y, Layers.FLAGS);
+        TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.HOLES);
+        TiledMapTileLayer.Cell flag = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.FLAGS);
 
         // If player is on a hole change player icon to defeat-icon.
         if (hole != null) {
-            getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(2));
+            getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y,Layers.PLAYER, player.getCells().get(2));
         }
         // If player is on a flag change player icon to victory-icon.
         if (flag != null) {
-            getMapHandler().setCell((int) robot.getPosition().x, (int) robot.getPosition().y,Layers.PLAYER, player.getCells().get(1));
+            getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y,Layers.PLAYER, player.getCells().get(1));
         }
     }
 
@@ -324,7 +352,7 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
             for (Card card : player.getCardHand()) {
                 Sprite sprite = card.getSprite();
                 if (sprite.getBoundingRectangle().contains(temp.x,temp.y) && numberOfProgramCards<5
-                        && !player.getProgram().contains(card) && chooseProgram) {
+                        && !player.getProgram().contains(card)) {
                     if (numberOfProgramCards == 0) {
                         sprite.setPosition(0, -200);
                     }
@@ -344,6 +372,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
 
     @Override
     public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean keyDown(int i) {
         return false;
     }
 
@@ -368,14 +401,11 @@ public class GameHandler extends InputAdapter implements ApplicationListener {
     }
 
     @Override
-    public void resize(int width, int height) {
-    }
+    public void resize(int width, int height) {}
 
     @Override
-    public void pause() {
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-    }
+    public void resume() {}
 }
