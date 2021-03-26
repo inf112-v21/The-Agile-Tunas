@@ -260,8 +260,14 @@ og man får dermed 9 nye kort.
 
 ### Deloppgave 3 - Produktleveranse og kodekvalitet
 Det oppdaterte klassediagrammet vårt er lagt ved i Deliverables: KlassediagramOblig3.png.
-Manuelle tester CardDeck og CardTest som ikke passerte i forrige oblig, passerer nå.
+Tester som CardDeck og CardTest som ikke passerte i forrige oblig, passerer nå. Vi gjorde en
+manuell test i MultiplayerGameHandler der vi prøvde å få flere spillere på brettet med 
+initiatePlayer metoden. Vi hadde initiatePlayer(1), initiatePlayer(2) og initiatePlayer(3)
+i create for å teste det uten server (brukte MultiplayerGameHandler som applikasjon) og det
+fungerte. Vi kunne se flere spillere på brettet.
+
 Vi har også hatt en litt skjev fordelig i commits, det er på grunn av at vi ofte bruker code with me 
 og det er vanlig at den samme personen er host. 
+
 
 
