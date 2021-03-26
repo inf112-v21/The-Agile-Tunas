@@ -206,6 +206,54 @@ Akseptansekriterier:
 Når man trykker på singleplayer knappen i meny skjermen skal man få opp singleplayer delen av spillet 
 RoboRally.
 
+#### Brukerhistorie 1 - turns / runder - GameHandler / MultiplayerGameHandler
+
+Som spiller ønsker jeg:
+
+Å få 9 første runde slik at jeg kan velge 5 av de, som vil være programmet mitt.
+
+Løsningskriterier:
+
+Lage en metode som gir kort til spiller, og en som viser kortene på skjermen. 
+(giveCardsToPlayer, showCardHand : GameHandler / MultiplayerGameHandler)
+
+Akseptansekriterier:
+
+Når man starter spillet, så starter første runde, og da skal man få 9 kort fra en kortstokk (CardDeck).
+Disse skal vises på skjermen, og kan klikkes på for å legges inn i programmet.
+
+#### Brukerhistorie 2 - turns / runder - GameHandler / MultiplayerGameHandler
+
+Som spiller ønsker jeg:
+
+at robot beveger seg etter at jeg har valgt programmet mitt, som tilsvarer de bevegelsene jeg vil at min robot skal gjøre.
+
+Løsningskriterier:
+
+Lage metode som utfører programmet.
+(doCards : GameHandler / MultiplayerGameHandler)
+
+Akseptansekriterier:
+
+Når man har valgt 5 kort, så skal robot bevege seg etter det kortene sier, i rekkefølgen man har valgt.
+
+#### Brukerhistorie 3 - turns / runder - GameHandler / MultiplayerGameHandler
+
+Som spiller ønsker jeg:
+
+at spillet går i flere runder.
+
+Løsningskriterier:
+
+Lage metode som sammen med andre metoder håndterer turn/runde-logikk (doTurn : GameHandler / MultiplayerGameHandler)
+
+Akseptansekriterier:
+
+Hver runde skal man få 9 kort (som vises på skjermen), som man kan velge til programmet, som deretter
+utføres når man har valgt de 5 programkortene. Når utførelsen av kortene er ferdig, starter en ny runde,
+og man får dermed 9 nye kort.
+
+
 ### Deloppgave 3 - Produktleveranse og kodekvalitet
 Det oppdaterte klassediagrammet vårt er lagt ved i Deliverables: KlassediagramOblig3.png.
 Manuelle tester CardDeck og CardTest som ikke passerte i forrige oblig, passerer nå.
