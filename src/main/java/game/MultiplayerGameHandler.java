@@ -18,12 +18,12 @@ import java.util.ArrayList;
  */
 public class MultiplayerGameHandler extends GameHandler {
 
-    // LIST OF PLAYERS:
+    // PLAYERS:
     public ArrayList<Player> playerList;
     public int numberOfPlayers;
 
     public MultiplayerGameHandler(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;
+        this.numberOfPlayers = numberOfPlayers;             // The number of players is given to constructor when initialising a MultiplayerGameHandler.
     }
 
     /**
@@ -32,15 +32,17 @@ public class MultiplayerGameHandler extends GameHandler {
      */
     @Override
     public void create() {
-        super.create();
+        super.create();                             // creates and initialises the variables in GameHandler.
 
         // PLAYER CONFIG:
         playerList = new ArrayList<>();
 
+        // Initiating the players in the multiplayer game. Initiates as many players as given in constructor.
         for (int i=0; i<numberOfPlayers; i++) {
             this.initiatePlayer(i+1);
         }
 
+        // Starting the first round:
         doTurn();
     }
 
@@ -50,8 +52,8 @@ public class MultiplayerGameHandler extends GameHandler {
      */
     @Override
     public void initiatePlayer(int i) {
-        Vector2 playerPosition = mapHandler.getStartingPositions().get(i-1);
-        Player player = new Player(new Robot(playerPosition, Direction.NORTH, i), i);
+        Vector2 playerPosition = mapHandler.getStartingPositions().get(i-1);            // The starting position of a player. Corresponds to Player ID.
+        Player player = new Player(new Robot(playerPosition, Direction.NORTH, i), i);   // Creates a new player
         playerList.add(player);
     }
 
