@@ -6,12 +6,6 @@ public interface IRobot {
 
     Vector2 getPosition();
 
-    int getID();
-
-    boolean hasVisitedAFlag();
-
-    void visitFlag();
-
     void moveNorth(int i);
 
     void moveSouth(int i);
@@ -21,9 +15,5 @@ public interface IRobot {
     void moveEast(int i);
 
     void changeDirection(Direction direction);
-
-    void setPowerDown();
-
-    boolean powerDownStatus();
 
 }

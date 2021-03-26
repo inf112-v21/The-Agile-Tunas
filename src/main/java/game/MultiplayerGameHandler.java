@@ -44,6 +44,7 @@ public class MultiplayerGameHandler extends GameHandler {
 
         // Starting the first round:
         doTurn();
+
     }
 
     /**

@@ -21,7 +21,6 @@ public class Network {
         kryo.register(String[].class);
         kryo.register(UpdateNames.class);
         kryo.register(GameMessage.class);
-        kryo.register(CardPacket.class);
         kryo.register(PlayerListMessage.class);
     }
 
@@ -41,8 +40,5 @@ public class Network {
         HashMap<String, Player> playerList;
     }
 
-    static public class CardPacket {
-        public ArrayList<Card> cards;
-    }
 
 }

@@ -3,8 +3,6 @@ package network;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import card.Card;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -85,11 +83,7 @@ public class GameClient extends Listener{
             case "AllReady":
                 System.out.println("Everyone is ready");
                 break;
-            case "Start":
-                
-                break;
             default:
-                return;
         }
    }
 }

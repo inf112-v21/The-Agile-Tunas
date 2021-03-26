@@ -4,7 +4,6 @@ package network;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import card.CardDeck;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;

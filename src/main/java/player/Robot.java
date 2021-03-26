@@ -5,9 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Robot implements IRobot{
     private Vector2 position;
-    private boolean flag = false;
     private Direction direction;
-    private boolean powerDown = false;
     private final int robotID;
 
     /**
@@ -32,35 +30,12 @@ public class Robot implements IRobot{
     }
 
     /**
-     * @return the robot's ID.
-     */
-    @Override
-    public int getID() {
-        return robotID;
-    }
-
-    /**
      * @return the robot's direction.
      */
     public Direction getDirection() {
         return direction;
     }
 
-    /**
-     * @return a boolean signaling if the robot has visited a flag.
-     */
-    @Override
-    public boolean hasVisitedAFlag() {
-        return flag;
-    }
-
-    /**
-     * Method to update the robot when visiting a flag.
-     */
-    @Override
-    public void visitFlag() {
-        this.flag = true;
-    }
 
     /**
      * Takes a CardType and "moves" the robot by updating the x- and y-position and the direction.
@@ -170,21 +145,6 @@ public class Robot implements IRobot{
         this.direction = dir;
     }
 
-    /**
-     * Sets the robot to power down next round.
-     */
-    @Override
-    public void setPowerDown() {
-        powerDown = true;
-    }
 
-    /**
-     * Returns true if robot is in power down, else false.
-     * @return true or false
-     */
-    @Override
-    public boolean powerDownStatus() {
-        return powerDown;
-    }
 
 }
