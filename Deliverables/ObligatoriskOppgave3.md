@@ -37,7 +37,8 @@ Den største utfordingen vi møtte denne gangen lå i en delvis misforståelse o
 Når vi har delt opp arbeidsoppgaver og ansvarsområder er et åpenbart at enkelte områder kommer til å ha en delvis overlapp.
 Denne overlappen kan skape en avhengighet mellom hva man trenger at andre har gjort før man kan iverksette en implementajson. 
 Her gikk det nok noe tid tapt i venting, som har delvis rot i at man ikke har kommunisert tydelig nok utover hvilke
-funksjonaliteter man er avhengig av.
+funksjonaliteter man er avhengig av. På den andre siden er det vanskelig å entydig definere at dette var årsaken pga.
+sykdom, men det må kunne sies å ha hatt en påvirkende faktor. Men at 
 
 #### Forbedringspunkter
 1. Kommunisere tydelig hvilke avhengingheter det eksisterer i prosjektet slik at alle vet hva de burde fokusere på. 
@@ -52,7 +53,7 @@ Gruppedynamikken er det lite å utsette på. Vi er blitt trygge på hverandre og
 enkeltets egenskaper. Vi kommuniserer godt og som nevnt over har vi en veldig lav terskel for å stille spørsmål. 
 
 Trello-board 26.03.2021:
-![img.png](ProjectBoardOblig3.png)
+![img.png](ProjectBoardOblig3.PNG)
 Link til trello-board: https://trello.com/b/9pKSo8yI/project-board
 
 ### Deloppgave 2 - Krav
@@ -64,8 +65,9 @@ Det ble laget en egen game handler for multiplayer for å kunne vise flere spill
 med tilhørende screens for å kunne ha en intuitiv måte å starte spillet på. Man kan nå sette opp en server gjennom GUI'en 
 og hva vi skal arbeide fram mot framover er ganske klart. 
 
-Da vi ikke har en fullt fungerende multiplayer kan vi ikke si at vi er forbi MVP, men vi er på god vei.
-
+Da vi ikke har en fullt fungerende multiplayer kan vi ikke si at vi er forbi MVP, men vi er på god vei. 
+Slik det fungerer nå er at man kan koble seg til en server samt se de andre spillerne. Men utover det vil man ikke kunne
+gjøre stort. 
 #### Brukerhistorier MVP 6 - Kontakt mellom en Server og flere klienter
 
 Som host ønsker jeg:

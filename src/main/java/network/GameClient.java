@@ -21,7 +21,6 @@ public class GameClient extends Listener{
     private Player player;
     private Stage stage;
     private MultiplayerGameHandler game;
-    private ArrayList<Card> currentHand;
 
     public GameClient (String host, String name, Stage stage, final MultiplayerGameHandler game) throws IOException {
         client = new Client();
@@ -53,9 +52,10 @@ public class GameClient extends Listener{
 
    }
 
+
    @Override
    public void disconnected (Connection connection) {
-
+        game.getScreen().dispose();
    }
 
    @Override
@@ -72,20 +72,22 @@ public class GameClient extends Listener{
        }
    }
 
+    /**
+     * Parse a message coming in from the server.
+     * @param gameMessage The message being sent from the server.
+     */
    private void parseMessage(Connection connection, GameMessage gameMessage){
         String[] message = gameMessage.text.split(" ");
         switch(message[0]){
 
             case "Welcome":
-
                 break;
             case "AllReady":
-
                 System.out.println("Everyone is ready");
                 break;
             case "Start":
-
-
+                
+                break;
             default:
                 return;
         }

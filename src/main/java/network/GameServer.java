@@ -18,8 +18,7 @@ import player.Robot;
 public class GameServer extends Listener{
     private final int MaxPlayers = 4;
     public int numberOfPlayers;
-    private CardDeck deck;
-    private MultiplayerGameHandler game;
+    private final MultiplayerGameHandler game;
 
     private final HashMap<Integer, String> names;
     private final HashMap<String, Player> players;
@@ -29,8 +28,7 @@ public class GameServer extends Listener{
 
         names = new HashMap<>(MaxPlayers);
         players = new HashMap<>(MaxPlayers);
-        deck = new CardDeck();
-        game = new MultiplayerGameHandler(2);
+        game = new MultiplayerGameHandler(MaxPlayers);
         numberOfPlayers = 0;
         server = new Server();
 
@@ -133,10 +131,6 @@ public class GameServer extends Listener{
     }
     public void startGame(){
         sendToAllClients("Start");
-    }
-
-    private void doTurn(){
-
     }
 
 
