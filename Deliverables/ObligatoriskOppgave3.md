@@ -210,7 +210,7 @@ RoboRally.
 
 Som spiller ønsker jeg:
 
-Å få 9 første runde slik at jeg kan velge 5 av de, som vil være programmet mitt.
+Å få 9 kort første runde slik at jeg kan velge 5 av de, som vil være programmet mitt.
 
 Løsningskriterier:
 
@@ -219,14 +219,15 @@ Lage en metode som gir kort til spiller, og en som viser kortene på skjermen.
 
 Akseptansekriterier:
 
-Når man starter spillet, så starter første runde, og da skal man få 9 kort fra en kortstokk (CardDeck).
+Når man starter spillet, så starter første runde. Da skal man få 9 kort fra en kortstokk (CardDeck).
 Disse skal vises på skjermen, og kan klikkes på for å legges inn i programmet.
 
 #### Brukerhistorie 2 - turns / runder - GameHandler / MultiplayerGameHandler
 
 Som spiller ønsker jeg:
 
-at robot beveger seg etter at jeg har valgt programmet mitt, som tilsvarer de bevegelsene jeg vil at min robot skal gjøre.
+At robot beveger seg etter at jeg har valgt programmet mitt, som tilsvarer de bevegelsene
+jeg vil at min robot skal gjøre.
 
 Løsningskriterier:
 
@@ -235,13 +236,13 @@ Lage metode som utfører programmet.
 
 Akseptansekriterier:
 
-Når man har valgt 5 kort, så skal robot bevege seg etter det kortene sier, i rekkefølgen man har valgt.
+Når man har valgt 5 kort, skal robot bevege seg etter det kortene sier, i rekkefølgen man har valgt.
 
 #### Brukerhistorie 3 - turns / runder - GameHandler / MultiplayerGameHandler
 
 Som spiller ønsker jeg:
 
-at spillet går i flere runder.
+At spillet går i flere runder.
 
 Løsningskriterier:
 
