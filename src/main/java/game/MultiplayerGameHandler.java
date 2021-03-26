@@ -20,6 +20,11 @@ public class MultiplayerGameHandler extends GameHandler {
 
     // LIST OF PLAYERS:
     public ArrayList<Player> playerList;
+    public int numberOfPlayers;
+
+    public MultiplayerGameHandler(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
 
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
@@ -31,6 +36,10 @@ public class MultiplayerGameHandler extends GameHandler {
 
         // PLAYER CONFIG:
         playerList = new ArrayList<>();
+
+        for (int i=0; i<numberOfPlayers; i++) {
+            this.initiatePlayer(i+1);
+        }
 
         doTurn();
     }

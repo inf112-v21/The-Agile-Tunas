@@ -30,7 +30,7 @@ public class GameServer extends Listener{
         names = new HashMap<>(MaxPlayers);
         players = new HashMap<>(MaxPlayers);
         deck = new CardDeck();
-        game = new MultiplayerGameHandler();
+        game = new MultiplayerGameHandler(2);
         numberOfPlayers = 0;
         server = new Server();
 

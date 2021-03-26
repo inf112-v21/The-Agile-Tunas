@@ -37,7 +37,7 @@ public class MultiplayerScreen extends AbstractScreen {
                 try {
                     Log.set(Log.LEVEL_DEBUG);
                     GameServer server = new GameServer();
-                    GameClient client = new GameClient("localhost","host", stage, new MultiplayerGameHandler());
+                    GameClient client = new GameClient("localhost","host", stage, new MultiplayerGameHandler(2));
                     parent.changeScreen(ScreenOrchestrator.ENDGAME);
 
                 } catch (IOException e) {

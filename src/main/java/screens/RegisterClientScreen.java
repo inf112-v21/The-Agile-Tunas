@@ -55,7 +55,7 @@ public class RegisterClientScreen extends AbstractScreen {
                 nameString = tfName.getText();
                 GameClient client = null;
                 try {
-                    client = new GameClient(hostAddress, nameString, stage, new MultiplayerGameHandler());
+                    client = new GameClient(hostAddress, nameString, stage, new MultiplayerGameHandler(2));
                 } catch (IOException e) {
                     e.printStackTrace();
                     addToTable("Wait for host to start the server");

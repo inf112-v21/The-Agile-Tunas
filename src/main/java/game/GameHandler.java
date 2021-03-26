@@ -73,9 +73,6 @@ public class GameHandler extends Game implements InputProcessor {
         // RENDERER:
         mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
 
-        // PLAYER CONFIG:
-        //initiatePlayer(1);
-
         // Prepare for turn:
         createDeck();
 

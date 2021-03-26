@@ -35,12 +35,12 @@ public class ServerTest extends ApplicationTest{
             }
 
             try {
-                GameClient client1 = new GameClient("localhost","test", new Stage(), new MultiplayerGameHandler());
+                GameClient client1 = new GameClient("localhost","test", new Stage(), new MultiplayerGameHandler(2));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                GameClient client2 = new GameClient("localhost","test", new Stage(), new MultiplayerGameHandler());
+                GameClient client2 = new GameClient("localhost","test", new Stage(), new MultiplayerGameHandler(2));
             } catch (IOException e) {
                 e.printStackTrace();
             }
