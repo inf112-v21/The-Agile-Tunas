@@ -108,7 +108,7 @@ effektiv arbeidsmetodikk for samtlige.
 Her fikk vi en liten skeivfordeling med tanke på commits, dette har med at Robin sin
 multiplayerdel ikke fungerte og han pushet ikke disse små endringene sine. Til slutt så fant laget
 ut at Jacob sin del var best. Robin gjorde også mer administrative oppgaver som å skrive ned brukerhistorier 
-og slikt. Robin hadde også en hendelse som sjedde i sin familie som gjorde at han ikke fikk jobbet
+og slikt. Robin hadde også en hendelse som skjedde i sin familie som gjorde at han ikke fikk jobbet
 med så mye skole i innleveringsuken. De andre på laget viste stor forståelse og tok på seg mer arbeid
 og ansvar slik at den obligatoriske oppgaven gikk så bra som den gjorde.
 

@@ -61,15 +61,7 @@ Det ble laget en egen game handler for multiplayer for å kunne vise flere spill
 med tilhørende screens for å kunne ha en intuitiv måte å starte spillet på. Man kan nå sette opp en server gjennom GUI'en 
 og hva vi skal arbeide fram mot framover er ganske klart. 
 
-Da vi ikke har en fullt fungerende multiplayer kan vi ikke si at vi er forbi MVP, men vi er på god vei. 
-
-
-
-
-
-
-
-
+Da vi ikke har en fullt fungerende multiplayer kan vi ikke si at vi er forbi MVP, men vi er på god vei.
 
 #### Brukerhistorier MVP 6 - Kontakt mellom en Server og flere klienter
 
@@ -85,5 +77,139 @@ Akseptansekriterier:
 
 Serveren initieres ved å trykke på Host knappen i gui. 
 Andre brukere kan koble seg til serveren.
+
+#### Brukerhistorier Screen - MenuScreen
+
+Som spiller ønsker jeg:
+
+Å kunne se en meny skjerm når programmet starter.
+Meny skjermen skal inneholde knapper til single- og multiplayer, preferences, rules og exit program.
+
+Løsningskriterier:
+
+Bruke TextButtons til å lage knappene og legge dem inn i en table.
+
+Akseptansekrav:
+
+Når programmet kjøres i main skal det første som dukker opp vere en meny skjerm 
+med alle knappene som står spesifisert i brukerhistorien.
+
+#### Brukerhistorier Screen - MenuScreen
+
+Som spiller ønsker jeg:
+
+Å trykke på de forskjellige knappene i meny skjermen. Avhengig av hva slags knapp jeg trykker på 
+skal det komme opp en ny skjerm som tilhører knappen.
+
+Løsningskriterier:
+
+Legge til en listener til knappene. Lage changescreen metode og bruke den til å endre hva skjerm som blir 
+vist etter at man har trykket på knappene i meny skjermen. 
+
+Akseptansekriterier:
+
+Når programmet kjøres og meny skjermen dukker opp, skal det vere mulig å trykke på forskjellige knapper
+og få opp en ny skjerm som tilhører de forskjellige knappene.
+
+#### Brukerhistorier Screen - EndScreen
+
+Som spiller ønsker jeg:
+
+At programmet skal bli lukket når jeg trykker på exit-knappen i meny skjermen.
+
+Løsningskriterier:
+
+Lage en EndScreen som kalles etter at man trykker på exit knappen og programmet lukkes.
+
+Akseptansekriterier:
+
+Når man trykker på exit-knappen i meny skjermen skal programmet lukke seg.
+
+#### Brukerhistorier Screen - PreferencesScreen
+
+Som spiller ønsker jeg:
+
+Å få opp en preferences skjerm etter at jeg har trykket på preference knappen i meny skjermen. 
+Der skal jeg kunne velge om jeg vil ha musikk og lyd på eller av i programmet og hvor høy de skal vere.
+
+Løsningskriterier:
+
+Lage PreferencesScreen som inneholder fire knapper på den høgre siden og beskrivelse av knappene på
+venste siden. To av knappene skal vere trykkbare og gi brukeren valget om å ha lyd og musikk på eller av. 
+De to andre knappene skal vere skyveknapper som gir brukeren valget om hvor høyt musikken og lyden i 
+programmet skal vere.
+
+Akseptansekriterier:
+
+Når man trykker på preferences knappen i meny skjermen skal preferences skjermen dukke opp med fire knapper 
+og beskrivelse av de.
+
+#### Brukerhistorier Screen - PreferencesScreen
+
+Som spiller ønsker jeg:
+
+Å returnere tilbake til meny skjermen fra preference skjermen.
+
+Løsningskriterier:
+
+Bruke TextButtons til å lage return knappen. Legge til en listener til knappen og bruke
+changescreen metoden til å endre skjermen tilbake til meny skjermen.
+
+Akseptansekriterier:
+
+Se return knappen og kunne trykke på den.
+Når man trykker på return knappen i preferences skjermen skal meny skjermen vise seg.
+
+#### Brukerhistorier Screen - RuleScreen
+
+Som spiller ønsker jeg:
+
+Å få opp en rules skjerm etter at jeg har trykket på regler knappen i meny skjermen.
+Der skal jeg få oversikt over reglene i spillet RoboRally. 
+
+Løsningskriterier:
+
+Lage en RuleScreen. Lage en ny label og skrive inn de reglene som gjelder for vår implementasjon av spillet.
+
+Akseptansekriterier:
+
+Når man trykker på rules knappen i meny skjermen skal rules skjermen dukke opp med reglene for spillet.
+
+#### Brukerhistorier Screen - RuleScreen
+
+Som spiller ønsker jeg:
+
+Å returnere tilbake til meny skjermen fra rules skjermen.
+
+Løsningskriterier:
+
+Bruke TextButtons til å lage return knappen. Legge til en listener til knappen og bruke
+changescreen metoden til å endre skjermen tilbake til meny skjermen.
+
+Akseptansekriterier:
+
+Se return knappen og kunne trykke på den.
+Når man trykker på return knappen i rules skjermen skal meny skjermen vise seg.
+
+#### Brukerhistorier Screen - MainScreen
+
+Som spiller ønsker jeg:
+
+Å starte singleplayer spillet når jeg trykker på singleplayer knappen i meny skjermen.
+
+Løsningskriterier:
+
+Lage en MainScreen som skal vise singleplayer spillet. 
+
+Akseptansekriterier:
+
+Når man trykker på singleplayer knappen i meny skjermen skal man få opp singleplayer delen av spillet 
+RoboRally.
+
+### Deloppgave 3 - Produktleveranse og kodekvalitet
+Det oppdaterte klassediagrammet vårt er lagt ved i Deliverables: KlassediagramOblig3.png.
+Manuelle tester CardDeck og CardTest som ikke passerte i forrige oblig, passerer nå.
+Vi har også hatt en litt skjev fordelig i commits, det er på grunn av at vi ofte bruker code with me 
+og det er vanlig at den samme personen er host. 
 
 
