@@ -7,5 +7,5 @@ public enum CardType {
     BACK_UP,
     ROTATE_RIGHT,
     ROTATE_LEFT,
-    U_TURN;
+    U_TURN
 }

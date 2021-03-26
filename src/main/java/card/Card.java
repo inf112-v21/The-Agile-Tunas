@@ -3,8 +3,6 @@ package card;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import com.badlogic.gdx.graphics.Texture;
-
 public class Card implements ICard {
     private final CardType type;
     private final int priority;

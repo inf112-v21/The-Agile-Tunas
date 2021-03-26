@@ -51,6 +51,9 @@ Ved denne innleveringen hadde vi størst fokus på å få en fungerende GUI og f
 Gruppedynamikken er det lite å utsette på. Vi er blitt trygge på hverandre og opparbeidet en god oversikt over den
 enkeltets egenskaper. Vi kommuniserer godt og som nevnt over har vi en veldig lav terskel for å stille spørsmål. 
 
+Trello-board 26.03.2021:
+![img.png](ProjectBoardOblig3.png)
+Link til trello-board: https://trello.com/b/9pKSo8yI/project-board
 
 ### Deloppgave 2 - Krav
 Vi har valgt å fremdeles prioritere multiplayerdelen. I tillegg til dette har vi vektlagt å få en fungerende GUI. 

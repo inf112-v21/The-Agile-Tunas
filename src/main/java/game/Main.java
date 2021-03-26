@@ -15,8 +15,6 @@ public class Main {
 
         //new Lwjgl3Application(new GameHandler(), cfg);
 
-        //new Lwjgl3Application(new RoboRally(), cfg);
-
         //new Lwjgl3Application(new MultiplayerGameHandler(), cfg);
 
         new Lwjgl3Application(new ScreenOrchestrator(), cfg);

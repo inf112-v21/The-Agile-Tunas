@@ -1,7 +1,6 @@
 package screens;
 
 import com.badlogic.gdx.Game;
-import game.GameHandler;
 
 public class ScreenOrchestrator extends Game {
 

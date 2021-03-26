@@ -9,5 +9,5 @@ public enum Layers {
     LASERS,
     FLAGS,
     GEARS,
-    START_POSITIONS;
+    START_POSITIONS
 }
