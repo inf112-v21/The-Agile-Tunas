@@ -42,6 +42,7 @@ public class MultiplayerGameHandler extends GameHandler {
             this.initiatePlayer(i+1);
         }
 
+
         // Starting the first round:
         doTurn();
 
@@ -223,6 +224,7 @@ public class MultiplayerGameHandler extends GameHandler {
             }
             return true;
         }
+
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
             if (playerPosX < getMapHandler().getMapWidth()-1) {

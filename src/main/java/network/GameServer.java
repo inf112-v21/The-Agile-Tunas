@@ -36,7 +36,7 @@ public class GameServer extends Listener{
         server.addListener(this);
 
         try {
-            server.bind(Network.port);
+            server.bind(Network.tcpPort, Network.udpPort);
         } catch (IOException e) {
             System.out.println("Binding of the server failed " + e.getMessage());
         }

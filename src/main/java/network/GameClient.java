@@ -31,7 +31,7 @@ public class GameClient extends Listener{
 
         // We'll do the connect on a new thread so the ChatFrame can show a progress bar.
 
-        client.connect(5000, host, Network.port);
+        client.connect(10000, host,Network.tcpPort, Network.udpPort);
         GameMessage gm = new GameMessage();
         gm.text = "RegisterName: " + name;
         client.sendTCP(gm);
