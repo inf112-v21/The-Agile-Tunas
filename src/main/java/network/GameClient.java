@@ -22,14 +22,14 @@ public class GameClient extends Listener{
 
     public GameClient (String host, String name, Stage stage, final MultiplayerGameHandler game) throws IOException {
         client = new Client();
+        Network.register(client);
         client.start();
         client.addListener(this);
-        Network.register(client);
+
         this.name = name;
         this.stage =stage;
         this.game = game;
 
-        // We'll do the connect on a new thread so the ChatFrame can show a progress bar.
 
         client.connect(10000, host,Network.tcpPort, Network.udpPort);
         GameMessage gm = new GameMessage();
