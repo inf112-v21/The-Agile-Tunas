@@ -357,7 +357,7 @@ public class GameHandler extends Game implements InputProcessor {
                         sprite.setPosition(numberOfProgramCards * 100, -200);
                     }
                     player.addToProgram(card);
-                    System.out.println("Touch on" + card.toString());
+                    System.out.println("Touch on: " + card.toString());
                 }
             }
             for (Card card : player.getProgram()) {

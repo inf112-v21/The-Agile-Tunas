@@ -21,7 +21,10 @@ public class MultiplayerGameHandler extends GameHandler {
     // PLAYERS:
     public ArrayList<Player> playerList;
     public int numberOfPlayers;
+    private Player player;
+    private int playerID;
 
+    //public MultiplayerGameHandler(GameServer server, int playerID, Boolean isHost) {
     public MultiplayerGameHandler(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;             // The number of players is given to constructor when initialising a MultiplayerGameHandler.
     }
@@ -191,7 +194,8 @@ public class MultiplayerGameHandler extends GameHandler {
                     else {
                         sprite.setPosition(numberOfProgramCards * 100, -200);
                     }
-                    playerList.get(0).addToProgram(card);
+                    getMyPlayer().addToProgram(card);
+
                     System.out.println("Touch on" + card.toString());
                 }
             }
@@ -202,100 +206,11 @@ public class MultiplayerGameHandler extends GameHandler {
         return false;
     }
 
-    /**
-     * Takes a keycode which corresponds to one of the four arrow keys on the keyboard.
-     * Then moves the robot accordingly by calling one the movement-methods in the Robot class,
-     * and sets the cell on the position the robot was on before moving, to null.
-     *
-     * @param keycode of arrow.
-     * @return true if a key has been pressed, else false.
-     */
-    @Override
-    public boolean keyUp(int keycode) {
-        // Current player coordinates:
-        int playerPosX = (int) playerList.get(0).getRobot().getPosition().x;
-        int playerPosY = (int) playerList.get(0).getRobot().getPosition().y;
 
-        // If the left arrow key is pressed:
-        if (keycode == Input.Keys.LEFT) {
-            if (playerPosX > 0) {
-                playerList.get(0).getRobot().moveWest(1);
-                getMapHandler().setCell(playerPosX,playerPosY, Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
-            }
-            return true;
-        }
 
-        // If the right arrow key is pressed:
-        else if (keycode == Input.Keys.RIGHT) {
-            if (playerPosX < getMapHandler().getMapWidth()-1) {
-                playerList.get(0).getRobot().moveEast(1);
-                getMapHandler().setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-            }
-            return true;
-        }
-        // If the upwards arrow key is pressed:
-        else if (keycode == Input.Keys.UP) {
-            if (playerPosY < getMapHandler().getMapHeight()-1) {
-                playerList.get(0).getRobot().moveNorth(1);
-                getMapHandler().setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-            }
-            return true;
-        }
-        // If the downwards arrow key is pressed:
-        else if (keycode == Input.Keys.DOWN) {
-            if (playerPosY > 0 ) {
-                playerList.get(0).getRobot().moveSouth(1);
-                getMapHandler().setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-            }
-            return true;
-        }
-        return false;
-    }
 
-    @Override
-    public void dispose() {
-        batch.dispose();
-        font.dispose();
 
-        for (Sprite sprite : cardSprites) {
-            sprite.getTexture().dispose();
-        }
-    }
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
 
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
-
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
 }
