@@ -40,4 +40,9 @@ public class Card implements ICard {
     public Sprite getSprite() {
         return sprite;
     }
+
+    @Override
+    public String toString() {
+        return type.toString();
+    }
 }
