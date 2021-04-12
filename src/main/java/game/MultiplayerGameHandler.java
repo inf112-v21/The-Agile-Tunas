@@ -27,6 +27,9 @@ public class MultiplayerGameHandler extends GameHandler {
     //public MultiplayerGameHandler(GameServer server, int playerID, Boolean isHost) {
     public MultiplayerGameHandler(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;             // The number of players is given to constructor when initialising a MultiplayerGameHandler.
+        //this.numberOfPlayers = server.getNumberOfPlayers;
+        //this.playerID = playerID;
+
     }
 
     /**
@@ -41,10 +44,17 @@ public class MultiplayerGameHandler extends GameHandler {
         playerList = new ArrayList<>();
 
         // Initiating the players in the multiplayer game. Initiates as many players as given in constructor.
+        /*
         for (int i=0; i<numberOfPlayers; i++) {
             this.initiatePlayer(i+1);
+        }*/
+        Vector2 playerPosition = mapHandler.getStartingPositions().get(playerID);
+        this.player = new Player(new Robot(playerPosition, Direction.NORTH, 1), 1);
+        for (int i=0; i<numberOfPlayers; i++) {
+            if (i != getMyPlayer().getID()) {
+                this.initiatePlayer(i+1);
+            }
         }
-
 
         // Starting the first round:
         doTurn();
@@ -53,13 +63,17 @@ public class MultiplayerGameHandler extends GameHandler {
 
     /**
      * Creates a new Player with given ID, and gives it a Robot. Also adds the Player to the list of players.
-     * @param i The Player ID.
+     * @param playerID The Player ID.
      */
     @Override
-    public void initiatePlayer(int i) {
-        Vector2 playerPosition = mapHandler.getStartingPositions().get(i-1);            // The starting position of a player. Corresponds to Player ID.
-        Player player = new Player(new Robot(playerPosition, Direction.NORTH, i), i);   // Creates a new player
+    public void initiatePlayer(int playerID) {
+        Vector2 playerPosition = mapHandler.getStartingPositions().get(playerID-1);                     // The starting position of a player. Corresponds to Player ID.
+        Player player = new Player(new Robot(playerPosition, Direction.NORTH, playerID), playerID);     // Creates a new player
         playerList.add(player);
+    }
+
+    public Player getPlayer(int playerID) {
+        return playerList.get(playerID);
     }
 
     /**
@@ -75,12 +89,12 @@ public class MultiplayerGameHandler extends GameHandler {
             System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
             createDeck();
             getDeck().shuffle();
-            giveCardsToPlayer(playerList.get(0));
+            giveCardsToPlayer(getMyPlayer());
             showCardHand();
             chooseProgram = true;
         }
         getDeck().shuffle();
-        giveCardsToPlayer(playerList.get(0));
+        giveCardsToPlayer(getMyPlayer());
         showCardHand();
         chooseProgram = true;
     }
@@ -93,7 +107,7 @@ public class MultiplayerGameHandler extends GameHandler {
         // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
         cardSprites = new ArrayList<>();
         for(int i=0; i<9; i++) {
-            Card card = playerList.get(0).getCardHand().get(i);
+            Card card = getMyPlayer().getCardHand().get(i);
             Sprite sprite = card.getSprite();
             cardSprites.add(i, sprite);
         }
@@ -116,7 +130,7 @@ public class MultiplayerGameHandler extends GameHandler {
     @Override
     public void clearCards() {
         cardSprites.clear();
-        playerList.get(0).clearProgram();
+        getMyPlayer().clearProgram();
     }
 
     /**
@@ -133,7 +147,7 @@ public class MultiplayerGameHandler extends GameHandler {
 
         // PLAYER:
         for (Player player : playerList) {
-            setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y);
+            setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection());
         }
 
         // DRAW CARD SPRITES ON SCREEN:
@@ -181,13 +195,13 @@ public class MultiplayerGameHandler extends GameHandler {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         temp.set(screenX,screenY,0);
         camera.unproject(temp);
-        int numberOfProgramCards = playerList.get(0).getProgram().size();
+        int numberOfProgramCards = getMyPlayer().getProgram().size();
 
         if (chooseProgram) {
-            for (Card card : playerList.get(0).getCardHand()) {
+            for (Card card : getMyPlayer().getCardHand()) {
                 Sprite sprite = card.getSprite();
                 if (sprite.getBoundingRectangle().contains(temp.x, temp.y) && numberOfProgramCards<5
-                        && !playerList.get(0).getProgram().contains(card) && chooseProgram) {
+                        && !getMyPlayer().getProgram().contains(card) && chooseProgram) {
                     if (numberOfProgramCards == 0) {
                         sprite.setPosition(0, -200);
                     }
@@ -199,8 +213,8 @@ public class MultiplayerGameHandler extends GameHandler {
                     System.out.println("Touch on" + card.toString());
                 }
             }
-            for (Card card : playerList.get(0).getProgram()) {
-                playerList.get(0).removeFromHand(card);
+            for (Card card : getMyPlayer().getProgram()) {
+                this.player.removeFromHand(card);
             }
         }
         return false;
