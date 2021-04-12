@@ -3,7 +3,10 @@ package network;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+
+import card.Card;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -21,6 +24,8 @@ public class GameServer extends Listener{
 
     private final HashMap<Integer, String> names;
     private final HashMap<String, Player> players;
+    private final HashMap<Player, ArrayList<Card>> currentPlayersCards;
+
     Server server;
 
     public GameServer() throws IOException{
@@ -30,6 +35,7 @@ public class GameServer extends Listener{
         game = new MultiplayerGameHandler(MaxPlayers);
         numberOfPlayers = 0;
         server = new Server();
+        currentPlayersCards = new HashMap<>();
 
         // Uses a separate class for registering the client and server
         Network.register(server);
@@ -64,6 +70,10 @@ public class GameServer extends Listener{
         if (object instanceof GameMessage){
             parseMessage(c,(GameMessage) object);
         }
+        else if (object instanceof Network.CardList){
+            Network.CardList cards = (Network.CardList) object;
+            currentPlayersCards.put(cards.player, cards.cards);
+        }
     }
 
     //Method for handling incoming messages
@@ -76,9 +86,10 @@ public class GameServer extends Listener{
                 System.out.println("Registered player " + message[1]);
                 names.put(numberOfPlayers,message[1]);
                 numberOfPlayers+=1;
-                GameMessage gameMessage = new GameMessage();
-                gameMessage.text = "Welcome";
-                server.sendToAllTCP(gameMessage);
+                Network.WelcomeMessage wm = new Network.WelcomeMessage();
+                wm.text = "Welcome";
+                wm.nPlayers = numberOfPlayers;
+                server.sendToAllTCP(wm);
                 if (numberOfPlayers==MaxPlayers) {
                     sendToAllClients("AllReady");
                     sendRobotsToAllClients();
@@ -133,4 +144,29 @@ public class GameServer extends Listener{
     }
 
 
+    public void doTurn(){
+        Network.GameTurnsMessage GTM = new Network.GameTurnsMessage();
+        // Do a turn for each chosen card
+        for (int i = 0; i < 5; i++) {
+            ArrayList<tuple> priority = new ArrayList<>();
+            //Sort the players based on the priority of their selected card
+            for(Player player: currentPlayersCards.keySet()){
+                int pri = currentPlayersCards.get(player).get(i).getPriority();
+                tuple t = new tuple();
+                t.player = player;
+                t.priority = pri;
+                priority.add(t);
+            }
+            priority.sort(Comparator.comparingInt(o -> o.priority));
+            //Do the turn in order of priority for each player
+            for(tuple player: priority){
+                GTM.turns.get(i).put(player.player,currentPlayersCards.get(player.player).get(i));
+            }
+        }
+        server.sendToAllTCP(GTM);
+    }
+    static class tuple{
+         Player player;
+        int priority;
+    }
 }

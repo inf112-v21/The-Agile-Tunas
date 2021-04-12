@@ -23,6 +23,9 @@ public class Network {
         kryo.register(UpdateNames.class);
         kryo.register(GameMessage.class);
         kryo.register(PlayerListMessage.class);
+        kryo.register(CardList.class);
+        kryo.register(WelcomeMessage.class);
+        kryo.register(GameTurnsMessage.class);
     }
 
     static public class RegisterName {
@@ -37,8 +40,22 @@ public class Network {
         public String text;
     }
 
+    static public class WelcomeMessage {
+        public String text;
+        public int nPlayers;
+    }
+
     static public class PlayerListMessage {
         HashMap<String, Player> playerList;
+    }
+
+    static public class CardList {
+        ArrayList<Card> cards;
+        Player player;
+    }
+
+    static public class GameTurnsMessage{
+        ArrayList<HashMap<Player,Card>> turns;
     }
 
 
