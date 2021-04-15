@@ -1,5 +1,6 @@
 package map;
 
+import card.CardType;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -137,6 +138,13 @@ public class MapHandler implements IMapHandler{
         return startingPositions;
     }
 
+    /**
+     * Checks for a wall in a given direction on a given position.
+     *
+     * @param position The position we want to check for walls on
+     * @param dir The direction we want to check for walls in
+     * @return true if there is a wall in the direction, or false if there is not a wall.
+     */
     public boolean checkForWall(Vector2 position, Direction dir) {
         TiledMapTileLayer.Cell cell = this.getCell((int) position.x, (int) position.y, Layers.WALLS);
         if (cell != null) {
@@ -161,7 +169,7 @@ public class MapHandler implements IMapHandler{
                     }
                     return false;
                 case WEST:
-                    List<Integer> westWallIDs = Arrays.asList(28, 24, 32, 38);
+                    List<Integer> westWallIDs = Arrays.asList(30, 24, 32, 38);
                     if (westWallIDs.contains(tileID)) {
                         return true;
                     }
@@ -170,15 +178,68 @@ public class MapHandler implements IMapHandler{
         }
         return false;
     }
-    /*
-    public static void main(String[] args){
-        MapHandler mh = new MapHandler();
-        for (int i = 0; i < mh.mapHeight; i++) {
-            for (int j = 0; j < mh.mapWidth; j++) {
-                int id = mh.getLayer(Layers.WALLS).getCell(i,j).getTile().getId();
-                System.out.println(id);
-            }
 
+    /**
+     * Gets the next position if one does what the given CardType corresponds to, in the given direction, from the given position.
+     *
+     * @param position The start position
+     * @param dir The direction one is facing in
+     * @param cardType The CardType which one wants to act after
+     * @return The next position
+     */
+    public Vector2 getNextPosition(Vector2 position, Direction dir, CardType cardType) {
+        switch(cardType) {
+            case MOVE_ONE:
+                switch(dir) {
+                    case NORTH: return new Vector2(position.x,position.y+1);
+                    case WEST: return new Vector2(position.x-1,position.y);
+                    case EAST: return new Vector2(position.x+1,position.y);
+                    case SOUTH: return new Vector2(position.x,position.y-1);
+                }
+            case MOVE_TWO:
+                switch(dir) {
+                    case NORTH: return new Vector2(position.x,position.y+2);
+                    case WEST: return new Vector2(position.x-2,position.y);
+                    case EAST: return new Vector2(position.x+2,position.y);
+                    case SOUTH: return new Vector2(position.x,position.y-2);
+                }
+            case MOVE_THREE:
+                switch(dir) {
+                    case NORTH: return new Vector2(position.x,position.y+3);
+                    case WEST: return new Vector2(position.x-3,position.y);
+                    case EAST: return new Vector2(position.x+3,position.y);
+                    case SOUTH: return new Vector2(position.x,position.y-3);
+                }
+            case BACK_UP:
+                switch(dir) {
+                    case NORTH: return new Vector2(position.x,position.y-1);
+                    case WEST: return new Vector2(position.x+1,position.y);
+                    case EAST: return new Vector2(position.x-1,position.y);
+                    case SOUTH: return new Vector2(position.x,position.y+1);
+                }
+            case ROTATE_LEFT:
+            case ROTATE_RIGHT:
+            case U_TURN:
+                return position;
         }
-    }*/
+        return position;
+    }
+
+    public boolean canMoveForward(Vector2 from, Direction dir) {
+        boolean currentPosHasWall = this.checkForWall(from, dir);
+
+        if (currentPosHasWall) {
+            return false;
+        }
+        else {
+            Vector2 nextPosition = getNextPosition(from, dir, CardType.MOVE_ONE);
+            boolean nextPosHasWall = this.checkForWall(nextPosition, dir.getOppositeDirection(dir));
+            if (nextPosHasWall) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }
 }

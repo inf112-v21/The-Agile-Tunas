@@ -131,42 +131,50 @@ public class GameHandler extends Game implements InputProcessor {
 
         // If the left arrow key is pressed:
         if (keycode == Input.Keys.LEFT) {
-            player.getRobot().changeDirection(Direction.WEST);
-            /*
+            //player.getRobot().changeDirection(Direction.WEST);
+
             if (playerPosX > 0) {
-                player.getRobot().moveWest(1);
-                mapHandler.setCell(playerPosX,playerPosY, Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
-            }*/
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.WEST)) {
+                    player.getRobot().moveWest(1);
+                    mapHandler.setCell(playerPosX,playerPosY, Layers.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
             return true;
         }
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
-            player.getRobot().changeDirection(Direction.EAST);
-            /*
+            //player.getRobot().changeDirection(Direction.EAST);
+
             if (playerPosX < mapHandler.getMapWidth()-1) {
-                player.getRobot().moveEast(1);
-                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-            }*/
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.EAST)) {
+                    player.getRobot().moveEast(1);
+                    mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
             return true;
         }
         // If the upwards arrow key is pressed:
         else if (keycode == Input.Keys.UP) {
-            player.getRobot().changeDirection(Direction.NORTH);
-            /*
+            //player.getRobot().changeDirection(Direction.NORTH);
+
             if (playerPosY < mapHandler.getMapHeight()-1) {
-                player.getRobot().moveNorth(1);
-                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-            }*/
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.NORTH)) {
+                    player.getRobot().moveNorth(1);
+                    mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
             return true;
         }
         // If the downwards arrow key is pressed:
         else if (keycode == Input.Keys.DOWN) {
-            player.getRobot().changeDirection(Direction.SOUTH);
-            /*
+            //player.getRobot().changeDirection(Direction.SOUTH);
+
             if (playerPosY > 0 ) {
-                player.getRobot().moveSouth(1);
-                mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-            }*/
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.SOUTH)) {
+                    player.getRobot().moveSouth(1);
+                    mapHandler.setCell(playerPosX,playerPosY,Layers.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
             return true;
         }
         return false;
@@ -233,16 +241,15 @@ public class GameHandler extends Game implements InputProcessor {
      */
     public void doCards(Player player) {
         chooseProgram = false;
+        Vector2 currentPosition = player.getRobot().getPosition();
+        Direction currentDirection = player.getRobot().getDirection();
 
         for (Card card : player.getProgram()) {
-            CardType type = card.getType();
-
-            if (possibleMove(player, type)) {  // check for Walls
-                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
-                player.getRobot().doMove(type);
-                getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
-                //System.out.println(player.getRobot().getDirection().toString());
-            }
+            //CardType type = card.getType();
+            getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+            doMove(player, card);
+            getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
+            System.out.println(player.getRobot().getDirection().toString());
         }
         if (cardSprites != null) {
             clearCards();
@@ -250,28 +257,53 @@ public class GameHandler extends Game implements InputProcessor {
         doTurn();
     }
 
-    public boolean possibleMove(Player player, CardType cardType) {
-        Vector2 currentPosition = player.getRobot().getPosition();
-        Direction currentDirection = player.getRobot().getDirection();
-        boolean hasWall = false;
+    /**
+     * Makes the given Player do a move/action, corresponding to the given Card.
+     * @param player The Player we want to move / do action for
+     * @param card The Card which the move/action corresponds to
+     */
+    public void doMove(Player player, Card card) {
+        CardType type = card.getType();
 
-        if (forwardMoves.contains(cardType)) {   // check if the card is of a type that makes robot move forward
-            hasWall = getMapHandler().checkForWall(currentPosition, currentDirection);
+        switch(type) {
+            case ROTATE_LEFT:
+            case ROTATE_RIGHT:
+            case U_TURN:
+                player.getRobot().doMove(type);
+                return;
+            case MOVE_ONE:
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), player.getRobot().getDirection())) {
+                    player.getRobot().doMove(type);
+                }
+            case MOVE_TWO:
+                for (int i=1; i>=2; i++) {
+                    if (getMapHandler().canMoveForward(player.getRobot().getPosition(), player.getRobot().getDirection())) {
+                        player.getRobot().doMove(CardType.MOVE_ONE);
+                    }
+                }
+            case MOVE_THREE:
+                for (int i=1; i>=3; i++) {
+                    if (getMapHandler().canMoveForward(player.getRobot().getPosition(), player.getRobot().getDirection())) {
+                        player.getRobot().doMove(CardType.MOVE_ONE);
+                    }
+                }
+            case BACK_UP:
+                Direction dir = player.getRobot().getDirection();
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), dir.getOppositeDirection(dir))) {
+                    player.getRobot().doMove(CardType.MOVE_ONE);
+                }
         }
-        if (cardType.equals(CardType.BACK_UP)) {    // check if the card is of a type that makes robot move backwards
-            hasWall = getMapHandler().checkForWall(currentPosition, currentDirection.getOppositeDirection(currentDirection));
-        }
-        if (!hasWall) {
-            return true;
-        }
-        else
-            return false;
     }
 
+    /**
+     * Checks is given Player is outside the map.
+     * @param player
+     * @return
+     */
     public boolean isOutsideMap(Player player) {
+        // TODO:
         return false;
     }
-
 
     /**
      * Removes the Card sprites and clears the Player's program.
