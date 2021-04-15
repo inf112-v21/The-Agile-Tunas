@@ -7,7 +7,6 @@ import player.Player;
 import player.Robot;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -57,7 +56,7 @@ public class MultiplayerGameHandler extends GameHandler {
         }
 
         // Starting the first round:
-        doTurn();
+        startRound();
 
     }
 
@@ -80,7 +79,7 @@ public class MultiplayerGameHandler extends GameHandler {
      * Prepare for the only turn we have so far.
      */
     @Override
-    public void doTurn() {
+    public void startRound() {
         if (cardSprites != null) {
             clearCards();
         }
@@ -160,7 +159,7 @@ public class MultiplayerGameHandler extends GameHandler {
 
         for (Player player : playerList) {
             if (player.getProgram().size() == 5) {
-                doCards(player);
+                doPhase();
             }
         }
 
@@ -219,12 +218,4 @@ public class MultiplayerGameHandler extends GameHandler {
         }
         return false;
     }
-
-
-
-
-
-
-
-
 }

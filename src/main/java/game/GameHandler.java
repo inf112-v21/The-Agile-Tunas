@@ -50,8 +50,12 @@ public class GameHandler extends Game implements InputProcessor {
     public CardDeck cardDeck;
     public List<CardType> forwardMoves;
 
-    // TEMPORARY:
+    // BOOLEANS:
     public boolean chooseProgram = true;      // needed so that the game only plays for one "round".
+    boolean allRobotsReady = false;
+
+    public GameState state;
+    public int phaseNum = 0;
 
     /**
      * Sets mapHandler, camera, mapRenderer, the icons for the player,
@@ -73,17 +77,26 @@ public class GameHandler extends Game implements InputProcessor {
         // MAP:
         this.mapHandler = new MapHandler("assets/riskyexchange.tmx");
 
-        // RENDERER:
-        mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
-
         // Prepare for turn:
         createDeck();
         forwardMoves = Arrays.asList(CardType.MOVE_ONE, CardType.MOVE_TWO, CardType.MOVE_THREE, CardType.BACK_UP);
 
         // INPUT:
         Gdx.input.setInputProcessor(this);
+
+        // RENDERER:
+        mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
+        Gdx.graphics.setContinuousRendering(false);
+        Gdx.graphics.requestRendering();
+
+        state = GameState.SETUP;
+
+        initiatePlayer(1);
     }
 
+    /**
+     * Initializes the CardDeck for the Game.
+     */
     public void createDeck() {
         this.cardDeck = new CardDeck();
     }
@@ -94,7 +107,8 @@ public class GameHandler extends Game implements InputProcessor {
      */
     public void initiatePlayer(int i) {
         Vector2 playerPosition = mapHandler.getStartingPositions().get(i-1);
-        player = new Player(new Robot(playerPosition, Direction.NORTH, i), i);
+        this.player = new Player(new Robot(playerPosition, Direction.NORTH, i), i);
+        setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection());
     }
 
     public Player getMyPlayer() {
@@ -131,8 +145,6 @@ public class GameHandler extends Game implements InputProcessor {
 
         // If the left arrow key is pressed:
         if (keycode == Input.Keys.LEFT) {
-            //player.getRobot().changeDirection(Direction.WEST);
-
             if (playerPosX > 0) {
                 if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.WEST)) {
                     player.getRobot().moveWest(1);
@@ -143,8 +155,6 @@ public class GameHandler extends Game implements InputProcessor {
         }
         // If the right arrow key is pressed:
         else if (keycode == Input.Keys.RIGHT) {
-            //player.getRobot().changeDirection(Direction.EAST);
-
             if (playerPosX < mapHandler.getMapWidth()-1) {
                 if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.EAST)) {
                     player.getRobot().moveEast(1);
@@ -155,8 +165,6 @@ public class GameHandler extends Game implements InputProcessor {
         }
         // If the upwards arrow key is pressed:
         else if (keycode == Input.Keys.UP) {
-            //player.getRobot().changeDirection(Direction.NORTH);
-
             if (playerPosY < mapHandler.getMapHeight()-1) {
                 if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.NORTH)) {
                     player.getRobot().moveNorth(1);
@@ -167,8 +175,6 @@ public class GameHandler extends Game implements InputProcessor {
         }
         // If the downwards arrow key is pressed:
         else if (keycode == Input.Keys.DOWN) {
-            //player.getRobot().changeDirection(Direction.SOUTH);
-
             if (playerPosY > 0 ) {
                 if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.SOUTH)) {
                     player.getRobot().moveSouth(1);
@@ -177,13 +183,67 @@ public class GameHandler extends Game implements InputProcessor {
             }
             return true;
         }
+        else if (keycode == Input.Keys.W) {
+            player.getRobot().changeDirection(Direction.NORTH);
+            return true;
+        }
+
+        else if (keycode == Input.Keys.A) {
+            player.getRobot().changeDirection(Direction.WEST);
+            return true;
+        }
+
+        else if (keycode == Input.Keys.S) {
+            player.getRobot().changeDirection(Direction.SOUTH);
+            return true;
+        }
+
+        else if (keycode == Input.Keys.D) {
+            player.getRobot().changeDirection(Direction.EAST);
+            return true;
+        }
+
         return false;
     }
 
+    public void gameLogic() {
+        switch(state) {
+            case SETUP:
+                startRound();
+                break;
+            case PROGRAMMING:
+                chooseProgram = true;
+                if (player.getProgram().size() == 5) {
+                    chooseProgram = false;
+                    allRobotsReady = true;
+
+                    if (allRobotsReady) {
+                        this.state = GameState.PHASES;
+                    }
+                }
+                phaseNum = 1;
+                break;
+            case PHASES:
+                chooseProgram = false;
+                while (phaseNum <= 5) {
+                    doPhase();
+                }
+                endPhases();
+                this.state = GameState.SETUP;
+                break;
+        }
+    }
+
+    private void doLasers() {
+    }
+
+    private void doConveyerBelts() {
+    }
+
     /**
-     * Prepare for the only turn we have so far.
+     *
      */
-    public void doTurn() {
+    public void startRound() {
         // CARD DECK:
         if (getDeck().size() < 9) {
             System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
@@ -191,13 +251,17 @@ public class GameHandler extends Game implements InputProcessor {
             getDeck().shuffle();
             giveCardsToPlayer(player);
             showCardHand();
-            chooseProgram = true;
+            this.state = GameState.PROGRAMMING;
         }
         getDeck().shuffle();
         giveCardsToPlayer(player);
         showCardHand();
-        chooseProgram = true;
 
+        this.state = GameState.PROGRAMMING;
+    }
+
+    public void nextPhase() {
+        phaseNum++;
     }
 
     /**
@@ -236,62 +300,88 @@ public class GameHandler extends Game implements InputProcessor {
         return null;
     }
 
+
+
     /**
      * Does the moves corresponding to the cards in Player's program.
      */
-    public void doCards(Player player) {
-        chooseProgram = false;
-        Vector2 currentPosition = player.getRobot().getPosition();
-        Direction currentDirection = player.getRobot().getDirection();
+    public void doPhase() {
+        Player player = getMyPlayer();
+        Card programCard = player.getProgram().get(phaseNum-1);
+        doMove(player, programCard.getType());
+        doConveyerBelts();
+        doLasers();
+        nextPhase();
 
-        for (Card card : player.getProgram()) {
-            //CardType type = card.getType();
-            getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
-            doMove(player, card);
-            getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
-            System.out.println(player.getRobot().getDirection().toString());
-        }
+        Gdx.graphics.requestRendering();
+    }
+
+    private void endPhases() {
         if (cardSprites != null) {
             clearCards();
         }
-        doTurn();
     }
 
     /**
      * Makes the given Player do a move/action, corresponding to the given Card.
      * @param player The Player we want to move / do action for
-     * @param card The Card which the move/action corresponds to
+     * @param cardType The CardType which the move/action corresponds to
      */
-    public void doMove(Player player, Card card) {
-        CardType type = card.getType();
-
-        switch(type) {
+    public void doMove(Player player, CardType cardType) {
+        switch(cardType) {
             case ROTATE_LEFT:
+                player.getRobot().doMove(CardType.ROTATE_LEFT);
+                Gdx.graphics.requestRendering();
+                return;
             case ROTATE_RIGHT:
+                player.getRobot().doMove(CardType.ROTATE_RIGHT);
+                Gdx.graphics.requestRendering();
+                return;
             case U_TURN:
-                player.getRobot().doMove(type);
+                player.getRobot().doMove(CardType.U_TURN);
+                Gdx.graphics.requestRendering();
                 return;
             case MOVE_ONE:
                 if (getMapHandler().canMoveForward(player.getRobot().getPosition(), player.getRobot().getDirection())) {
-                    player.getRobot().doMove(type);
+                    getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                    player.getRobot().doMove(cardType);
+                    getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
+                    Gdx.graphics.requestRendering();
                 }
+
+                return;
             case MOVE_TWO:
-                for (int i=1; i>=2; i++) {
+                for (int i=0; i<2; i++) {
                     if (getMapHandler().canMoveForward(player.getRobot().getPosition(), player.getRobot().getDirection())) {
+                        getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
                         player.getRobot().doMove(CardType.MOVE_ONE);
+                        getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
+                        Gdx.graphics.requestRendering();
                     }
                 }
+                return;
             case MOVE_THREE:
-                for (int i=1; i>=3; i++) {
+                for (int i=0; i<3; i++) {
                     if (getMapHandler().canMoveForward(player.getRobot().getPosition(), player.getRobot().getDirection())) {
+                        getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
                         player.getRobot().doMove(CardType.MOVE_ONE);
+                        getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
+                        Gdx.graphics.requestRendering();
                     }
                 }
+                return;
             case BACK_UP:
                 Direction dir = player.getRobot().getDirection();
                 if (getMapHandler().canMoveForward(player.getRobot().getPosition(), dir.getOppositeDirection(dir))) {
-                    player.getRobot().doMove(CardType.MOVE_ONE);
+                    getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                    player.getRobot().doMove(CardType.BACK_UP);
+                    getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
+                    Gdx.graphics.requestRendering();
                 }
+                return;
+            default:
+                System.out.println("Invalid Card type.");
+                Gdx.graphics.requestRendering();
         }
     }
 
@@ -310,7 +400,7 @@ public class GameHandler extends Game implements InputProcessor {
      */
     public void clearCards() {
         cardSprites.clear();
-        player.clearProgram();
+        getMyPlayer().clearProgram();
     }
 
     /**
@@ -373,17 +463,13 @@ public class GameHandler extends Game implements InputProcessor {
         getMapRenderer().setView(camera);
         getMapRenderer().render();
 
-        // PLAYER:
         if (player == null) {
             initiatePlayer(1);
-            doTurn();
         }
+
+        gameLogic();
 
         setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection());
-
-        if (player.getProgram().size() == 5) {
-            doCards(player);
-        }
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
@@ -406,6 +492,7 @@ public class GameHandler extends Game implements InputProcessor {
         if (flag != null) {
             getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y,Layers.PLAYER, player.getCells().get(1));
         }
+        Gdx.graphics.requestRendering();
     }
 
     /**
@@ -444,6 +531,7 @@ public class GameHandler extends Game implements InputProcessor {
                 player.removeFromHand(card);
             }
         }
+        Gdx.graphics.requestRendering();
         return false;
     }
 
