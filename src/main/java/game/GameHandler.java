@@ -358,6 +358,7 @@ public class GameHandler extends Game implements InputProcessor {
         int rotation = dir.getRotation(dir);
         getMapHandler().setCell(x, y, Layers.PLAYER, player.getCells().get(0));
         getMapHandler().getCell(x, y, Layers.PLAYER).setRotation(rotation);
+        Gdx.graphics.requestRendering();
     }
 
     /**

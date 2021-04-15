@@ -18,7 +18,7 @@ import player.Player;
 import player.Robot;
 
 public class GameServer extends Listener{
-    private final int MaxPlayers = 4;
+    private final int MaxPlayers = 2;
     public int numberOfPlayers;
     private final MultiplayerGameHandler game;
 
