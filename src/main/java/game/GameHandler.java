@@ -438,8 +438,16 @@ public class GameHandler extends Game implements InputProcessor {
      * @return
      */
     public boolean isOutsideMap(Player player) {
-        // TODO: Implement checking if outside map
-        return false;
+        float xPos = player.getRobot().getPosition().x;
+        float yPos = player.getRobot().getPosition().y;
+
+        if (xPos > 11 || xPos < 0) {
+            return true;
+        }
+        else if ( yPos > 15 || yPos < 0) {
+            return true;
+        }
+        else return false;
     }
 
     /**
