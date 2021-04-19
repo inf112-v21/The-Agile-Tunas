@@ -13,9 +13,9 @@ public class Main {
         //Chose different width and height according to the new map layout
         cfg.setWindowedMode(700, 900);
 
-        new Lwjgl3Application(new GameHandler(), cfg);
+        //new Lwjgl3Application(new GameHandler(), cfg);
 
-        //new Lwjgl3Application(new MultiplayerGameHandler(2), cfg);
+        new Lwjgl3Application(new MultiplayerGameHandler(2), cfg);
 
         //new Lwjgl3Application(new ScreenOrchestrator(), cfg);
     }

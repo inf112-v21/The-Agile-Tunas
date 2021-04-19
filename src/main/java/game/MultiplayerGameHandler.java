@@ -1,15 +1,14 @@
 package game;
 
 import card.Card;
+import card.CardDeck;
 import map.Layers;
-import player.Direction;
 import player.Player;
-import player.Robot;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
+
 import java.util.ArrayList;
 
 /**
@@ -20,14 +19,13 @@ public class MultiplayerGameHandler extends GameHandler {
     // PLAYERS:
     public ArrayList<Player> playerList;
     public int numberOfPlayers;
-    private Player player;
-    private int playerID;
+    public int playerID;
 
     //public MultiplayerGameHandler(GameServer server, int playerID, Boolean isHost) {
     public MultiplayerGameHandler(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;             // The number of players is given to constructor when initialising a MultiplayerGameHandler.
         //this.numberOfPlayers = server.getNumberOfPlayers;
-        //this.playerID = playerID;
+        this.playerID = 1;
 
     }
 
@@ -41,17 +39,14 @@ public class MultiplayerGameHandler extends GameHandler {
 
         // PLAYER CONFIG:
         playerList = new ArrayList<>();
+        playerList.add(getMyPlayer());
 
         // Initiating the players in the multiplayer game. Initiates as many players as given in constructor.
-        /*
         for (int i=0; i<numberOfPlayers; i++) {
-            this.initiatePlayer(i+1);
-        }*/
-        Vector2 playerPosition = mapHandler.getStartingPositions().get(playerID);
-        this.player = new Player(new Robot(playerPosition, Direction.NORTH, 1), 1);
-        for (int i=0; i<numberOfPlayers; i++) {
-            if (i != getMyPlayer().getID()) {
-                this.initiatePlayer(i+1);
+            int id = i+1;
+            if (id != getMyPlayer().getID()) {
+                Player player = initiatePlayer(id);
+                playerList.add(player);
             }
         }
 
@@ -61,41 +56,103 @@ public class MultiplayerGameHandler extends GameHandler {
     }
 
     /**
-     * Creates a new Player with given ID, and gives it a Robot. Also adds the Player to the list of players.
-     * @param playerID The Player ID.
+     * Gets the Player with given player ID.
+     * @param playerID, The player ID of the Player.
+     * @return a Player
+     */
+    public Player getPlayer(int playerID) {
+        return playerList.get(playerID-1);
+    }
+    /**
+     * Handles the game logic.
      */
     @Override
-    public void initiatePlayer(int playerID) {
-        Vector2 playerPosition = mapHandler.getStartingPositions().get(playerID-1);                     // The starting position of a player. Corresponds to Player ID.
-        Player player = new Player(new Robot(playerPosition, Direction.NORTH, playerID), playerID);     // Creates a new player
-        playerList.add(player);
-    }
+    public void gameLogic() {
+        switch(state) {
+            case SETUP:
+                startRound();
+                break;
+            case PROGRAMMING:
+                chooseProgram = true;
+                if (getPlayer(2).getProgram().size() != 5) {
+                    System.out.println(getPlayer(2).getCardHand());
+                    for (int i=0; i<5; i++) {
+                        Card card = getPlayer(2).getCardHand().get(i);
+                        getPlayer(2).addToProgram(card);
+                        getPlayer(2).getCardHand().remove(card);
+                    }
+                    System.out.println(getPlayer(2).getProgram());
+                }
 
-    public Player getPlayer(int playerID) {
-        return playerList.get(playerID);
+                if (getMyPlayer().getProgram().size() == 5) {
+                    chooseProgram = false;
+                    allRobotsReady = true;
+
+                    if (allRobotsReady) {
+                        this.state = GameState.PHASES;
+                    }
+                }
+                phaseNum = 1;
+                break;
+            case PHASES:
+                chooseProgram = false;
+                while (phaseNum <= 5) {
+                    this.doPhase();
+                }
+                endPhases();
+                this.state = GameState.SETUP;
+                break;
+        }
     }
 
     /**
-     * Prepare for the only turn we have so far.
+     * Stars a round.
      */
     @Override
     public void startRound() {
-        if (cardSprites != null) {
-            clearCards();
-        }
         // CARD DECK:
-        if (getDeck().size() < 9) {
+        if (getDeck().size() < 18) {
             System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
-            createDeck();
+            this.cardDeck = new CardDeck();
             getDeck().shuffle();
             giveCardsToPlayer(getMyPlayer());
+            giveCardsToPlayer(getPlayer(2));
             showCardHand();
-            chooseProgram = true;
+            this.state = GameState.PROGRAMMING;
         }
         getDeck().shuffle();
         giveCardsToPlayer(getMyPlayer());
+        giveCardsToPlayer(getPlayer(2));
         showCardHand();
-        chooseProgram = true;
+
+        this.state = GameState.PROGRAMMING;
+    }
+
+    /**
+     * Does the moves corresponding to the cards in Player's program.
+     */
+    @Override
+    public void doPhase() {
+        for (Player player : playerList) {
+            if (player.getProgram().size() > 0) {
+                Card programCard = player.getProgram().get(phaseNum-1);
+                doMove(player, programCard.getType());
+            }
+        }
+        for (Player player : playerList) {
+            doConveyorBelts(player);
+        }
+        doLasers();
+        nextPhase();
+    }
+
+    /**
+     * Ends the phases.
+     */
+    public void endPhases() {
+        if (cardSprites != null) {
+            clearCards();
+        }
     }
 
     /**
@@ -129,7 +186,9 @@ public class MultiplayerGameHandler extends GameHandler {
     @Override
     public void clearCards() {
         cardSprites.clear();
-        getMyPlayer().clearProgram();
+        for (Player player : playerList) {
+            player.clearCards();
+        }
     }
 
     /**
@@ -144,10 +203,14 @@ public class MultiplayerGameHandler extends GameHandler {
         getMapRenderer().setView(camera);
         getMapRenderer().render();
 
+        this.gameLogic();
+
+
         // PLAYER:
         for (Player player : playerList) {
-            setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection());
+            setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
         }
+        //setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection());
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
@@ -157,12 +220,6 @@ public class MultiplayerGameHandler extends GameHandler {
         }
         batch.end();
 
-        for (Player player : playerList) {
-            if (player.getProgram().size() == 5) {
-                doPhase();
-            }
-        }
-
         // HOLE AND FLAG CELL:
         for (Player player : playerList) {
             TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.HOLES);
@@ -170,11 +227,11 @@ public class MultiplayerGameHandler extends GameHandler {
 
             // If player is on a hole change player icon to defeat-icon.
             if (hole != null) {
-                getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y,Layers.PLAYER, player.getCells().get(2));
+                setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection(), 2);
             }
             // If player is on a flag change player icon to victory-icon.
             if (flag != null) {
-                getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y,Layers.PLAYER, player.getCells().get(1));
+                setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection(), 1);
             }
         }
     }
@@ -182,8 +239,7 @@ public class MultiplayerGameHandler extends GameHandler {
     /**
      * touchDown registers when user clicks on the screen, and tests if one of the card sprites
      * in the players card hand have been clicked. If one has been clicked, the card is moved to
-     * the place under the map where the program cards are shown.
-     *
+     * the place under the map where the program cards are shown.*
      * @param screenX
      * @param screenY
      * @param pointer
@@ -209,11 +265,11 @@ public class MultiplayerGameHandler extends GameHandler {
                     }
                     getMyPlayer().addToProgram(card);
 
-                    System.out.println("Touch on" + card.toString());
+                    System.out.println("Touch on: " + card.toString());
                 }
             }
             for (Card card : getMyPlayer().getProgram()) {
-                this.player.removeFromHand(card);
+                getMyPlayer().removeFromHand(card);
             }
         }
         return false;

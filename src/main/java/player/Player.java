@@ -98,8 +98,9 @@ public class Player implements IPlayer {
      * Clears the player's program.
      */
     @Override
-    public void clearProgram() {
+    public void clearCards() {
         program.clear();
+        cardHand.clear();
     }
 
     /**

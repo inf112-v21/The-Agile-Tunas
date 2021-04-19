@@ -66,10 +66,10 @@ public class Robot implements IRobot{
                 }
             case BACK_UP:
                 switch(direction) {
-                    case NORTH: moveNorth(-1); return;
-                    case WEST: moveWest(-1); return;
-                    case EAST: moveEast(-1); return;
-                    case SOUTH: moveSouth(-1); return;
+                    case NORTH: moveSouth(1); return;
+                    case WEST: moveEast(1); return;
+                    case EAST: moveWest(1); return;
+                    case SOUTH: moveNorth(1); return;
                 }
             case ROTATE_LEFT:
                 switch(direction) {

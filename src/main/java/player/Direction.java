@@ -2,6 +2,9 @@ package player;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Direction {
     NORTH,
     SOUTH,
@@ -36,5 +39,11 @@ public enum Direction {
 
         }
         return dir;
+    }
+
+    public List<Direction> getAllDirections() {
+        List<Direction> directions = Arrays.asList(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+
+        return directions;
     }
 }

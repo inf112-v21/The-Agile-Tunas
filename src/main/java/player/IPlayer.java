@@ -16,7 +16,7 @@ public interface IPlayer {
 
     int getID();
 
-    void clearProgram();
+    void clearCards();
 
     ArrayList<Card> getCardHand();
 
