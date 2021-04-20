@@ -179,51 +179,60 @@ public class MapHandler implements IMapHandler{
     }
 
     public ConveyorBelt checkForConveyor(Vector2 position, Direction dir) {
-        TiledMapTileLayer.Cell cell = this.getCell((int) position.x, (int) position.y, Layers.CONVEYORS);
-        if (cell != null) {
-            int tileID = cell.getTile().getId();
-            switch(dir) {
-                case NORTH:
-                    List<Integer> northConveyorIDs = Arrays.asList(49, 57, 65, 69, 42, 43);
-                    List<Integer> northExpressConveyorIDs = Arrays.asList(13, 26, 27, 73, 77, 84);
-                    if (northConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.CONVEYOR_NORTH;
-                    }
-                    if (northExpressConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.EXPRESS_CONVEYOR_NORTH;
-                    }
-                    break;
-                case EAST:
-                    List<Integer> eastConveyorIDs = Arrays.asList(52, 41, 35, 58, 61, 66);
-                    List<Integer> eastExpressConveyorIDs = Arrays.asList(14, 25, 19, 74, 78, 81);
-                    if (eastConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.CONVEYOR_EAST;
-                    }
-                    if (eastExpressConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.EXPRESS_CONVEYOR_EAST;
-                    }
-                    break;
-                case SOUTH:
-                    List<Integer> southConveyorIDs = Arrays.asList(50, 59, 33, 36, 62, 67);
-                    List<Integer> southExpressConveyorIDs = Arrays.asList(21, 20, 17, 75, 82, 86);
-                    if (southConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.CONVEYOR_SOUTH;
-                    }
-                    if (southExpressConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.EXPRESS_CONVEYOR_SOUTH;
-                    }
-                    break;
-                case WEST:
-                    List<Integer> westConveyorIDs = Arrays.asList(51, 34, 44, 60, 68, 70);
-                    List<Integer> westExpressConveyorIDs = Arrays.asList(18, 28, 22, 76, 83, 85);
-                    if (westConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.CONVEYOR_WEST;
-                    }
-                    if (westExpressConveyorIDs.contains(tileID)) {
-                        return ConveyorBelt.EXPRESS_CONVEYOR_WEST;
-                    }
-                    break;
-            }
+        TiledMapTileLayer.Cell conveyorCell = this.getCell((int) position.x, (int) position.y, Layers.CONVEYORS);
+        TiledMapTileLayer.Cell expressConveyorCell = this.getCell((int) position.x, (int) position.y, Layers.EXPRESS_CONVEYOR);
+        if (conveyorCell != null) {
+            int tileID = conveyorCell.getTile().getId();
+            return findConveyorType(dir, tileID);
+        }
+        else if (expressConveyorCell != null) {
+            int tileID = expressConveyorCell.getTile().getId();
+            return findConveyorType(dir, tileID);
+        }
+        return null;
+    }
+    public ConveyorBelt findConveyorType(Direction dir, int tileID) {
+        switch(dir) {
+            case NORTH:
+                List<Integer> northConveyorIDs = Arrays.asList(49, 57, 65, 69, 42, 43);
+                List<Integer> northExpressConveyorIDs = Arrays.asList(13, 26, 27, 73, 77, 84);
+                if (northConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.CONVEYOR_NORTH;
+                }
+                if (northExpressConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.EXPRESS_CONVEYOR_NORTH;
+                }
+                break;
+            case EAST:
+                List<Integer> eastConveyorIDs = Arrays.asList(52, 41, 35, 58, 61, 66);
+                List<Integer> eastExpressConveyorIDs = Arrays.asList(14, 25, 19, 74, 78, 81);
+                if (eastConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.CONVEYOR_EAST;
+                }
+                if (eastExpressConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.EXPRESS_CONVEYOR_EAST;
+                }
+                break;
+            case SOUTH:
+                List<Integer> southConveyorIDs = Arrays.asList(50, 59, 33, 36, 62, 67);
+                List<Integer> southExpressConveyorIDs = Arrays.asList(21, 20, 17, 75, 82, 86);
+                if (southConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.CONVEYOR_SOUTH;
+                }
+                if (southExpressConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.EXPRESS_CONVEYOR_SOUTH;
+                }
+                break;
+            case WEST:
+                List<Integer> westConveyorIDs = Arrays.asList(51, 34, 44, 60, 68, 70);
+                List<Integer> westExpressConveyorIDs = Arrays.asList(18, 28, 22, 76, 83, 85);
+                if (westConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.CONVEYOR_WEST;
+                }
+                if (westExpressConveyorIDs.contains(tileID)) {
+                    return ConveyorBelt.EXPRESS_CONVEYOR_WEST;
+                }
+                break;
         }
         return null;
     }

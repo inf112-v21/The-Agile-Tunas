@@ -206,6 +206,11 @@ public class GameHandler extends Game implements InputProcessor {
             return true;
         }
 
+        else if (keycode == Input.Keys.C) {
+            doConveyorBelts(getMyPlayer());
+            return true;
+        }
+
         return false;
     }
 
@@ -234,6 +239,7 @@ public class GameHandler extends Game implements InputProcessor {
                 while (phaseNum <= 5) {
                     this.doPhase();
                 }
+                doConveyorBelts(getMyPlayer());
                 endPhases();
                 this.state = GameState.SETUP;
                 break;
@@ -255,11 +261,20 @@ public class GameHandler extends Game implements InputProcessor {
         Direction direction = player.getRobot().getDirection();
 
         TiledMapTileLayer.Cell conveyorCell = getMapHandler().getCell((int) position.x, (int) position.y, Layers.CONVEYORS);
+        TiledMapTileLayer.Cell expressConveyorCell = getMapHandler().getCell((int) position.x, (int) position.y, Layers.EXPRESS_CONVEYOR);
 
-        if (!conveyorCell.equals(null)){
+        if (conveyorCell != null){
             for (Direction dir : direction.getAllDirections()) {
                 ConveyorBelt conveyor = getMapHandler().checkForConveyor(position, dir);
-                if (!conveyor.equals(null)) {
+                if (conveyor != null) {
+                    moveRobot(player, conveyor);
+                }
+            }
+        }
+        if (expressConveyorCell != null) {
+            for (Direction dir : direction.getAllDirections()) {
+                ConveyorBelt conveyor = getMapHandler().checkForConveyor(position, dir);
+                if (conveyor != null) {
                     moveRobot(player, conveyor);
                 }
             }
@@ -272,16 +287,40 @@ public class GameHandler extends Game implements InputProcessor {
      * @param conveyor
      */
     private void moveRobot(Player player, ConveyorBelt conveyor) {
-        // TODO: Implement conveyor belts
+        Robot robot = player.getRobot();
         switch(conveyor) {
             case CONVEYOR_NORTH:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveNorth(1);
+                break;
             case CONVEYOR_SOUTH:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveSouth(1);
+                break;
             case CONVEYOR_EAST:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveEast(1);
+                break;
             case CONVEYOR_WEST:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveWest(1);
+                break;
             case EXPRESS_CONVEYOR_NORTH:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveNorth(2);
+                break;
             case EXPRESS_CONVEYOR_SOUTH:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveSouth(2);
+                break;
             case EXPRESS_CONVEYOR_EAST:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveEast(2);
+                break;
             case EXPRESS_CONVEYOR_WEST:
+                getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
+                robot.moveWest(2);
+                break;
         }
     }
 
@@ -351,8 +390,8 @@ public class GameHandler extends Game implements InputProcessor {
     public void doPhase() {
         Card programCard = getMyPlayer().getProgram().get(phaseNum-1);
         doMove(getMyPlayer(), programCard.getType());
-        doConveyorBelts(getMyPlayer());
-        doLasers();
+        //doConveyorBelts(getMyPlayer());
+        //doLasers();
         nextPhase();
 
         //Gdx.graphics.requestRendering();
@@ -501,6 +540,7 @@ public class GameHandler extends Game implements InputProcessor {
      */
     public void setPlayerPosition(Player player, int x, int y, Direction dir, int i) {
         int rotation = dir.getRotation(dir);
+        getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y,Layers.PLAYER,null);
         getMapHandler().setCell(x, y, Layers.PLAYER, player.getCells().get(i));
         getMapHandler().getCell(x, y, Layers.PLAYER).setRotation(rotation);
     }
