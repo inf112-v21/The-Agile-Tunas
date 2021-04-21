@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public interface IMapHandler {
 
-    TiledMapTileLayer getLayer(Layers layer);
+    TiledMapTileLayer getLayer(Layer layer);
 
-    void setCell(int x, int y, Layers layer, TiledMapTileLayer.Cell objectInCell);
+    void setCell(int x, int y, Layer layer, TiledMapTileLayer.Cell objectInCell);
 
-    TiledMapTileLayer.Cell getCell(int x, int y, Layers layer);
+    TiledMapTileLayer.Cell getCell(int x, int y, Layer layer);
 
     int getMapHeight();
 

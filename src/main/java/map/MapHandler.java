@@ -29,15 +29,15 @@ public class MapHandler implements IMapHandler{
         mapWidth = (int) tiledMap.getProperties().get("width");
 
         //Counting the number of Flags
-        for (int i = 0; i < getLayer(Layers.FLAGS).getWidth(); i++) {
-            for (int j = 0; j < getLayer(Layers.FLAGS).getHeight(); j++) {
-                if (getLayer(Layers.FLAGS).getCell(i,j)!=null){
+        for (int i = 0; i < getLayer(Layer.FLAGS).getWidth(); i++) {
+            for (int j = 0; j < getLayer(Layer.FLAGS).getHeight(); j++) {
+                if (getLayer(Layer.FLAGS).getCell(i,j)!=null){
                     NumberOfFlags +=1;
                 }
             }
         }
 
-        TiledMapTileLayer.Cell cell = this.getCell(2, 15, Layers.WALLS);
+        TiledMapTileLayer.Cell cell = this.getCell(2, 15, Layer.WALLS);
         int tileID = cell.getTile().getId();
 
         System.out.println(tileID);
@@ -49,7 +49,7 @@ public class MapHandler implements IMapHandler{
      * @param layer
      * @return a TiledMapTileLayer
      */
-    public TiledMapTileLayer getLayer(Layers layer){
+    public TiledMapTileLayer getLayer(Layer layer){
         switch(layer){
             case FLAGS:
                 return (TiledMapTileLayer) tiledMap.getLayers().get("Flags");
@@ -82,7 +82,7 @@ public class MapHandler implements IMapHandler{
      * @param layer
      * @param objectInCell
      */
-    public void setCell(int x, int y, Layers layer, TiledMapTileLayer.Cell objectInCell){
+    public void setCell(int x, int y, Layer layer, TiledMapTileLayer.Cell objectInCell){
         this.getLayer(layer).setCell(x,y,objectInCell);
     }
 
@@ -93,7 +93,7 @@ public class MapHandler implements IMapHandler{
      * @param layer
      * @return a TiledMapTileLayer.Cell
      */
-    public TiledMapTileLayer.Cell getCell(int x, int y, Layers layer){
+    public TiledMapTileLayer.Cell getCell(int x, int y, Layer layer){
         return this.getLayer(layer).getCell(x,y);
     }
 
@@ -129,7 +129,7 @@ public class MapHandler implements IMapHandler{
         ArrayList<Vector2> startingPositions = new ArrayList<>();
         for (int i = 0; i < mapWidth; i++) {
             for (int j = 0; j < mapHeight; j++) {
-                if ((getLayer(Layers.START_POSITIONS).getCell(i,j)!=null)){
+                if ((getLayer(Layer.START_POSITIONS).getCell(i,j)!=null)){
                     startingPositions.add(new Vector2(i,j));
                 }
             }
@@ -145,7 +145,7 @@ public class MapHandler implements IMapHandler{
      * @return true if there is a wall in the direction, or false if there is not a wall.
      */
     public boolean checkForWall(Vector2 position, Direction dir) {
-        TiledMapTileLayer.Cell cell = this.getCell((int) position.x, (int) position.y, Layers.WALLS);
+        TiledMapTileLayer.Cell cell = this.getCell((int) position.x, (int) position.y, Layer.WALLS);
         if (cell != null) {
             int tileID = cell.getTile().getId();
             switch(dir) {
@@ -179,8 +179,8 @@ public class MapHandler implements IMapHandler{
     }
 
     public ConveyorBelt checkForConveyor(Vector2 position, Direction dir) {
-        TiledMapTileLayer.Cell conveyorCell = this.getCell((int) position.x, (int) position.y, Layers.CONVEYORS);
-        TiledMapTileLayer.Cell expressConveyorCell = this.getCell((int) position.x, (int) position.y, Layers.EXPRESS_CONVEYOR);
+        TiledMapTileLayer.Cell conveyorCell = this.getCell((int) position.x, (int) position.y, Layer.CONVEYORS);
+        TiledMapTileLayer.Cell expressConveyorCell = this.getCell((int) position.x, (int) position.y, Layer.EXPRESS_CONVEYOR);
         if (conveyorCell != null) {
             int tileID = conveyorCell.getTile().getId();
             return findConveyorType(dir, tileID);
@@ -231,6 +231,63 @@ public class MapHandler implements IMapHandler{
                 }
                 if (westExpressConveyorIDs.contains(tileID)) {
                     return ConveyorBelt.EXPRESS_CONVEYOR_WEST;
+                }
+                break;
+        }
+        return null;
+    }
+
+    public Laser checkForLaser(Vector2 position, Direction dir) {
+
+        TiledMapTileLayer.Cell laserCell = this.getCell((int) position.x, (int) position.y, Layer.LASERS);
+
+        if (laserCell != null) {
+            int tileID = laserCell.getTile().getId();
+            return findLaserType(dir, tileID);
+        }
+        return null;
+    }
+
+    public Laser findLaserType(Direction dir, int tileID) {
+        switch(dir) {
+            case NORTH:
+                List<Integer> northSingleLaserIDs = Arrays.asList();
+                List<Integer> northDoubleLaserIDs = Arrays.asList();
+                if (northSingleLaserIDs.contains(tileID)) {
+                    return Laser.SINGLE_LASER_N;
+                }
+                if (northDoubleLaserIDs.contains(tileID)) {
+                    return Laser.DOUBLE_LASER_N;
+                }
+                break;
+            case EAST:
+                List<Integer> eastSingleLaserIDs = Arrays.asList();
+                List<Integer> eastDoubleLaserIDs = Arrays.asList();
+                if (eastSingleLaserIDs.contains(tileID)) {
+                    return Laser.SINGLE_LASER_E;
+                }
+                if (eastDoubleLaserIDs.contains(tileID)) {
+                    return Laser.DOUBLE_LASER_E;
+                }
+                break;
+            case SOUTH:
+                List<Integer> southSingleLaserIDs = Arrays.asList();
+                List<Integer> southDoubleLaserIDs = Arrays.asList();
+                if (southSingleLaserIDs.contains(tileID)) {
+                    return Laser.SINGLE_LASER_S;
+                }
+                if (southDoubleLaserIDs.contains(tileID)) {
+                    return Laser.DOUBLE_LASER_S;
+                }
+                break;
+            case WEST:
+                List<Integer> westSingleLaserIDs = Arrays.asList();
+                List<Integer> westDoubleLaserIDs = Arrays.asList();
+                if (westSingleLaserIDs.contains(tileID)) {
+                    return Laser.SINGLE_LASER_W;
+                }
+                if (westDoubleLaserIDs.contains(tileID)) {
+                    return Laser.DOUBLE_LASER_W;
                 }
                 break;
         }
