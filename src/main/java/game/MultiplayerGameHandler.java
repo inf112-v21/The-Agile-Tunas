@@ -2,7 +2,7 @@ package game;
 
 import card.Card;
 import card.CardDeck;
-import map.Layers;
+import map.Layer;
 import player.Player;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.Gdx;
@@ -141,8 +141,8 @@ public class MultiplayerGameHandler extends GameHandler {
         }
         for (Player player : playerList) {
             doConveyorBelts(player);
+            doLasers(player);
         }
-        doLasers();
         nextPhase();
     }
 
@@ -222,8 +222,8 @@ public class MultiplayerGameHandler extends GameHandler {
 
         // HOLE AND FLAG CELL:
         for (Player player : playerList) {
-            TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.HOLES);
-            TiledMapTileLayer.Cell flag = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.FLAGS);
+            TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layer.HOLES);
+            TiledMapTileLayer.Cell flag = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layer.FLAGS);
 
             // If player is on a hole change player icon to defeat-icon.
             if (hole != null) {

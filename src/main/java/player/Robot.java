@@ -7,6 +7,8 @@ public class Robot implements IRobot{
     private Vector2 position;
     private Direction direction;
     private final int robotID;
+    private final int damage;
+    private int hp;
 
     /**
      * Creates an instance of a robot.
@@ -19,6 +21,8 @@ public class Robot implements IRobot{
         this.position = start_pos;
         this.direction = direction;
         this.robotID = robotID;
+        this.damage = 10;
+        this.hp = 100;
     }
 
     /**
@@ -36,6 +40,20 @@ public class Robot implements IRobot{
         return direction;
     }
 
+    /**
+     * @return The Robot's current Health Points.
+     */
+    public int getHp() {
+        return this.hp;
+    }
+
+    /**
+     * Takes a given damage and subtracts it from the Robot's HP.
+     * @param damage The damage taken.
+     */
+    public void handleDamage(int damage) {
+        this.hp = getHp() - damage;
+    }
 
     /**
      * Takes a CardType and "moves" the robot by updating the x- and y-position and the direction.
