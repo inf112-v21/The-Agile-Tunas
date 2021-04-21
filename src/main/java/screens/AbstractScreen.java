@@ -27,7 +27,7 @@ public abstract class AbstractScreen implements Screen {
 
         table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        //table.setDebug(true); // This makes the lines around buttons vanish, the help for positioning
         stage.addActor(table);
         skin = new Skin(Gdx.files.internal("glassy/skin/glassy-ui.json"));
 
