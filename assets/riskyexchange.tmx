@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="12" height="16" tilewidth="300" tileheight="300" infinite="0" nextlayerid="11" nextobjectid="1">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="12" height="16" tilewidth="300" tileheight="300" infinite="0" nextlayerid="11" nextobjectid="1">
  <tileset firstgid="1" source="tiles.tsx"/>
  <layer id="1" name="Board" width="12" height="16">
   <data encoding="csv">
@@ -125,7 +125,7 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,39,39,39,
+0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
