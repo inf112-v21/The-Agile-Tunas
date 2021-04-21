@@ -1,6 +1,6 @@
 package map;
 
-public enum Gears {
+public enum Gear {
     GEAR_CLOCKWISÈ,
     GEAR_COUNTER_CLOCKWISE
 }

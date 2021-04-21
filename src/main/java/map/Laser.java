@@ -1,6 +1,6 @@
 package map;
 
-public enum Lasers {
+public enum Laser {
     SINGLE_LASER_N,
     SINGLE_LASER_S,
     SINGLE_LASER_E,

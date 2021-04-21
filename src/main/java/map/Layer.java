@@ -1,6 +1,6 @@
 package map;
 
-public enum Layers {
+public enum Layer {
     PLAYER,
     HOLES,
     WALLS,
