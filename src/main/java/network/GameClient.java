@@ -9,13 +9,10 @@ import java.util.HashMap;
 import card.Card;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import game.GameState;
 import game.MultiplayerGameHandler;
-import network.Network.GameMessage;
 import player.Player;
 
 public class GameClient extends Network {
@@ -24,6 +21,7 @@ public class GameClient extends Network {
     private Player player;
     private MultiplayerGameHandler game;
     private int numberOfPlayers;
+    boolean CardsAreReady;
 
     public GameClient(String host, String name, final MultiplayerGameHandler game) throws IOException {
         this.client = new Client();
@@ -33,6 +31,8 @@ public class GameClient extends Network {
         connectToServer(host);
         this.game = game;
         this.name = name;
+        CardsAreReady = false;
+
 
 
         GameMessage gm = new GameMessage();
@@ -49,7 +49,6 @@ public class GameClient extends Network {
     }
 
     private void connectToServer(String host){
-        //jacob = 89.10.163.11
         try {
             client.connect(timeout, host, tcpPort, udpPort);
         } catch (Exception e) {
@@ -93,7 +92,7 @@ public class GameClient extends Network {
             game.playerList.addAll(((Network.PlayerListMessage) object).playerList.values());
         }
         if (object instanceof Network.GameTurnsMessage) {
-
+            doTurnForAllPlayers((GameTurnsMessage) object);
         }
     }
 

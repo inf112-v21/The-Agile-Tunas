@@ -39,7 +39,8 @@ public class GameServer extends Network{
         try {
             server.bind(Network.tcpPort, Network.udpPort);
         } catch (Exception e) {
-            System.out.println("Binding of the server failed " + e.getMessage());
+            System.out.println("Binding of the server failed ");
+            e.printStackTrace();
         }
         server.start();
 
@@ -51,7 +52,6 @@ public class GameServer extends Network{
         connection.setTimeout(timeout*12);
         connection.setName("Player " + (connections.size() + 1));
         this.connections.add(connection);
-        names.put(numberOfPlayers,"player"+numberOfPlayers);
         WelcomeMessage wm = new WelcomeMessage();
         wm.nPlayers = MaxPlayers;
         wm.text = "ready";
@@ -78,11 +78,16 @@ public class GameServer extends Network{
         else if (object instanceof Network.CardList){
             Network.CardList cards = (Network.CardList) object;
             currentPlayersCards.put(cards.player, cards.cards);
+            if (currentPlayersCards.keySet().size()==numberOfPlayers){
+                doTurn();
+            }
         }
+
+
+
     }
 
     //Method for handling incoming messages
-    //You can send "Ping" from the client and you will recieve Pong if the server is connected.
     private void parseMessage(Connection connection, GameMessage gm){
         String[] message = gm.text.split(" ");
         switch(message[0]){
@@ -91,20 +96,13 @@ public class GameServer extends Network{
                 System.out.println("Registered player " + message[1]);
                 names.put(numberOfPlayers,message[1]);
                 numberOfPlayers+=1;
-                Network.WelcomeMessage wm = new Network.WelcomeMessage();
-                wm.text = "Welcome";
-                wm.nPlayers = numberOfPlayers;
-                server.sendToAllTCP(wm);
                 if (numberOfPlayers==MaxPlayers) {
                     sendToAllClients("AllReady "+numberOfPlayers);
                     sendRobotsToAllClients();
                 }
-                this.startGame();
+
                 break;
-            case "Ping":
-                GameMessage gameMessage2 = new GameMessage();
-                gameMessage2.text = "Pong";
-                server.sendToAllTCP(gameMessage2);
+
         }
 
     }
@@ -124,28 +122,6 @@ public class GameServer extends Network{
         Network.PlayerListMessage message = new Network.PlayerListMessage();
         message.playerList=players;
         server.sendToAllTCP(message);
-    }
-
-    void updateNames () {
-        // Stores the names of all clients
-        Connection[] connections = server.getConnections();
-        ArrayList<String> names = new ArrayList<>();
-        for (int i = connections.length - 1; i >= 0; i--) {
-            GameConnection connection = (GameConnection)connections[i];
-            names.add(connection.name);
-        }
-        // Send the names to everyone.
-        UpdateNames updateNames = new UpdateNames();
-        updateNames.names = names.toArray(new String[names.size()]);
-        server.sendToAllTCP(updateNames);
-    }
-
-    // This holds per connection state.
-    static class GameConnection extends Connection {
-        public String name;
-    }
-    public void startGame(){
-        sendToAllClients("Start");
     }
 
 
@@ -169,7 +145,13 @@ public class GameServer extends Network{
             }
         }
         server.sendToAllTCP(GTM);
+        clearPlayerCards();
     }
+
+    private void clearPlayerCards(){
+        currentPlayersCards.clear();
+    }
+
     static class tuple{
          Player player;
         int priority;
