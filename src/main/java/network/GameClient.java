@@ -125,7 +125,8 @@ public class GameClient extends Network {
     }
 
     public static void main(String[] args) throws IOException {
-        GameClient cl = new GameClient("89.10.163.11", "jacob", new MultiplayerGameHandler(2));
+        String host = "89.10.163.11";
+        GameClient cl = new GameClient(host, "jacob", new MultiplayerGameHandler(2));
         //GameClient cl2 = new GameClient("localhost", "local", new MultiplayerGameHandler(2));
     }
 }
