@@ -237,8 +237,16 @@ public class MapHandler implements IMapHandler{
         return null;
     }
 
-    public Laser checkForLaser(Vector2 position, Direction dir) {
+    public ArrayList<Vector2> getLaserWalls() {
+        TiledMapTileLayer wallLayer = getLayer(Layer.WALLS);
+        ArrayList<Vector2> laserWallPositions = new ArrayList<>();
+        for (int x=0; x < wallLayer.getWidth(); x++) {
+            return laserWallPositions;
+        }
+        return null;
+    }
 
+    public Laser checkForLaser(Vector2 position, Direction dir) {
         TiledMapTileLayer.Cell laserCell = this.getCell((int) position.x, (int) position.y, Layer.LASERS);
 
         if (laserCell != null) {

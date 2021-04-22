@@ -6,6 +6,7 @@ import card.CardType;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.maps.MapRenderer;
 import map.ConveyorBelt;
+
 import map.Laser;
 import map.Layer;
 import map.MapHandler;
@@ -372,22 +373,33 @@ public class GameHandler extends Game implements InputProcessor {
         Vector2 position = player.getRobot().getPosition();
         Direction direction = player.getRobot().getDirection();
 
-        placeLaserTiles();
+        fireLasers();
 
         TiledMapTileLayer.Cell laserCell = getMapHandler().getCell((int) position.x, (int) position.y, Layer.LASERS);
         if (laserCell != null){
             for (Direction dir : direction.getAllDirections()) {
                 Laser laser = getMapHandler().checkForLaser(position, dir);
                 if (laser != null) {
-
+                    player.getRobot().handleDamage(10);
+                    // Also make laser stop after hitting robot.
                 }
             }
         }
 
+        shutOffLasers();
     }
 
-    private void placeLaserTiles() {
+    /**
+     *
+     */
+    private void fireLasers() {
 
+    }
+
+    /**
+     *
+     */
+    private void shutOffLasers() {
     }
 
     /**
