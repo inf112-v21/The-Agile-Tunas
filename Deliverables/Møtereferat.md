@@ -181,3 +181,55 @@
 - Jobbet i Code-with-me med å refaktorere og med implementering av multiplayer.
 - Gjennomførte et retrospekt og diskuterte hva vi kan gjøre bedre til neste innlevering.
 - Olesya og Lisa satt til kl 17:00. 
+
+###Møtereferat 08.04.2021
+####Deltakere: Jacob, Robin, Lisa
+
+- Snakket om påsken og hvordan vi har hatt det
+- Multiplayer debugging
+- Code with me
+- Planlagt frem til mandag hva vi skal gjøre
+
+
+###Møtereferat 12.04.2021
+####Deltakere: Jacob, Robin, Olesya, Lisa
+
+- 5 min med litt småprat om helgen
+- Vi la frem prosjektet vårt, hva vi hadde gjort siden sist og veien fremover
+- Code with me
+- Fant ut hva som hastet
+- La en plan frem mot torsdag
+
+
+
+###Møtereferat 15.04.2021
+####Deltakere: Robin, Lisa, Olesya, Jacob
+#### Tid: 1400-1700
+
+- 5 min med snakk om livet og skolen
+- Snakket om hva som har blitt gjort siden sist, og problemer
+- Code with me
+
+
+###Møtereferat 19.04.2021
+####Deltakere: Robin, Jacob, Lisa
+
+- 5 min med småprat om de andre fagene og spill
+- Vi er på oppløpet!
+- Hvor er vi, hva er viktig? Hva er ikke viktig? Prioriteringer!
+- Code with me!
+
+
+###Møtereferat 22.04.2021
+####Deltakere: Jacob, Lisa, Robin
+####Olesya hadde ikke strøm
+
+- 5 min med lett snakk
+- Koding
+- Code with me, fikk opp noen problemer
+- Løste endelig multiplayer
+ - Jacob bestemte seg for hva vi skulle kutte ut og hva vi skulle ta med.
+- De siste oppgavene mot fristen
+
+
+
