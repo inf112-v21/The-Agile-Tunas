@@ -17,26 +17,24 @@ import game.MultiplayerGameHandler;
 import network.Network.GameMessage;
 import player.Player;
 
-public class GameClient extends Listener {
+public class GameClient extends Network {
     public Client client;
     public String name;
     private Player player;
-    private Stage stage;
     private MultiplayerGameHandler game;
     private int numberOfPlayers;
 
-    public GameClient(String host, String name, Stage stage, final MultiplayerGameHandler game) throws IOException {
-        client = new Client();
-        Network.register(client);
-        client.start();
-        client.addListener(this);
-
+    public GameClient(String host, String name, final MultiplayerGameHandler game) throws IOException {
+        this.client = new Client();
+        register(client);
+        this.client.start();
+        this.client.addListener(this);
+        connectToServer(host);
         this.name = name;
-        this.stage = stage;
         this.game = game;
 
 
-        client.connect(10000, host, Network.tcpPort, Network.udpPort);
+
         GameMessage gm = new GameMessage();
         gm.text = "RegisterName: " + name;
         client.sendTCP(gm);
@@ -46,6 +44,16 @@ public class GameClient extends Listener {
         cfg.setWindowedMode(700, 900);
 
         new Lwjgl3Application(game, cfg);
+    }
+
+    private void connectToServer(String host){
+        //jacob = 89.10.163.11
+        try {
+            client.connect(timeout, host, tcpPort, udpPort);
+        } catch (Exception e) {
+            System.out.println("Cannot connect to " + host);
+            e.printStackTrace();
+        }
     }
 
 
@@ -114,5 +122,11 @@ public class GameClient extends Listener {
             }
         }
 
+    }
+
+    public static void main(String[] args) throws IOException {
+        String host = "89.10.163.11";
+        GameClient cl = new GameClient(host, "jacob", new MultiplayerGameHandler(2));
+        //GameClient cl2 = new GameClient("localhost", "local", new MultiplayerGameHandler(2));
     }
 }

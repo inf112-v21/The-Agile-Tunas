@@ -2,26 +2,21 @@ package network;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 import card.Card;
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import game.MultiplayerGameHandler;
-import network.Network.GameMessage;
-import network.Network.UpdateNames;
 import player.Direction;
 import player.Player;
 import player.Robot;
 
-public class GameServer extends Listener{
+public class GameServer extends Network{
     private final int MaxPlayers = 2;
     public int numberOfPlayers;
     private final MultiplayerGameHandler game;
-
+    private final Set<Connection> connections;
     private final HashMap<Integer, String> names;
     private final HashMap<String, Player> players;
     private final HashMap<Player, ArrayList<Card>> currentPlayersCards;
@@ -29,7 +24,7 @@ public class GameServer extends Listener{
     Server server;
 
     public GameServer() throws IOException{
-
+        connections = new HashSet<>();
         names = new HashMap<>(MaxPlayers);
         players = new HashMap<>(MaxPlayers);
         game = new MultiplayerGameHandler(MaxPlayers);
@@ -43,24 +38,34 @@ public class GameServer extends Listener{
 
         try {
             server.bind(Network.tcpPort, Network.udpPort);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Binding of the server failed " + e.getMessage());
         }
         server.start();
+
+    }
+
+    @Override
+    public void connected(Connection connection) {
+        System.out.println("Trying to connect");
+        connection.setTimeout(timeout*12);
+        connection.setName("Player " + (connections.size() + 1));
+        this.connections.add(connection);
+        names.put(numberOfPlayers,"player"+numberOfPlayers);
+        WelcomeMessage wm = new WelcomeMessage();
+        wm.nPlayers = MaxPlayers;
+        wm.text = "ready";
+        for (Connection con : connections) { con.sendTCP(wm); }
+
+        System.out.println("Connected");
+
     }
 
 
 
     @Override
     public void disconnected (Connection c) {
-        GameConnection connection = (GameConnection)c;
-        if (connection.name != null) {
-            // Announce to everyone that someone left.
-            GameMessage gameMessage = new GameMessage();
-            gameMessage.text = connection.name + " disconnected.";
-            server.sendToAllTCP(gameMessage);
-            updateNames();
-        }
+        connections.remove(c);
     }
 
     @Override
@@ -168,5 +173,11 @@ public class GameServer extends Listener{
     static class tuple{
          Player player;
         int priority;
+    }
+
+    public static void main(String[] args) throws IOException {
+        GameServer serv = new GameServer();
+
+
     }
 }
