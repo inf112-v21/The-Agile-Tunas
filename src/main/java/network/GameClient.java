@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import game.GameState;
 import game.MultiplayerGameHandler;
 import network.Network.GameMessage;
 import player.Player;
@@ -30,9 +31,8 @@ public class GameClient extends Network {
         this.client.start();
         this.client.addListener(this);
         connectToServer(host);
-        this.name = name;
         this.game = game;
-
+        this.name = name;
 
 
         GameMessage gm = new GameMessage();
@@ -44,6 +44,8 @@ public class GameClient extends Network {
         cfg.setWindowedMode(700, 900);
 
         new Lwjgl3Application(game, cfg);
+
+        waitForCardSelection();
     }
 
     private void connectToServer(String host){
@@ -54,6 +56,12 @@ public class GameClient extends Network {
             System.out.println("Cannot connect to " + host);
             e.printStackTrace();
         }
+    }
+
+    private void waitForCardSelection(){
+        while (!player.programReady){
+        }
+        sendCards(player.getProgram());
     }
 
 
@@ -102,12 +110,14 @@ public class GameClient extends Network {
                 break;
             case "AllReady":
                 System.out.println("Everyone is ready");
+                numberOfPlayers = Integer.parseInt(message[1]);
+                game = new MultiplayerGameHandler(numberOfPlayers);
                 break;
             default:
         }
     }
 
-    private void sendCards(Connection connection, ArrayList<Card> cards) {
+    private void sendCards(ArrayList<Card> cards) {
         Network.CardList currentCards = new Network.CardList();
         currentCards.cards = cards;
         currentCards.player = this.player;
@@ -118,9 +128,17 @@ public class GameClient extends Network {
 
         for (HashMap<Player, Card> turn : gmt.turns) {
             for (Player player : turn.keySet()) {
-
+                game.doMove(player, turn.get(player).getType());
+            }
+            for (Player player : turn.keySet()){
+                game.doConveyorBelts(player);
+            }
+            for (Player player : turn.keySet()){
+                game.doLasers(player);
             }
         }
+        game.endPhases();
+        game.state = GameState.SETUP;
 
     }
 

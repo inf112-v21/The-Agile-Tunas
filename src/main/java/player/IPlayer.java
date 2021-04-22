@@ -18,6 +18,10 @@ public interface IPlayer {
 
     void clearCards();
 
+    void setReady();
+
+    void setNotReady();
+
     ArrayList<Card> getCardHand();
 
     void addToHand(ArrayList<Card> cards);
