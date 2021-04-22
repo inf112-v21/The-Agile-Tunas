@@ -30,12 +30,12 @@ public class RuleScreen extends AbstractScreen{
         sprite = new Sprite(texture);
         sprite.setCenterX(Gdx.graphics.getWidth() >> 1);
         sprite.setCenterY(Gdx.graphics.getHeight() >> 1);
+
         Skin skin = new Skin(Gdx.files.internal("glassy/skin/glassy-ui.json"));
 
 
         table = new Table();
         table.setFillParent(true);
-        //table.setDebug(false);
         TextButton returnToMain = new TextButton("Return", skin);
 
         table.add(returnToMain).fillX().uniformX();
@@ -50,8 +50,6 @@ public class RuleScreen extends AbstractScreen{
         });
 
     }
-
-
 
 
     @Override
