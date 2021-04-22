@@ -36,24 +36,17 @@ public class MultiplayerGameHandler extends GameHandler {
      */
     @Override
     public void create() {
-        super.create();                             // creates and initialises the variables in GameHandler.
-
-        // PLAYER CONFIG:
-        playerList = new ArrayList<>();
-        playerList.add(getMyPlayer());
+        super.setup();                             // creates and initialises the variables in GameHandler.
 
         // Initiating the players in the multiplayer game. Initiates as many players as given in constructor.
-        for (int i=0; i<numberOfPlayers; i++) {
-            int id = i+1;
-            if (id != getMyPlayer().getID()) {
-                Player player = initiatePlayer(id);
-                playerList.add(player);
-            }
+        playerList = new ArrayList<>();
+        for (int i=0; i < numberOfPlayers; i++) {
+            playerList.add(initiatePlayer(i+1));
         }
+        this.player = playerList.get(0);
 
         // Starting the first round:
-        startRound();
-
+        this.startRound();
     }
 
     /**
@@ -82,23 +75,26 @@ public class MultiplayerGameHandler extends GameHandler {
                 if (getMyPlayer().getProgram().size() == 5) {
                     chooseProgram = false;
                     getMyPlayer().setReady();
-                    //this.state = GameState.PHASES;
-
                 }
-                //phaseNum = 1;
                 break;
-            /*
-            case PHASES:
-                chooseProgram = false;
-                while (phaseNum <= 5) {
-                    this.doPhase();
-                }
-                endPhases();
-                this.state = GameState.SETUP;
-                break;
-
-             */
         }
+    }
+
+    /**
+     * Starts a round.
+     */
+    public void startRound() {
+        // CARD DECK:
+        if (getDeck().size() < 9 * playerList.size()) {
+            System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
+            this.cardDeck = new CardDeck();
+        }
+        getDeck().shuffle();
+        for (Player player : playerList) {
+            giveCardsToPlayer(player);
+        }
+        showCardHand();
+        this.state = GameState.PROGRAMMING;
     }
 
     /**
@@ -111,45 +107,6 @@ public class MultiplayerGameHandler extends GameHandler {
         }
         getMyPlayer().setNotReady();
     }
-
-
-    /**
-     * Shows the card that have been given to player at the start of a round.
-     */
-    /*
-    @Override
-    public void showCardHand() {
-        // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
-        cardSprites = new ArrayList<>();
-        for(int i=0; i<9; i++) {
-            Card card = getMyPlayer().getCardHand().get(i);
-            Sprite sprite = card.getSprite();
-            cardSprites.add(i, sprite);
-        }
-
-        // SPRITES POSITION:
-        cardSprites.get(0).setPosition(470, 450);
-        cardSprites.get(1).setPosition(570, 450);
-        cardSprites.get(2).setPosition(470, 300);
-        cardSprites.get(3).setPosition(570, 300);
-        cardSprites.get(4).setPosition(470, 150);
-        cardSprites.get(5).setPosition(570, 150);
-        cardSprites.get(6).setPosition(470, 0);
-        cardSprites.get(7).setPosition(570, 0);
-        cardSprites.get(8).setPosition(570, -150);
-    }
-    */
-
-    /**
-     * Removes the Card sprites and clears the Player's program.
-     */
-    /*@Override
-    public void clearCards() {
-        cardSprites.clear();
-        for (Player player : playerList) {
-            player.clearCards();
-        }
-    }*/
 
     /**
      * Method for rendering.
@@ -166,11 +123,10 @@ public class MultiplayerGameHandler extends GameHandler {
         this.gameLogic();
 
 
-        // PLAYER:
+        // PLAYERS:
         for (Player player : playerList) {
             setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
         }
-        //setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection());
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);

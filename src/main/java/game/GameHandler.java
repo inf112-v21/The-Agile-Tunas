@@ -46,7 +46,7 @@ public class GameHandler extends Game implements InputProcessor {
 
     // PLAYER CONFIG:
     public Player player;
-    public int numberOfPlayers = 3; // Hard-coded
+    //public int numberOfPlayers = 3; // Hard-coded
     public ArrayList<Player> playerList;
 
     // CARDS:
@@ -57,7 +57,6 @@ public class GameHandler extends Game implements InputProcessor {
     public boolean chooseProgram = true;
 
     public GameState state;
-    public ArrayList<Boolean> winCondition;
     public int phaseNum = 0;
 
     /**
@@ -66,6 +65,20 @@ public class GameHandler extends Game implements InputProcessor {
      */
     @Override
     public void create() {
+        setup();
+        //Gdx.graphics.setContinuousRendering(false);
+        //Gdx.graphics.requestRendering();
+
+        // Generating list of players:
+        playerList = new ArrayList<>();
+        for (int i=0; i < 3; i++) {
+            playerList.add(initiatePlayer(i+1));
+        }
+        this.player = playerList.get(0);
+
+    }
+
+    public void setup() {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
@@ -89,25 +102,9 @@ public class GameHandler extends Game implements InputProcessor {
 
         // RENDERER:
         mapRenderer = new OrthogonalTiledMapRenderer(mapHandler.tiledMap,(float) 1/8);
-        //Gdx.graphics.setContinuousRendering(false);
-        //Gdx.graphics.requestRendering();
 
         // GameState at the beginning:
         state = GameState.SETUP;
-
-        // Generating win condition:
-        winCondition = new ArrayList<>();
-        for (int index = 0; index < getMapHandler().getNumberOfFlags(); index++) {
-            winCondition.add(index, true);
-        }
-
-        // Generating list of players:
-        playerList = new ArrayList<>();
-        for (int i=0; i < numberOfPlayers; i++) {
-            playerList.add(initiatePlayer(i+1));
-        }
-        this.player = playerList.get(0);
-
     }
 
     /**
@@ -193,7 +190,7 @@ public class GameHandler extends Game implements InputProcessor {
      */
     public void startRound() {
         // CARD DECK:
-        if (getDeck().size() < 9 * numberOfPlayers) {
+        if (getDeck().size() < 9 * playerList.size()) {
             System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
             this.cardDeck = new CardDeck();
         }
@@ -214,6 +211,7 @@ public class GameHandler extends Game implements InputProcessor {
         for (Player player : playerPriority) {
             Card programCard = player.getProgram().get(phaseNum - 1);
             doMove(player, programCard.getType());
+            checkFlags(player);
         }
         for (Player player : playerPriority) {
             doConveyorBelts(player);
