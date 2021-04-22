@@ -12,6 +12,7 @@ public class Player implements IPlayer {
     private final int playerID;
     private ArrayList<Card> program;
     private ArrayList<Card> cardHand;
+    public boolean programReady;
 
     /**
      * Sets the instance's robot to the given Robot, the instance's name to the given String.
@@ -23,6 +24,7 @@ public class Player implements IPlayer {
         this.playerID = playerID;
         this.cardHand = new ArrayList<>();
         this.program = new ArrayList<>();
+        this.programReady = false;
     }
 
     /**
@@ -66,6 +68,14 @@ public class Player implements IPlayer {
     @Override
     public ArrayList<Card> getProgram() {
         return program;
+    }
+
+    public void setReady() {
+        this.programReady = true;
+    }
+
+    public void setNotReady() {
+        this.programReady = false;
     }
 
     /**

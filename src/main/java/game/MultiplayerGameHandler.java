@@ -22,10 +22,12 @@ public class MultiplayerGameHandler extends GameHandler {
     public int playerID;
 
     //public MultiplayerGameHandler(GameServer server, int playerID, Boolean isHost) {
+    //public MultiplayerGameHandler(int numberOfPlayers, int playerID) {
     public MultiplayerGameHandler(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;             // The number of players is given to constructor when initialising a MultiplayerGameHandler.
+        this.numberOfPlayers = numberOfPlayers;             // The number of players should be given to constructor when initialising a MultiplayerGameHandler.
         //this.numberOfPlayers = server.getNumberOfPlayers;
         this.playerID = 1;
+        //this.playedID = playerID;
 
     }
 
@@ -63,6 +65,7 @@ public class MultiplayerGameHandler extends GameHandler {
     public Player getPlayer(int playerID) {
         return playerList.get(playerID-1);
     }
+
     /**
      * Handles the game logic.
      */
@@ -73,27 +76,19 @@ public class MultiplayerGameHandler extends GameHandler {
                 startRound();
                 break;
             case PROGRAMMING:
-                chooseProgram = true;
-                if (getPlayer(2).getProgram().size() != 5) {
-                    System.out.println(getPlayer(2).getCardHand());
-                    for (int i=0; i<5; i++) {
-                        Card card = getPlayer(2).getCardHand().get(i);
-                        getPlayer(2).addToProgram(card);
-                        getPlayer(2).getCardHand().remove(card);
-                    }
-                    System.out.println(getPlayer(2).getProgram());
+                if (!getMyPlayer().programReady) {
+                    chooseProgram = true;
                 }
 
                 if (getMyPlayer().getProgram().size() == 5) {
                     chooseProgram = false;
-                    allRobotsReady = true;
+                    getMyPlayer().setReady();
+                    //this.state = GameState.PHASES;
 
-                    if (allRobotsReady) {
-                        this.state = GameState.PHASES;
-                    }
                 }
-                phaseNum = 1;
+                //phaseNum = 1;
                 break;
+            /*
             case PHASES:
                 chooseProgram = false;
                 while (phaseNum <= 5) {
@@ -102,6 +97,8 @@ public class MultiplayerGameHandler extends GameHandler {
                 endPhases();
                 this.state = GameState.SETUP;
                 break;
+
+             */
         }
     }
 
@@ -111,48 +108,30 @@ public class MultiplayerGameHandler extends GameHandler {
     @Override
     public void startRound() {
         // CARD DECK:
-        if (getDeck().size() < 18) {
+        if (getDeck().size() < 9) {
             System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
             this.cardDeck = new CardDeck();
             getDeck().shuffle();
             giveCardsToPlayer(getMyPlayer());
-            giveCardsToPlayer(getPlayer(2));
             showCardHand();
             this.state = GameState.PROGRAMMING;
         }
         getDeck().shuffle();
         giveCardsToPlayer(getMyPlayer());
-        giveCardsToPlayer(getPlayer(2));
         showCardHand();
 
         this.state = GameState.PROGRAMMING;
     }
 
     /**
-     * Does the moves corresponding to the cards in Player's program.
-     */
-    @Override
-    public void doPhase() {
-        for (Player player : playerList) {
-            if (player.getProgram().size() > 0) {
-                Card programCard = player.getProgram().get(phaseNum-1);
-                doMove(player, programCard.getType());
-            }
-        }
-        for (Player player : playerList) {
-            doConveyorBelts(player);
-            doLasers(player);
-        }
-        nextPhase();
-    }
-
-    /**
      * Ends the phases.
      */
+    @Override
     public void endPhases() {
         if (cardSprites != null) {
-            clearCards();
+            this.clearCards();
         }
+        getMyPlayer().setNotReady();
     }
 
     /**

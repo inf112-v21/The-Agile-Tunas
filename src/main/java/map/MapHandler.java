@@ -1,9 +1,12 @@
 package map;
 
 import card.CardType;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import player.Direction;
 
@@ -36,12 +39,6 @@ public class MapHandler implements IMapHandler{
                 }
             }
         }
-
-        TiledMapTileLayer.Cell cell = this.getCell(2, 15, Layer.WALLS);
-        int tileID = cell.getTile().getId();
-
-        System.out.println(tileID);
-
     }
 
     /**
@@ -237,13 +234,28 @@ public class MapHandler implements IMapHandler{
         return null;
     }
 
-    public ArrayList<Vector2> getLaserWalls() {
+    public TiledMapTileLayer.Cell getLaser() {
         TiledMapTileLayer wallLayer = getLayer(Layer.WALLS);
         ArrayList<Vector2> laserWallPositions = new ArrayList<>();
-        for (int x=0; x < wallLayer.getWidth(); x++) {
-            return laserWallPositions;
-        }
-        return null;
+
+        /*
+        for (int i = 0; i < mapWidth; i++) {
+            for (int j = 0; j < mapHeight; j++) {
+                TiledMapTileLayer.Cell cell = (getLayer(Layer.WALLS).getCell(i,j);
+                if (cell !=null) {
+                    if (cell.getTile().getId() == 46) {
+                        laserWallPositions.add(new Vector2(i,j));
+                    }
+                }
+            }
+        }*/
+
+        Texture pictureAll = new Texture("assets/tiles.png");
+        TextureRegion[][] pictureOne = new TextureRegion().split(pictureAll, 300, 300);
+        TiledMapTileLayer.Cell laser = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(pictureOne[4][6]));
+
+
+        return laser;
     }
 
     public Laser checkForLaser(Vector2 position, Direction dir) {

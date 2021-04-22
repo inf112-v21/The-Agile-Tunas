@@ -47,15 +47,16 @@ public class GameHandler extends Game implements InputProcessor {
     public MapHandler mapHandler;
 
     // PLAYER CONFIG:
-    private Player player;
+    public Player player;
+    public int numberOfPlayers = 4; // Hard-coded
+    public ArrayList<Player> playerList;
 
     // CARDS:
     public CardDeck cardDeck;
     public List<CardType> forwardMoves;
 
     // BOOLEANS:
-    public boolean chooseProgram = true;      // needed so that the game only plays for one "round".
-    boolean allRobotsReady = false;
+    public boolean chooseProgram = true;
 
     public GameState state;
     public int phaseNum = 0;
@@ -94,7 +95,12 @@ public class GameHandler extends Game implements InputProcessor {
 
         state = GameState.SETUP;
 
-        this.player = initiatePlayer(1);
+        playerList = new ArrayList<>();
+        for (int i=0; i < numberOfPlayers; i++) {
+            playerList.add(initiatePlayer(i+1));
+        }
+        this.player = playerList.get(0);
+
     }
 
     /**
@@ -228,12 +234,21 @@ public class GameHandler extends Game implements InputProcessor {
                 chooseProgram = true;
                 if (getMyPlayer().getProgram().size() == 5) {
                     chooseProgram = false;
-                    allRobotsReady = true;
-
-                    if (allRobotsReady) {
-                        this.state = GameState.PHASES;
-                    }
+                    getMyPlayer().setReady();
+                    this.state = GameState.PHASES;
                 }
+                /*
+                if (getPlayer(2).getProgram().size() != 5) {
+                    System.out.println(getPlayer(2).getCardHand());
+                    for (int i=0; i<5; i++) {
+                        Card card = getPlayer(2).getCardHand().get(i);
+                        getPlayer(2).addToProgram(card);
+                        getPlayer(2).getCardHand().remove(card);
+                    }
+                    System.out.println(getPlayer(2).getProgram());
+                }
+                 */
+
                 phaseNum = 1;
                 break;
             case PHASES:
@@ -241,7 +256,8 @@ public class GameHandler extends Game implements InputProcessor {
                 while (phaseNum <= 5) {
                     this.doPhase();
                 }
-                doConveyorBelts(getMyPlayer());
+                //doConveyorBelts(getMyPlayer());
+                //doLasers(getMyPlayer());
                 endPhases();
                 this.state = GameState.SETUP;
                 break;
@@ -274,8 +290,8 @@ public class GameHandler extends Game implements InputProcessor {
     public void doPhase() {
         Card programCard = getMyPlayer().getProgram().get(phaseNum-1);
         doMove(getMyPlayer(), programCard.getType());
-        //doConveyorBelts(getMyPlayer());
-        //doLasers();
+        doConveyorBelts(getMyPlayer());
+        doLasers(getMyPlayer());
         nextPhase();
 
         //Gdx.graphics.requestRendering();
@@ -292,6 +308,7 @@ public class GameHandler extends Game implements InputProcessor {
         if (cardSprites != null) {
             clearCards();
         }
+        getMyPlayer().setNotReady();
     }
 
     /**
@@ -381,25 +398,34 @@ public class GameHandler extends Game implements InputProcessor {
                 Laser laser = getMapHandler().checkForLaser(position, dir);
                 if (laser != null) {
                     player.getRobot().handleDamage(10);
-                    // Also make laser stop after hitting robot.
+                    // Also make laser stop after hitting robot?
+                    shutOffLasers(position);
+                    shutOffLasers(new Vector2(position.x-1,position.y));
                 }
             }
         }
 
-        shutOffLasers();
+        //shutOffLasers(new Vector2(11,13));
+        //shutOffLasers(new Vector2(10,13));
+        //shutOffLasers(new Vector2(9,13));
     }
 
     /**
      *
      */
     private void fireLasers() {
-
+        //Vector2 laserWallPos = new Vector2(11,13);      // Hard-coded
+        TiledMapTileLayer.Cell laser = getMapHandler().getLaser();
+        getMapHandler().setCell(11,13, Layer.LASERS, laser);
+        getMapHandler().setCell(10,13, Layer.LASERS, laser);
+        getMapHandler().setCell(9,13, Layer.LASERS, laser);
     }
 
     /**
      *
      */
-    private void shutOffLasers() {
+    private void shutOffLasers(Vector2 pos) {
+        getMapHandler().setCell((int) pos.x,(int) pos.y, Layer.LASERS, null);
     }
 
     /**
