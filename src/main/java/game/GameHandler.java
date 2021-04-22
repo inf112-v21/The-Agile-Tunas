@@ -23,12 +23,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * The class that handles game logic.
@@ -51,7 +46,7 @@ public class GameHandler extends Game implements InputProcessor {
 
     // PLAYER CONFIG:
     public Player player;
-    public int numberOfPlayers = 4; // Hard-coded
+    public int numberOfPlayers = 3; // Hard-coded
     public ArrayList<Player> playerList;
 
     // CARDS:
@@ -155,95 +150,6 @@ public class GameHandler extends Game implements InputProcessor {
     }
 
     /**
-     * Takes a keycode which corresponds to one of the four arrow keys on the keyboard.
-     * Then moves the robot accordingly by calling one the movement-methods in the Robot class,
-     * and sets the cell on the position the robot was on before moving, to null.
-     *
-     * @param keycode of arrow.
-     * @return true if a key has been pressed, else false.
-     */
-    @Override
-    public boolean keyUp(int keycode) {
-        // Current player coordinates:
-        int playerPosX = (int) player.getRobot().getPosition().x;
-        int playerPosY = (int) player.getRobot().getPosition().y;
-
-        // If the left arrow key is pressed:
-        if (keycode == Input.Keys.LEFT) {
-            if (playerPosX > 0) {
-                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.WEST)) {
-                    player.getRobot().moveWest(1);
-                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
-                }
-            }
-            return true;
-        }
-        // If the right arrow key is pressed:
-        else if (keycode == Input.Keys.RIGHT) {
-            if (playerPosX < mapHandler.getMapWidth()-1) {
-                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.EAST)) {
-                    player.getRobot().moveEast(1);
-                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-                }
-            }
-            return true;
-        }
-        // If the upwards arrow key is pressed:
-        else if (keycode == Input.Keys.UP) {
-            if (playerPosY < mapHandler.getMapHeight()-1) {
-                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.NORTH)) {
-                    player.getRobot().moveNorth(1);
-                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-                }
-            }
-            return true;
-        }
-        // If the downwards arrow key is pressed:
-        else if (keycode == Input.Keys.DOWN) {
-            if (playerPosY > 0 ) {
-                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.SOUTH)) {
-                    player.getRobot().moveSouth(1);
-                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
-                }
-            }
-            return true;
-        }
-        else if (keycode == Input.Keys.W) {
-            player.getRobot().changeDirection(Direction.NORTH);
-            return true;
-        }
-
-        else if (keycode == Input.Keys.A) {
-            player.getRobot().changeDirection(Direction.WEST);
-            return true;
-        }
-
-        else if (keycode == Input.Keys.S) {
-            player.getRobot().changeDirection(Direction.SOUTH);
-            return true;
-        }
-
-        else if (keycode == Input.Keys.D) {
-            player.getRobot().changeDirection(Direction.EAST);
-            return true;
-        }
-
-        else if (keycode == Input.Keys.C) {
-            doConveyorBelts(getMyPlayer());
-            return true;
-        }
-
-        else if (keycode == Input.Keys.F) {
-            int flagNumber = getMapHandler().checkForFlag(getMyPlayer().getRobot().getPosition());
-            if (flagNumber != 0) {
-                getMyPlayer().getRobot().visitFlag(flagNumber);
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Handles the game logic.
      */
     public void gameLogic() {
@@ -258,18 +164,17 @@ public class GameHandler extends Game implements InputProcessor {
                     getMyPlayer().setReady();
                     this.state = GameState.PHASES;
                 }
-                /*
-                if (getPlayer(2).getProgram().size() != 5) {
-                    System.out.println(getPlayer(2).getCardHand());
-                    for (int i=0; i<5; i++) {
-                        Card card = getPlayer(2).getCardHand().get(i);
-                        getPlayer(2).addToProgram(card);
-                        getPlayer(2).getCardHand().remove(card);
+                for (Player player : playerList) {
+                    if (player.getID() != getMyPlayer().getID()) {
+                        if (player.getProgram().size() != 5) {
+                            for (int i=0; i<5; i++) {
+                                Card card = player.getCardHand().get(i);
+                                player.addToProgram(card);
+                                player.getCardHand().remove(card);
+                            }
+                        }
                     }
-                    System.out.println(getPlayer(2).getProgram());
                 }
-                 */
-
                 phaseNum = 1;
                 break;
             case PHASES:
@@ -277,8 +182,6 @@ public class GameHandler extends Game implements InputProcessor {
                 while (phaseNum <= 5) {
                     this.doPhase();
                 }
-                //doConveyorBelts(getMyPlayer());
-                //doLasers(getMyPlayer());
                 endPhases();
                 this.state = GameState.SETUP;
                 break;
@@ -286,42 +189,64 @@ public class GameHandler extends Game implements InputProcessor {
     }
 
     /**
-     * Stars a round.
+     * Starts a round.
      */
     public void startRound() {
         // CARD DECK:
-        if (getDeck().size() < 9) {
+        if (getDeck().size() < 9 * numberOfPlayers) {
             System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
             this.cardDeck = new CardDeck();
-            getDeck().shuffle();
-            giveCardsToPlayer(getMyPlayer());
-            showCardHand();
-            this.state = GameState.PROGRAMMING;
         }
         getDeck().shuffle();
-        giveCardsToPlayer(getMyPlayer());
+        for (Player player : playerList) {
+            giveCardsToPlayer(player);
+        }
         showCardHand();
-
         this.state = GameState.PROGRAMMING;
     }
 
     /**
-     * Does the moves corresponding to the cards in Player's program.
+     * Does the moves corresponding to the card in Player's program corresponding to the current phase.
+     * Then does conveyor belt movements, lasers and checks for flags and winners.
      */
     public void doPhase() {
-        // TODO: Lage Hashmap med Players og Player's kort som korresponderer med gjeldende fase, og sortere denne.
-        Card programCard = getMyPlayer().getProgram().get(phaseNum-1);
-        doMove(getMyPlayer(), programCard.getType());
-        doConveyorBelts(getMyPlayer());
-        doLasers(getMyPlayer());
-        checkFlags(getMyPlayer());
-        checkForWinner();
+        ArrayList<Player> playerPriority = findPlayerPriority();
+        for (Player player : playerPriority) {
+            Card programCard = player.getProgram().get(phaseNum - 1);
+            doMove(player, programCard.getType());
+        }
+        for (Player player : playerPriority) {
+            doConveyorBelts(player);
+            doLasers(player);
+            checkFlags(player);
+            checkForWinner();
+        }
         nextPhase();
     }
 
     /**
-     *
-     * @param player
+     * @return a sorted version of the list of players, sorted by the priority of their program Cards corresponding to the current phase.
+     */
+    private ArrayList<Player> findPlayerPriority() {
+        HashMap<Player, Integer> playerCardsMap = new HashMap<>();
+        for (Player player : playerList) {
+            Card programCard = getMyPlayer().getProgram().get(phaseNum-1);
+            playerCardsMap.put(player,programCard.getPriority());
+        }
+        ArrayList<Player> playerPriority = new ArrayList<>();
+        while (playerCardsMap.size() > 0) {
+            Player player = Collections.max(
+                    playerCardsMap.entrySet(), Map.Entry.comparingByValue()).getKey();
+            playerPriority.add(player);
+            playerCardsMap.remove(player);
+        }
+
+        return playerPriority;
+    }
+
+    /**
+     * Checks if given Player is standing on a flag, an "visits" it if possible.
+     * @param player, the Player
      */
     private void checkFlags(Player player) {
         Vector2 position = player.getRobot().getPosition();
@@ -332,10 +257,9 @@ public class GameHandler extends Game implements InputProcessor {
     }
 
     /**
-     *
+     * Checks if there is a winner.
      */
     private void checkForWinner() {
-        System.out.println(getMyPlayer().getRobot().getFlags());
         for (Player player : playerList) {
             ArrayList<Boolean> visited = player.getRobot().getFlags();
             if (visited.get(visited.size()-1).equals(true)) {
@@ -347,7 +271,6 @@ public class GameHandler extends Game implements InputProcessor {
                 if(player.isWinner) {
                     System.out.println("Player " + player.getID() + " has won the game!");
                 }
-
             }
         }
     }
@@ -442,10 +365,9 @@ public class GameHandler extends Game implements InputProcessor {
     }
 
     /**
-     * Shoot lasers.
+     * Shoot lasers and damage robots hit by lasers.
      */
     public void doLasers(Player player) {
-        // TODO: Implement lasers
         Vector2 position = player.getRobot().getPosition();
         Direction direction = player.getRobot().getDirection();
 
@@ -457,9 +379,8 @@ public class GameHandler extends Game implements InputProcessor {
                 Laser laser = getMapHandler().checkForLaser(position, dir);
                 if (laser != null) {
                     player.getRobot().handleDamage(10);
-                    // Also make laser stop after hitting robot?
                     shutOffLasers(position);
-                    shutOffLasers(new Vector2(position.x-1,position.y));
+                    shutOffLasers(new Vector2(position.x-1,position.y));    // Does not work correctly, as the laser cells get set for other players.
                 }
             }
         }
@@ -470,10 +391,9 @@ public class GameHandler extends Game implements InputProcessor {
     }
 
     /**
-     *
+     * Fires lasers.
      */
     private void fireLasers() {
-        //Vector2 laserWallPos = new Vector2(11,13);      // Hard-coded
         TiledMapTileLayer.Cell laser = getMapHandler().getLaser();
         getMapHandler().setCell(11,13, Layer.LASERS, laser);
         getMapHandler().setCell(10,13, Layer.LASERS, laser);
@@ -481,7 +401,7 @@ public class GameHandler extends Game implements InputProcessor {
     }
 
     /**
-     *
+     * Shuts off lasers.
      */
     private void shutOffLasers(Vector2 pos) {
         getMapHandler().setCell((int) pos.x,(int) pos.y, Layer.LASERS, null);
@@ -732,6 +652,95 @@ public class GameHandler extends Game implements InputProcessor {
             }
         }
         Gdx.graphics.requestRendering();
+        return false;
+    }
+
+    /**
+     * Takes a keycode which corresponds to one of the four arrow keys on the keyboard.
+     * Then moves the robot accordingly by calling one the movement-methods in the Robot class,
+     * and sets the cell on the position the robot was on before moving, to null.
+     *
+     * @param keycode of arrow.
+     * @return true if a key has been pressed, else false.
+     */
+    @Override
+    public boolean keyUp(int keycode) {
+        // Current player coordinates:
+        int playerPosX = (int) player.getRobot().getPosition().x;
+        int playerPosY = (int) player.getRobot().getPosition().y;
+
+        // If the left arrow key is pressed:
+        if (keycode == Input.Keys.LEFT) {
+            if (playerPosX > 0) {
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.WEST)) {
+                    player.getRobot().moveWest(1);
+                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);            // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
+            return true;
+        }
+        // If the right arrow key is pressed:
+        else if (keycode == Input.Keys.RIGHT) {
+            if (playerPosX < mapHandler.getMapWidth()-1) {
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.EAST)) {
+                    player.getRobot().moveEast(1);
+                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
+            return true;
+        }
+        // If the upwards arrow key is pressed:
+        else if (keycode == Input.Keys.UP) {
+            if (playerPosY < mapHandler.getMapHeight()-1) {
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.NORTH)) {
+                    player.getRobot().moveNorth(1);
+                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
+            return true;
+        }
+        // If the downwards arrow key is pressed:
+        else if (keycode == Input.Keys.DOWN) {
+            if (playerPosY > 0 ) {
+                if (getMapHandler().canMoveForward(player.getRobot().getPosition(), Direction.SOUTH)) {
+                    player.getRobot().moveSouth(1);
+                    mapHandler.setCell(playerPosX,playerPosY, Layer.PLAYER,null);           // Removes playerCell on (playerPosX, playerPosY).
+                }
+            }
+            return true;
+        }
+        else if (keycode == Input.Keys.W) {
+            player.getRobot().changeDirection(Direction.NORTH);
+            return true;
+        }
+
+        else if (keycode == Input.Keys.A) {
+            player.getRobot().changeDirection(Direction.WEST);
+            return true;
+        }
+
+        else if (keycode == Input.Keys.S) {
+            player.getRobot().changeDirection(Direction.SOUTH);
+            return true;
+        }
+
+        else if (keycode == Input.Keys.D) {
+            player.getRobot().changeDirection(Direction.EAST);
+            return true;
+        }
+
+        else if (keycode == Input.Keys.C) {
+            doConveyorBelts(getMyPlayer());
+            return true;
+        }
+
+        else if (keycode == Input.Keys.F) {
+            int flagNumber = getMapHandler().checkForFlag(getMyPlayer().getRobot().getPosition());
+            if (flagNumber != 0) {
+                getMyPlayer().getRobot().visitFlag(flagNumber);
+            }
+        }
+
         return false;
     }
 

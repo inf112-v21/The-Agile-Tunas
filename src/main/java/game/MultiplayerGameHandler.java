@@ -102,27 +102,6 @@ public class MultiplayerGameHandler extends GameHandler {
     }
 
     /**
-     * Stars a round.
-     */
-    @Override
-    public void startRound() {
-        // CARD DECK:
-        if (getDeck().size() < 9) {
-            System.out.println("Card Deck has less than 9 cards. Giving new Card Deck");
-            this.cardDeck = new CardDeck();
-            getDeck().shuffle();
-            giveCardsToPlayer(getMyPlayer());
-            showCardHand();
-            this.state = GameState.PROGRAMMING;
-        }
-        getDeck().shuffle();
-        giveCardsToPlayer(getMyPlayer());
-        showCardHand();
-
-        this.state = GameState.PROGRAMMING;
-    }
-
-    /**
      * Ends the phases.
      */
     @Override
