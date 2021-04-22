@@ -377,4 +377,40 @@ public class MapHandler implements IMapHandler{
             }
         }
     }
+
+    /**
+     * Checks if there is a flag on the given position.
+     * @param position, The position to check.
+     * @return 0 if there is no flag, else the number of the flag.
+     */
+    public int checkForFlag(Vector2 position) {
+        TiledMapTileLayer.Cell flagCelll = this.getCell((int) position.x, (int) position.y, Layer.FLAGS);
+        if (flagCelll != null) {
+            int tileID = flagCelll.getTile().getId();
+            return findFlagNumber(tileID);
+        }
+        return 0;
+    }
+
+    /**
+     * Finds the flag number corresponding to the Tile's ID.
+     * @param tileID, The Tile's ID.
+     * @return the flag number, or 0 if the Tile ID does not correspond to a flag.
+     */
+    public int findFlagNumber(int tileID) {
+        List<Integer> flagList = Arrays.asList(55, 63, 71, 79);
+        if (flagList.contains(tileID)) {
+            switch(tileID) {
+                case 55:
+                    return 1;
+                case 63:
+                    return 2;
+                case 71:
+                    return 3;
+                case 79:
+                    return 4;
+            }
+        }
+    return 0;
+    }
 }

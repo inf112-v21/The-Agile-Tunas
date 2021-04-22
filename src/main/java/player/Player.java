@@ -13,6 +13,7 @@ public class Player implements IPlayer {
     private ArrayList<Card> program;
     private ArrayList<Card> cardHand;
     public boolean programReady;
+    public boolean isWinner;
 
     /**
      * Sets the instance's robot to the given Robot, the instance's name to the given String.
@@ -25,6 +26,7 @@ public class Player implements IPlayer {
         this.cardHand = new ArrayList<>();
         this.program = new ArrayList<>();
         this.programReady = false;
+        this.isWinner = false;
     }
 
     /**
@@ -113,6 +115,9 @@ public class Player implements IPlayer {
         cardHand.clear();
     }
 
+    public boolean hasWon() {
+        return this.isWinner = true;
+    }
     /**
      * Gets ID of player.
      * @return the ID of the player.

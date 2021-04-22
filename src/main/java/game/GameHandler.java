@@ -23,8 +23,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -59,6 +62,8 @@ public class GameHandler extends Game implements InputProcessor {
     public boolean chooseProgram = true;
 
     public GameState state;
+    public ArrayList<Boolean> winCondition;
+    public int winner;
     public int phaseNum = 0;
 
     /**
@@ -93,8 +98,16 @@ public class GameHandler extends Game implements InputProcessor {
         //Gdx.graphics.setContinuousRendering(false);
         //Gdx.graphics.requestRendering();
 
+        // GameState at the beginning:
         state = GameState.SETUP;
 
+        // Generating win condition:
+        winCondition = new ArrayList<>();
+        for (int index = 0; index < getMapHandler().getNumberOfFlags(); index++) {
+            winCondition.add(index, true);
+        }
+
+        // Generating list of players:
         playerList = new ArrayList<>();
         for (int i=0; i < numberOfPlayers; i++) {
             playerList.add(initiatePlayer(i+1));
@@ -118,6 +131,9 @@ public class GameHandler extends Game implements InputProcessor {
         Vector2 playerPosition = mapHandler.getStartingPositions().get(i-1);
         Player newPlayer = new Player(new Robot(playerPosition, Direction.NORTH, i), i);
         setPlayerPosition(newPlayer, (int) newPlayer.getRobot().getPosition().x, (int) newPlayer.getRobot().getPosition().y, newPlayer.getRobot().getDirection(), 0);
+        for (int index = 0; index < getMapHandler().getNumberOfFlags(); index++) {
+            newPlayer.getRobot().getFlags().add(false);
+        }
 
         return newPlayer;
     }
@@ -219,6 +235,13 @@ public class GameHandler extends Game implements InputProcessor {
             return true;
         }
 
+        else if (keycode == Input.Keys.F) {
+            int flagNumber = getMapHandler().checkForFlag(getMyPlayer().getRobot().getPosition());
+            if (flagNumber != 0) {
+                getMyPlayer().getRobot().visitFlag(flagNumber);
+            }
+        }
+
         return false;
     }
 
@@ -288,15 +311,52 @@ public class GameHandler extends Game implements InputProcessor {
      * Does the moves corresponding to the cards in Player's program.
      */
     public void doPhase() {
+        // TODO: Lage Hashmap med Players og Player's kort som korresponderer med gjeldende fase, og sortere denne.
         Card programCard = getMyPlayer().getProgram().get(phaseNum-1);
         doMove(getMyPlayer(), programCard.getType());
         doConveyorBelts(getMyPlayer());
         doLasers(getMyPlayer());
+        checkFlags(getMyPlayer());
+        checkForWinner();
         nextPhase();
-
-        //Gdx.graphics.requestRendering();
     }
 
+    /**
+     *
+     * @param player
+     */
+    private void checkFlags(Player player) {
+        Vector2 position = player.getRobot().getPosition();
+        int flag = getMapHandler().checkForFlag(position);
+        if (flag != 0) {
+            player.getRobot().visitFlag(flag);
+        }
+    }
+
+    /**
+     *
+     */
+    private void checkForWinner() {
+        System.out.println(getMyPlayer().getRobot().getFlags());
+        for (Player player : playerList) {
+            ArrayList<Boolean> visited = player.getRobot().getFlags();
+            if (visited.get(visited.size()-1).equals(true)) {
+                player.hasWon();
+                if (getMyPlayer().isWinner) {
+                    chooseProgram = false;
+                    System.out.println("Player " + getMyPlayer().getID() + " has won the game!");
+                }
+                if(player.isWinner) {
+                    System.out.println("Player " + player.getID() + " has won the game!");
+                }
+
+            }
+        }
+    }
+
+    /**
+     * Increases phase number.
+     */
     public void nextPhase() {
         phaseNum++;
     }
@@ -308,6 +368,7 @@ public class GameHandler extends Game implements InputProcessor {
         if (cardSprites != null) {
             clearCards();
         }
+        checkForWinner();
         getMyPlayer().setNotReady();
     }
 
@@ -474,16 +535,13 @@ public class GameHandler extends Game implements InputProcessor {
             case ROTATE_LEFT:
                 player.getRobot().doMove(CardType.ROTATE_LEFT);
                 setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
-                //getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
                 return;
             case ROTATE_RIGHT:
                 player.getRobot().doMove(CardType.ROTATE_RIGHT);
-                //getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
                 setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
                 return;
             case U_TURN:
                 player.getRobot().doMove(CardType.U_TURN);
-                //getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
                 setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
                 return;
             case MOVE_ONE:
@@ -491,7 +549,6 @@ public class GameHandler extends Game implements InputProcessor {
                     getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y, Layer.PLAYER,null);
                     player.getRobot().doMove(cardType);
                     setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
-                    //getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
                 }
                 return;
             case MOVE_TWO:
@@ -500,7 +557,6 @@ public class GameHandler extends Game implements InputProcessor {
                         getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y, Layer.PLAYER,null);
                         player.getRobot().doMove(CardType.MOVE_ONE);
                         setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
-                        //getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
                     }
                 }
                 return;
@@ -510,7 +566,6 @@ public class GameHandler extends Game implements InputProcessor {
                         getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y, Layer.PLAYER,null);
                         player.getRobot().doMove(CardType.MOVE_ONE);
                         setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
-                        //getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
                     }
                 }
                 return;
@@ -520,7 +575,6 @@ public class GameHandler extends Game implements InputProcessor {
                     getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y, Layer.PLAYER,null);
                     player.getRobot().doMove(CardType.BACK_UP);
                     setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
-                    //getMapHandler().setCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layers.PLAYER, player.getCells().get(0));
                 }
                 return;
             default:
@@ -552,7 +606,9 @@ public class GameHandler extends Game implements InputProcessor {
      */
     public void clearCards() {
         cardSprites.clear();
-        getMyPlayer().clearCards();
+        for (Player player : playerList) {
+            player.clearCards();
+        }
     }
 
     /**
@@ -597,10 +653,12 @@ public class GameHandler extends Game implements InputProcessor {
      * @param y y-coordinate of the position.
      */
     public void setPlayerPosition(Player player, int x, int y, Direction dir, int i) {
-        int rotation = dir.getRotation(dir);
-        getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y, Layer.PLAYER,null);
-        getMapHandler().setCell(x, y, Layer.PLAYER, player.getCells().get(i));
-        getMapHandler().getCell(x, y, Layer.PLAYER).setRotation(rotation);
+        if (player.getRobot().isAlive && !player.hasWon()) {
+            int rotation = dir.getRotation(dir);
+            getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y, Layer.PLAYER,null);
+            getMapHandler().setCell(x, y, Layer.PLAYER, player.getCells().get(i));
+            getMapHandler().getCell(x, y, Layer.PLAYER).setRotation(rotation);
+        }
     }
 
     /**
@@ -617,7 +675,9 @@ public class GameHandler extends Game implements InputProcessor {
 
         gameLogic();
 
-        setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection(), 0);
+        for (Player player : playerList){
+            setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
+        }
 
         // DRAW CARD SPRITES ON SCREEN:
         batch.setProjectionMatrix(camera.combined);
@@ -627,17 +687,13 @@ public class GameHandler extends Game implements InputProcessor {
         }
         batch.end();
 
-        // HOLE AND FLAG CELL:
-        TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, Layer.HOLES);
-        TiledMapTileLayer.Cell flag = getMapHandler().getCell((int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, Layer.FLAGS);
-
-        // If player is on a hole change player icon to defeat-icon.
-        if (hole != null) {
-            setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection(),2);
-        }
-        // If player is on a flag change player icon to victory-icon.
-        if (flag != null) {
-            setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection(),1);
+        // If a player is on a hole change player icon to defeat-icon.
+        for (Player player : playerList) {
+            TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layer.HOLES);
+            if (hole != null) {
+                setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(),2);
+                player.getRobot().setAsDead();
+            }
         }
     }
 

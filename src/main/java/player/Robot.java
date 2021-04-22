@@ -3,12 +3,16 @@ package player;
 import card.CardType;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 public class Robot implements IRobot{
+    private ArrayList<Boolean> flags;
     private Vector2 position;
     private Direction direction;
     private final int robotID;
     private final int damage;
     private int hp;
+    public boolean isAlive;
 
     /**
      * Creates an instance of a robot.
@@ -23,6 +27,8 @@ public class Robot implements IRobot{
         this.robotID = robotID;
         this.damage = 10;
         this.hp = 100;
+        this.flags = new ArrayList<>();
+        this.isAlive = true;
     }
 
     /**
@@ -31,6 +37,44 @@ public class Robot implements IRobot{
     @Override
     public Vector2 getPosition() {
         return position;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Boolean> getFlags() {
+        return this.flags;
+    }
+
+    /**
+     * Sets the flag with given flag number as visited, if possible.
+     * @param flagNumber, The number of the flag.
+     */
+    public void visitFlag(int flagNumber) {
+        boolean canVisit = false;
+
+        // We can always visit flag number 1.
+        if (flagNumber == 1) {
+            canVisit = true;
+        }
+        else {
+            // If all the flags before flag number "flagNumber" have been visited, we can visit the flag
+            for (int i = 0; i < flagNumber-1; i++) {
+                if (this.getFlags().get(i).equals(true)) {
+                    canVisit = true;
+                }
+                else {
+                    canVisit = false;
+                }
+            }
+        }
+
+        if (canVisit && getFlags().get(flagNumber-1) != true) {
+            getFlags().remove(flagNumber-1);
+            getFlags().add(flagNumber-1, true);
+            System.out.println("Visited Flag Number " + flagNumber);
+        }
     }
 
     /**
@@ -53,6 +97,9 @@ public class Robot implements IRobot{
      */
     public void handleDamage(int damage) {
         this.hp = getHp() - damage;
+        if (this.hp <= 0) {
+            setAsDead();
+        }
     }
 
     /**
@@ -116,6 +163,13 @@ public class Robot implements IRobot{
     }
 
     /**
+     *
+     */
+    public void setAsDead() {
+        this.isAlive = false;
+    }
+
+    /**
      * Moves the robot north
      */
     public void moveNorth(int i) {
@@ -162,7 +216,4 @@ public class Robot implements IRobot{
     public void changeDirection(Direction dir) {
         this.direction = dir;
     }
-
-
-
 }

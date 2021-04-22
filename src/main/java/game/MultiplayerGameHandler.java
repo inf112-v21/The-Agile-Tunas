@@ -28,7 +28,6 @@ public class MultiplayerGameHandler extends GameHandler {
         //this.numberOfPlayers = server.getNumberOfPlayers;
         this.playerID = 1;
         //this.playedID = playerID;
-
     }
 
     /**
@@ -134,9 +133,11 @@ public class MultiplayerGameHandler extends GameHandler {
         getMyPlayer().setNotReady();
     }
 
+
     /**
      * Shows the card that have been given to player at the start of a round.
      */
+    /*
     @Override
     public void showCardHand() {
         // MAKING LIST OF SPRITES FROM PLAYER CARD HAND:
@@ -158,17 +159,18 @@ public class MultiplayerGameHandler extends GameHandler {
         cardSprites.get(7).setPosition(570, 0);
         cardSprites.get(8).setPosition(570, -150);
     }
+    */
 
     /**
      * Removes the Card sprites and clears the Player's program.
      */
-    @Override
+    /*@Override
     public void clearCards() {
         cardSprites.clear();
         for (Player player : playerList) {
             player.clearCards();
         }
-    }
+    }*/
 
     /**
      * Method for rendering.
