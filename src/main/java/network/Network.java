@@ -5,15 +5,17 @@ package network;
 import card.Card;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import com.esotericsoftware.kryonet.Listener;
 import player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 // This class is a convenient place to keep things common to both the client and server.
-public class Network {
-    static public final int tcpPort = 54555;
-    static public final int udpPort = 54555;
+public class Network extends Listener {
+    static public final int tcpPort = 53353;
+    static public final int udpPort = 53353;
+    static public final int timeout = 10000;
 
     // This registers objects that are going to be sent over the network.
     static public void register (EndPoint endPoint) {
