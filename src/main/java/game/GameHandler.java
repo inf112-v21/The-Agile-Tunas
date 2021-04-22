@@ -63,7 +63,6 @@ public class GameHandler extends Game implements InputProcessor {
 
     public GameState state;
     public ArrayList<Boolean> winCondition;
-    public int winner;
     public int phaseNum = 0;
 
     /**
@@ -134,7 +133,6 @@ public class GameHandler extends Game implements InputProcessor {
         for (int index = 0; index < getMapHandler().getNumberOfFlags(); index++) {
             newPlayer.getRobot().getFlags().add(false);
         }
-
         return newPlayer;
     }
 
@@ -653,7 +651,7 @@ public class GameHandler extends Game implements InputProcessor {
      * @param y y-coordinate of the position.
      */
     public void setPlayerPosition(Player player, int x, int y, Direction dir, int i) {
-        if (player.getRobot().isAlive && !player.hasWon()) {
+        if (player.getRobot().isAlive && !player.isWinner) {
             int rotation = dir.getRotation(dir);
             getMapHandler().setCell((int) player.getRobot().getPosition().x,(int) player.getRobot().getPosition().y, Layer.PLAYER,null);
             getMapHandler().setCell(x, y, Layer.PLAYER, player.getCells().get(i));
