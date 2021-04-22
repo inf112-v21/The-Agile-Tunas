@@ -96,7 +96,7 @@ public class GameServer extends Network{
                 wm.nPlayers = numberOfPlayers;
                 server.sendToAllTCP(wm);
                 if (numberOfPlayers==MaxPlayers) {
-                    sendToAllClients("AllReady");
+                    sendToAllClients("AllReady "+numberOfPlayers);
                     sendRobotsToAllClients();
                 }
                 this.startGame();

@@ -13,8 +13,8 @@ import java.util.HashMap;
 
 // This class is a convenient place to keep things common to both the client and server.
 public class Network extends Listener {
-    static public final int tcpPort = 53353;
-    static public final int udpPort = 53353;
+    static public final int tcpPort = 20000;
+    static public final int udpPort = 20000;
     static public final int timeout = 10000;
 
     // This registers objects that are going to be sent over the network.
