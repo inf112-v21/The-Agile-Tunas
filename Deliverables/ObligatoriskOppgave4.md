@@ -24,7 +24,7 @@ tilfeller av sykdom, strømbrudd, laptoper som har sluttet å fungere etc. Men d
 har håndtert uforutsette hendelser. Det er klart at det alltid vil være rom for forbedring, og grep man kunne ha tatt
 for å skape en mer sømløs interkasjon innad i teamet. Men noen ting kan man ikke forutse, og vi er stort sett fornøyde
 med hvordan vi har håndtert disse sakene. Forståelse og tillit til og for hverandre har vært en viktig nøkkel, og er noe
-som vi tror har hatt stor innvirknin gpå hvordan prosjektet har utartet seg. 
+som vi tror har hatt stor innvirkning på hvordan prosjektet har utartet seg. 
 
 
 
@@ -82,9 +82,26 @@ for individer å motivere seg selv til å fungere autonomt.
 Uansett har dette vært særdeles læringsrikt, og vi sitter alle igjen med ny og nyttig kunnskap om hvordan vi vil jobbe
 i team framover. 
 
-Trello-board 23.04.2021:
+
+#### Trello-board 23.04.2021:
+
 ![img.png](ProjectBoardOblig4.PNG)
 Link til trello-board: https://trello.com/b/9pKSo8yI/project-board
+
+#### Gruppedynamikk og kommunikasjon
+En vanlig utfordring man kan møte når man jobber blir satt i team er at noen kan ta mer plass enn andre. De uformelle
+rollene i gruppen, hvem som kan hva, hvordan andre er osv. er alltid noen man må finne ut av. Dette er en prosess og det
+er derfor betryggende å se tilbake og se utviklingen vi har hatt som gruppe. I starten kan det være vanskelig å delegere
+oppgaver da man er usikker på kompetansenivå, eller hvordan andre gruppemedlemmer ser for seg hierarkiet i gruppen.
+Dette er en utfordring som kun løses gjennom god kommunikasjon og kontinuerlig fokus på hvordan gruppen fungerer. 
+En teori om gruppedynamikk som heter FIRO-modellen illustrerer dette godt. Noe denne modellen forklarer er at 
+gjennom god kommunikasjon og gjensidig forståelse kan man oppnå høyere resultater og en smidigere arbeidsprosess. 
+Og siden vi har hatt fokus på dette gjennom hele semesteret har vi kunnet dra nytte av dette. Det er klart at både
+dynamikken og kommunikasjonen i gruppen er bedre nå enn i starten. Og vi tror at dette er forankret dels i tilfeldighet,
+i og med at vi kommer godt overens som en gruppe, og i at vi gjorde beviste valg i starten for å bli bedre
+kjent(Ref. teamkontrakten). 
+
+
 
 ### DELOPPGAVE 2 - Krav
 
