@@ -106,6 +106,12 @@ kjent(Ref. teamkontrakten).
 ### DELOPPGAVE 2 - Krav
 
 
+#### Metoder som ikke ble helt ferdig
+Fikk implementert musikk i spillet og at man kan stille på musikken eller skru den helt av
+inne i preferences. Men lyder, som f.eks. til laserene og kollisjoner fikk vi ikke tid
+til å implementere fullstendig.
+
+
 #### Brukerhistorie 1 - Conveyor Belts
 
 Som spiller jeg at:
