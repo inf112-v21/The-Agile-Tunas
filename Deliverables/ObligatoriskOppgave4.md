@@ -251,6 +251,8 @@ inneholder alle kortene til hver spiller sortert og inndelt etter runde.
 
 ### DELOPPGAVE 3 - Produktleveranse og kodekvalitet
 
+Her står det noe
+
 #### Klassediagram
 UML ligger under Deliverables som en png.  
 
