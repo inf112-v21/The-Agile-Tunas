@@ -6,15 +6,11 @@ import java.util.*;
 import card.Card;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
-import game.MultiplayerGameHandler;
-import player.Direction;
 import player.Player;
-import player.Robot;
 
 public class GameServer extends Network{
     private final int MaxPlayers = 2;
     public int numberOfPlayers;
-    private final MultiplayerGameHandler game;
     private final Set<Connection> connections;
     private final HashMap<Integer, String> names;
     private final HashMap<String, Player> players;
@@ -26,7 +22,6 @@ public class GameServer extends Network{
         connections = new HashSet<>();
         names = new HashMap<>(MaxPlayers);
         players = new HashMap<>(MaxPlayers);
-        game = new MultiplayerGameHandler(MaxPlayers);
         numberOfPlayers = 0;
         server = new Server();
         currentPlayersCards = new HashMap<>();
@@ -75,6 +70,7 @@ public class GameServer extends Network{
             parseMessage(c,(GameMessage) object);
         }
         else if (object instanceof Network.CardList){
+            System.out.println("Got cards");
             Network.CardList cards = (Network.CardList) object;
             currentPlayersCards.put(cards.player, cards.cards);
             if (currentPlayersCards.keySet().size()==numberOfPlayers){
@@ -97,7 +93,7 @@ public class GameServer extends Network{
                 numberOfPlayers+=1;
                 if (numberOfPlayers==MaxPlayers) {
                     sendToAllClients("AllReady "+numberOfPlayers);
-                    sendRobotsToAllClients();
+                    //sendRobotsToAllClients();
                 }
 
                 break;
@@ -113,15 +109,6 @@ public class GameServer extends Network{
         server.sendToAllTCP(gameMessage);
     }
 
-    private void sendRobotsToAllClients(){
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Robot bot = new Robot(game.mapHandler.getStartingPositions().get(i), Direction.NORTH,i);
-            players.put(names.get(i),new Player(bot,i));
-        }
-        Network.PlayerListMessage message = new Network.PlayerListMessage();
-        message.playerList=players;
-        server.sendToAllTCP(message);
-    }
 
 
     public void doTurn(){
@@ -156,9 +143,5 @@ public class GameServer extends Network{
         int priority;
     }
 
-    public static void main(String[] args) throws IOException {
-        GameServer serv = new GameServer();
 
-
-    }
 }

@@ -1,7 +1,6 @@
 package network;
 
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +42,7 @@ public class GameClient extends Network {
 
         new Lwjgl3Application(game, cfg);
 
+
         waitForCardSelection();
     }
 
@@ -56,6 +56,7 @@ public class GameClient extends Network {
     }
 
     private void waitForCardSelection(){
+
         while (!player.programReady){
         }
         sendCards(player.getProgram());
@@ -124,6 +125,7 @@ public class GameClient extends Network {
      * @param cards that the player chose
      */
     private void sendCards(ArrayList<Card> cards) {
+        System.out.println("Cards sent");
         Network.CardList currentCards = new Network.CardList();
         currentCards.cards = cards;
         currentCards.player = this.player;
