@@ -142,9 +142,13 @@ public class GameClient extends Network {
         for (HashMap<Player, Card> turn : gmt.turns) {
             for (Player player : turn.keySet()) {
                 game.doMove(player, turn.get(player).getType());
+                game.checkFlags(player);
+                game.checkForWinner();
             }
             for (Player player : turn.keySet()){
                 game.doConveyorBelts(player);
+                game.checkFlags(player);
+                game.checkForWinner();
             }
             for (Player player : turn.keySet()){
                 game.doLasers(player);
