@@ -267,3 +267,15 @@ og typen (express eller vanlig). I alle tilfeller, ble roboten beveget riktig.
 Manuell test for vegger:
 Ved hjelp av piltaster, og WASD-tastene (for å rotere), testet vi om man kunne gå gjennom vegger.
 I tillegg testet vi det med valg av kort. I alle tilfeller, var det ikke mulig å gå gjennom vegger.
+og typen (express eller vanlig).
+
+
+#### Kommentarer om prosjektet
+
+Slik det er nå rakk vi ikke å komme oss helt i mål med det vi ønsket. Vi er nærme, men ikke helt der vi så for oss.
+Vi så for sent at vi måtte implementere tråder for å kunne få kommunikasjonen mellom Client og MultiplayerGameHandler til
+å fungere optimalt. Alle metoder fungerer slik de skal, men det er dessverre en klomminikasjonslink som mangler. 
+Resultatet av dette er at clienten ikke klarer å vite når en spiller har valgt kortene sine. 
+Hadde vi hatt mer tid hadde vi bygd det opp med en trå og mutex-variabler for å kunne registrere dette. 
+Men tiden ble knapp. 
+Alt i alt er vi fremdeles fornøyd med det vi leverer mtp på hvilke forutsetninger vi har. 
