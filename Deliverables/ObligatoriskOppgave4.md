@@ -60,7 +60,27 @@ seg mer kunnskap om noe man er trygg på.
 #### Hva kunne vi gjort annerledes?
 
 Her kan vi og starte med hva vi ville gjort annerledes den siste tiden.
+Når et prosjekt går mot slutten er det ofte man får en litt ekstra boost av motivasjon for å jobbe. Tankene ligger på
+prosjektet og man kan oppnå en form for fokalisering på å bli ferdige. Det som da kan oppstå er at man trekker litt unna 
+de gode vanene man har lagt seg, og tenker at dette er et unntak da man snart er ferdige. Den siste tiden har vi ikke
+vært like flinke til å skrive saksliste til møtene. Dette førte til at møtene fikk en mindre klar struktur, og at man 
+gjerne bare hoppet rett inn i Code with Me og begynte å programmere. Dette kan sees på som en mer effektiv måte å jobbe
+på, da alle var klar over hva som måtte gjøres og man tenkte at saksliste og Trellooppdateringer bare ble en formell
+handling. På den andre siden er det nok desto viktig å opprettholde de gode rutinene når det tetter seg til. Denne 
+situasjonen blir litt spesiell da vi ikke nødvendigvis skal jobbe sammen i dette teamet noe mer, men fra et rent 
+team-teoretisk perspektiv ville det vært hensiktsmessig å fortsette de gode rutinene hvis man fremdeles skulle ha jobbet
+på samme måte i tiden fremover. 
 
+Når man ser på prosjektet som en helhet er det flere punkter man kan trekke frem. Noe annet hadde vært særdeles uvanlig.
+Det som står igjen som det viktigste læringspunktet er nok viktigheten av god planlegging. Herunder arbeidsfordeling,
+informasjonsoverføring, forventningsstyring og kompetanseavklaring. En grundigere gjennomgang av disse i starten av
+prosjektet ville nok vært et smart trekk. Det skal nevnes at dette er enklere å se i etterkant enn det var der og da. 
+Men noe man absolutt kunne gjort anderledes var å planlegge prosessen og å sette seg tydelige mål for hvor langt man 
+ønsket å komme seg for hver iterasjon av prosjektets faser. Dette hadde hjulpet både for å klargjøre arbeidsfordelingen,
+og kunne skap større motivasjon og mestringsfølelse hos den enkelte. Å ha klare mål å jobbe mot gjør det ofte enklere
+for individer å motivere seg selv til å fungere autonomt. 
+Uansett har dette vært særdeles læringsrikt, og vi sitter alle igjen med ny og nyttig kunnskap om hvordan vi vil jobbe
+i team framover. 
 
  
 
