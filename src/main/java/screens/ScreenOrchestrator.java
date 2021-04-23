@@ -1,8 +1,6 @@
 package screens;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 
 
@@ -27,11 +25,10 @@ public class ScreenOrchestrator extends Game {
     private MultiplayerScreen multiplayerScreen;
     private RegisterClientScreen registerClientScreen;
 
-
+    public TestAssetManager assetManager = new TestAssetManager();
 
     public Music playingSong;
 
-    public final String musicForGame = "Music/Rolemusic_-_pl4y1ng.mp3";
 
 
 
@@ -43,7 +40,10 @@ public class ScreenOrchestrator extends Game {
 
         setScreen(loadingScreen);
 
-
+        assetManager.queueAddMusic();
+        assetManager.manager.finishLoading();
+        playingSong = assetManager.manager.get("Music/Rolemusic_-_pl4y1ng.mp3");
+        playingSong.play();
     }
 
     public void changeScreen(int screen) {
