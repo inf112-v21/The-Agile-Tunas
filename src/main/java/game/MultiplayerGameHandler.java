@@ -15,19 +15,14 @@ import java.util.ArrayList;
  * The class that handles game logic.
  */
 public class MultiplayerGameHandler extends GameHandler {
-
     // PLAYERS:
     public ArrayList<Player> playerList;
     public int numberOfPlayers;
     public int playerID;
 
-    //public MultiplayerGameHandler(GameServer server, int playerID, Boolean isHost) {
-    //public MultiplayerGameHandler(int numberOfPlayers, int playerID) {
     public MultiplayerGameHandler(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;             // The number of players should be given to constructor when initialising a MultiplayerGameHandler.
-        //this.numberOfPlayers = server.getNumberOfPlayers;
-        this.playerID = 1;
-        //this.playedID = playerID;
+        this.numberOfPlayers = numberOfPlayers;
+        this.playerID = 1;                      // Hard-coded, not optimal. Should be given to constructor.
     }
 
     /**
@@ -36,7 +31,7 @@ public class MultiplayerGameHandler extends GameHandler {
      */
     @Override
     public void create() {
-        super.setup();                             // creates and initialises the variables in GameHandler.
+        super.setup();                             // creates and initialises variables in GameHandler.
 
         // Initiating the players in the multiplayer game. Initiates as many players as given in constructor.
         playerList = new ArrayList<>();
@@ -47,15 +42,6 @@ public class MultiplayerGameHandler extends GameHandler {
 
         // Starting the first round:
         this.startRound();
-    }
-
-    /**
-     * Gets the Player with given player ID.
-     * @param playerID, The player ID of the Player.
-     * @return a Player
-     */
-    public Player getPlayer(int playerID) {
-        return playerList.get(playerID-1);
     }
 
     /**
@@ -122,7 +108,6 @@ public class MultiplayerGameHandler extends GameHandler {
 
         this.gameLogic();
 
-
         // PLAYERS:
         for (Player player : playerList) {
             setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(), 0);
@@ -136,18 +121,12 @@ public class MultiplayerGameHandler extends GameHandler {
         }
         batch.end();
 
-        // HOLE AND FLAG CELL:
+        // HOLES:
         for (Player player : playerList) {
             TiledMapTileLayer.Cell hole = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layer.HOLES);
-            TiledMapTileLayer.Cell flag = getMapHandler().getCell((int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, Layer.FLAGS);
-
-            // If player is on a hole change player icon to defeat-icon.
             if (hole != null) {
-                setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection(), 2);
-            }
-            // If player is on a flag change player icon to victory-icon.
-            if (flag != null) {
-                setPlayerPosition(getMyPlayer(), (int) getMyPlayer().getRobot().getPosition().x, (int) getMyPlayer().getRobot().getPosition().y, getMyPlayer().getRobot().getDirection(), 1);
+                setPlayerPosition(player, (int) player.getRobot().getPosition().x, (int) player.getRobot().getPosition().y, player.getRobot().getDirection(),2);
+                player.getRobot().setAsDead();
             }
         }
     }

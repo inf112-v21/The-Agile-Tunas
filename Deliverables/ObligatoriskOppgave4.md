@@ -155,7 +155,7 @@ Gitt at alle flagg er besøkt for en robot, så spilleren som eier roboten vinne
 
 #### Brukerhistorie for Conveyor Belts
 
-Som spiller jeg at:
+Som spiller ønsker jeg:
 
 At roboten min blir flyttet på i riktig retning når den står på en conveyor belt.
 
@@ -245,15 +245,16 @@ Sortere disse kortene etter prioritet for hver runde.
 Akseptansekriterier:
 
 Gitt at man har fått inn alle kortene til hver spiller så skal man kunne returnere en liste som
-inneholder alle kortene til hver spiller sortert og inndelt etter runde. 
-
+inneholder alle kortene til hver spiller sortert og inndelt etter runde.
 
 
 ### DELOPPGAVE 3 - Produktleveranse og kodekvalitet
 
-Her står det noe
-
 #### Klassediagram
-UML ligger under Deliverables som en png.  
+UML ligger under Deliverables som en png.
 
 #### Manuelle tester:
+
+Manuell test for conveyor belt:
+Ved hjelp av piltastene, og C-tasten testet vi om conveyor belts beveget robot riktig, etter retningen deres
+og typen (express eller vanlig).

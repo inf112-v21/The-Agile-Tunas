@@ -379,10 +379,6 @@ public class GameHandler extends Game implements InputProcessor {
                 }
             }
         }
-
-        //shutOffLasers(new Vector2(11,13));
-        //shutOffLasers(new Vector2(10,13));
-        //shutOffLasers(new Vector2(9,13));
     }
 
     /**
@@ -704,31 +700,37 @@ public class GameHandler extends Game implements InputProcessor {
             }
             return true;
         }
+        // Sets robot's direction to North.
         else if (keycode == Input.Keys.W) {
             player.getRobot().changeDirection(Direction.NORTH);
             return true;
         }
 
+        // Sets robot's direction to West.
         else if (keycode == Input.Keys.A) {
             player.getRobot().changeDirection(Direction.WEST);
             return true;
         }
 
+        // Sets robot's direction to South.
         else if (keycode == Input.Keys.S) {
             player.getRobot().changeDirection(Direction.SOUTH);
             return true;
         }
 
+        // Sets robot's direction to East.
         else if (keycode == Input.Keys.D) {
             player.getRobot().changeDirection(Direction.EAST);
             return true;
         }
 
+        // For testing if conveyors move robot correctly.
         else if (keycode == Input.Keys.C) {
             doConveyorBelts(getMyPlayer());
             return true;
         }
 
+        // For testing that robot visits flags correctly.
         else if (keycode == Input.Keys.F) {
             int flagNumber = getMapHandler().checkForFlag(getMyPlayer().getRobot().getPosition());
             if (flagNumber != 0) {
