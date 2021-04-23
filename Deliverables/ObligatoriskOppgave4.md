@@ -82,7 +82,9 @@ for individer å motivere seg selv til å fungere autonomt.
 Uansett har dette vært særdeles læringsrikt, og vi sitter alle igjen med ny og nyttig kunnskap om hvordan vi vil jobbe
 i team framover. 
 
- 
+Trello-board 23.04.2021:
+![img.png](ProjectBoardOblig4.PNG)
+Link til trello-board: https://trello.com/b/9pKSo8yI/project-board
 
 ### DELOPPGAVE 2 - Krav
 
