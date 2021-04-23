@@ -255,6 +255,11 @@ UML ligger under Deliverables som en png.
 
 #### Manuelle tester:
 
+Manuell test for server:
+For testen benyttet vi oss Network utility-verktøyet på mac for å forsikre oss om at porten vi ønsket å bruke var åpen.
+Så skriver vi ut til konsollen når en client kobler seg til. Vi skriver det ut med navn slik at vi kan vite hvem som har
+koblet seg til og at antallet stemmer. 
+
 Manuell test for conveyor belt:
 Ved hjelp av piltastene, og C-tasten testet vi om conveyor belts beveget robot riktig, etter retningen deres
 og typen (express eller vanlig).
