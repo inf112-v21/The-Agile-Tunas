@@ -175,5 +175,54 @@ Akseptansekriterier:
 
 Gitt at roboten befinner seg på en tile der counter-clockwise gear er, skal roboten bli synlig rotert mot klokken.
 
+#### Brukerhistorie 5.1 - Multiplayer
+
+Som spiller ønsker jeg: 
+
+Å kunne koble meg opp til hosten på en enkel og oversiktlig måte.
+
+Løsningsbeskrivelse: 
+
+Lage en egen screen for å kunne skrive inn IP'en til host for så å koble seg opp til denne. 
+
+Akseptansekriterier:
+
+Gitt at man skriver riktig adresse, og at hosten har startet serveren, så skal man kunne få opp spillebrettet sitt.
+Gitt at hosten ikke har satt opp serveren enda, så skal man få tilbakemelding om det. 
+
+#### Brukerhistorie 5.2 - Multiplayer
+
+Som host ønsker jeg: 
+
+Å kunne beregne hvilken rekkefølge kortene til alle spillerene skal gjøres for hver runde. 
+
+Løsningsbeskrivelse:
+
+Lage en klasse som kan holde oversikt over de kortene som alle har valgt.
+Sortere disse kortene etter prioritet for hver runde.
+
+Akseptansekriterier:
+
+Gitt at man har fått inn alle kortene til hver spiller så skal man kunne returnere en liste som
+inneholder alle kortene til hver spiller sortert og inndelt etter runde. 
+
+#### Brukerhistorie 5.3 - Multiplayer
+
+Som spiller ønsker jeg:
+
+Å kunne se robotene til de andre spillerne flytte seg i henhold til kortene de har valgt.
+
+Løsningsbeskrivelse:
+
+Client siden må kunne få inn oversikten over alle kortene fra serveren og håndtere disse deretter. 
+
+Akseptansekriterier:
+
+Clientklassen flytte brikkene til alle spillerene korrekt i henhold til listen den får fra serveren. 
+
+
+
+
+
 ### DELOPPGAVE 3 - Produktleveranse og kodekvalitet
 
