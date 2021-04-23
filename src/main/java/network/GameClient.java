@@ -5,7 +5,6 @@ package network;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import card.Card;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
@@ -32,7 +31,6 @@ public class GameClient extends Network {
         this.game = game;
         this.name = name;
         CardsAreReady = false;
-
 
 
         GameMessage gm = new GameMessage();
@@ -76,6 +74,11 @@ public class GameClient extends Network {
         game.getScreen().dispose();
     }
 
+    /**
+     *
+     * @param connection from the server
+     * @param object, the message received
+     */
     @Override
     public void received(Connection connection, Object object) {
 
@@ -116,6 +119,10 @@ public class GameClient extends Network {
         }
     }
 
+    /**
+     * Send the cards that the player has to the server
+     * @param cards that the player chose
+     */
     private void sendCards(ArrayList<Card> cards) {
         Network.CardList currentCards = new Network.CardList();
         currentCards.cards = cards;
@@ -123,6 +130,11 @@ public class GameClient extends Network {
         client.sendTCP(currentCards);
     }
 
+    /**
+     * Get a list of all cards of all players for each turn.
+     * Execute the cards in order of priority
+     * @param gmt GameTurnsMessage
+     */
     private void doTurnForAllPlayers(Network.GameTurnsMessage gmt) {
 
         for (HashMap<Player, Card> turn : gmt.turns) {
@@ -141,9 +153,4 @@ public class GameClient extends Network {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        String host = "89.10.163.11";
-        GameClient cl = new GameClient(host, "jacob", new MultiplayerGameHandler(2));
-        //GameClient cl2 = new GameClient("localhost", "local", new MultiplayerGameHandler(2));
-    }
 }
