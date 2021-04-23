@@ -262,4 +262,8 @@ koblet seg til og at antallet stemmer.
 
 Manuell test for conveyor belt:
 Ved hjelp av piltastene, og C-tasten testet vi om conveyor belts beveget robot riktig, etter retningen deres
-og typen (express eller vanlig).
+og typen (express eller vanlig). I alle tilfeller, ble roboten beveget riktig.
+
+Manuell test for vegger:
+Ved hjelp av piltaster, og WASD-tastene (for å rotere), testet vi om man kunne gå gjennom vegger.
+I tillegg testet vi det med valg av kort. I alle tilfeller, var det ikke mulig å gå gjennom vegger.
