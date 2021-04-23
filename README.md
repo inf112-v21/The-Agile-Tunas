@@ -40,5 +40,7 @@ Om du vil se skjermene til spillet kommenter ut "new Lwjgl3Application(new Scree
 Man får da opp en meny skjerm der man kan velge mellom singleplayer, multiplayer, preferences, rules og exit. Singleplayer 
 og rules er ikke implementert. Om man velger multiplayer så får man opp en skjerm der en får valget om å vere host, eller
 vanlig spiller. Velger man å være en vanlig spiller vil man kunne skrive inn IP'en man vil koble seg til og nevnet man ønsker å benytte. 
+For å kunne koble seg opp over internett må man sette opp Port-Forwarding på ruteren sin. 
+Da setter man porten til 20000 og da for både UDP og TCP.
 
 

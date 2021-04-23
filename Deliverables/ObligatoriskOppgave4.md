@@ -247,21 +247,11 @@ Akseptansekriterier:
 Gitt at man har fått inn alle kortene til hver spiller så skal man kunne returnere en liste som
 inneholder alle kortene til hver spiller sortert og inndelt etter runde. 
 
-#### Brukerhistorie 5.3 - Multiplayer
-
-Som spiller ønsker jeg:
-
-Å kunne se robotene til de andre spillerne flytte seg i henhold til kortene de har valgt.
-
-Løsningsbeskrivelse:
-
-Client siden må kunne få inn oversikten over alle kortene fra serveren og håndtere disse deretter. 
-
-Akseptansekriterier:
-
-Clientklassen flytte brikkene til alle spillerene korrekt i henhold til listen den får fra serveren.
 
 
 ### DELOPPGAVE 3 - Produktleveranse og kodekvalitet
+
+#### Klassediagram
+UML ligger under Deliverables som en png.  
 
 #### Manuelle tester:
