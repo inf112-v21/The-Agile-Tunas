@@ -66,8 +66,6 @@ public class GameHandler extends Game implements InputProcessor {
     @Override
     public void create() {
         setup();
-        //Gdx.graphics.setContinuousRendering(false);
-        //Gdx.graphics.requestRendering();
 
         // Generating list of players:
         playerList = new ArrayList<>();
@@ -75,7 +73,6 @@ public class GameHandler extends Game implements InputProcessor {
             playerList.add(initiatePlayer(i+1));
         }
         this.player = playerList.get(0);
-
     }
 
     public void setup() {
