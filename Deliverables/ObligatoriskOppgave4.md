@@ -104,12 +104,35 @@ kjent(Ref. teamkontrakten).
 
 
 ### DELOPPGAVE 2 - Krav
+Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang. 
 
+Til denne innleveringen prioriterte vi multiplayerdelen, slik som sist. I tillegg har noen av oss
+jobbet med å få MVP krav 4 og 5 (Besøke flagg og vinne ved å besøke alle flagg) 100% på plass.
+Vi valgte, slik som tidligere, å dele teamet i 2, slik at 2 teammedlemmer jobbet med multiplayer, 
+og de resterende 2 jobbet med videre implementasjon av MVP krav og logikk i spillet.
+Slik som spillet er nå, så vinner en spiller, om den i riktig rekkefølge besøker alle flagg på brettet.
+Å besøke flagg vil si at man har vært innom posisjonen til et flagg via bevegelser bestemt av programmet man velger.
+Man kan kun besøke et flagg, om man har besøkt de tidligere flaggene. Altså, man kan kun besøke flagg 2, om man har
+besøkt flagg 1. 
+
+I tillegg til MVP krav 4 og 5, har vi fått til at brett-objecter som conveyor belt og lasers fungerer.
+Conveyor belts, flytter en spillers robot om de havner på den i en phase, etter å ha gjort en move.
+Dessverre er det nå vanskelig å se om robot blir beveget riktig, siden en bevegelse som skjer hver phase ikke
+vil vises før alle phases er ferdig. Det vil si, alle bevegelser skjer samtidig etter en turn.
+Likevel, så vil conveyor belts flytte roboten riktig, noe vi har testet med manuelle tester.
+Lasers har litt samme problem. De vil ikke kunne skrus på og skrus av slik at man ser det, siden man ser alt skje
+samtidig etter alle phases er ferdige. Derfor har vi valgt å ha de på hele tiden (etter første gang de fyres av).
+
+Gears har vi valgt å droppe, ettersom vi fikk dårlig tid siden en på gruppen mistet strømmen i 2 av de 4 dagene
+før innleveringsfristen.
 
 #### Metoder som ikke ble helt ferdig
 Fikk implementert musikk i spillet og at man kan stille på musikken eller skru den helt av
 inne i preferences. Men lyder, som f.eks. til laserene og kollisjoner fikk vi ikke tid
 til å implementere fullstendig.
+
+Som nevnt tidligere så valgte vi å droppe Gears. I tillegg er doLasers metoden i GameHandler ikke optimal,
+siden posisjonene er hardkodet.
 
 
 #### Brukerhistorie 1 - Conveyor Belts
@@ -218,11 +241,9 @@ Client siden må kunne få inn oversikten over alle kortene fra serveren og hån
 
 Akseptansekriterier:
 
-Clientklassen flytte brikkene til alle spillerene korrekt i henhold til listen den får fra serveren. 
-
-
-
+Clientklassen flytte brikkene til alle spillerene korrekt i henhold til listen den får fra serveren.
 
 
 ### DELOPPGAVE 3 - Produktleveranse og kodekvalitet
 
+#### Manuelle tester:
