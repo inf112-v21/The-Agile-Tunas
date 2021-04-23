@@ -44,6 +44,7 @@ public class ScreenOrchestrator extends Game {
         assetManager.manager.finishLoading();
         playingSong = assetManager.manager.get("Music/Rolemusic_-_pl4y1ng.mp3");
         playingSong.play();
+        playingSong.setLooping(true);
     }
 
     public void changeScreen(int screen) {
@@ -81,6 +82,15 @@ public class ScreenOrchestrator extends Game {
 
     public GamePreferences getPreferences() {
         return this.preferences;
+    }
+
+    @Override
+    public void render() {
+        super.render();
+        playingSong.setVolume(preferences.getMusicVolume());
+        if(!preferences.isMusicEnabled()) {
+            playingSong.setVolume(0);
+        }
     }
 
 
