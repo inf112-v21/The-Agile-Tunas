@@ -2,85 +2,67 @@
 
 ### DELOPPGAVE 1 - Team og Prosjekt
 
+#### Roller 
 
-####Roller
+Rollene vi opprettet har, sett under ett, fungert godt. Det er lite nevneverdig på dette punktet, da det meste
+passer seg bedre i retrospektet.  
+Det kan uansett være verdt å nevne de uformelle rollene som har oppstått under prosjektet. Roller som ikke er tildelt,
+men som har kommet mer naturlig da enkelte personer har hatt enklere for å gjøre noen oppgaver mer effektivt enn andre. 
+Herunder skrive møtereferater, formulere den skriftlige delen, dokumentere kode eller oppdatere Trello. 
+Det er helt sikkert flere uformelle roller, men det å komme på alle er ikke alltid like lett da man etter tid kan ta
+enkelte roller for gitt, og det virker helt naturlig at noen gjør spesifikke oppgaver. 
 
-Rollene i teamet fungerer utrolig bra, alle de som har tatt på seg 
-rollene har virkelig utført det som krevdes av de. 
-Vi trengte ikke å bytte de fra forrige obligatoriske oppgave til nå.
-Teamleder er Jacob, kundekontakt er Olesya, kodemesteren er Lisa og 
-Robin er tok mer hånd om det administrative.
+#### Teamet
 
-
-####Prosjektmetodikk
-
-Valget av prosjektmetodikk som vi valgte helt i starten har ikke endret seg
-og vi syns at den blandingen av kanban og skrum vi tok har fungert utrolig bra.
-Teamdynamikken har vært fantastisk, vi har hatt god stemning og har vært 
-motiverte gjennom hele perioden for å levere et godt produkt. 
-Når noen i teamet har hatt noe de ikke er fornøyd med så har teamet satt
-seg ned for å løse dette sammen.
-
-
-####Retrospekt
-
-Siden det siste retrospektets endringer fungerte bra har vi prøvd å implementert
-det denne gangen også. Det vi raskt fant ut var at når vi ble samlet så
-jobbet vi mest i code with me denne gangen. Det ble for det meste feilsøking
-i koden og finne ut av ting sammen.
+Etter forrige obligatoriske oppgave følte vi at vi var litt bak skjema iht. hva vi ville oppnå som sluttprodukt.
+Men vi fikk satt en generell oppgavefordeling, og dette i kombinasjon med en god autonomitet hos den enkelte synes vi at
+vi har klart å gjøre mye i den siste tiden. 
+Teamet har kommunisert godt. Både i og utenfor de faglige rammene.   
+De valgene teamet tok mtp roller og arbeidsfordeling er vi stort sett fornøyde med. Det er og verdt å nevne at
+kommunikasjonen har fungert godt når det har kommet til personlige utfordringer den enkelte har hatt. Det har vært
+tilfeller av sykdom, strømbrudd, laptoper som har sluttet å fungere etc. Men det viktigste har vært hvordan vi som team
+har håndtert uforutsette hendelser. Det er klart at det alltid vil være rom for forbedring, og grep man kunne ha tatt
+for å skape en mer sømløs interkasjon innad i teamet. Men noen ting kan man ikke forutse, og vi er stort sett fornøyde
+med hvordan vi har håndtert disse sakene. Forståelse og tillit til og for hverandre har vært en viktig nøkkel, og er noe
+som vi tror har hatt stor innvirknin gpå hvordan prosjektet har utartet seg. 
 
 
-Om vi hadde begynt prosjektet på nytt så skulle vi satt oss ned med spillet
-og faktisk spilt spillet slik at alle på teamet hadde en god
-forståelse av hvordan gangen i spillet går. 
-Også hadde vi satt oss ned og laget et tankekart eller et diagram hvor 
-vi da diskuterte hvordan vi vil at spillet skal fungere. 
-Om vi hadde gjort prosjektet på nytt så hadde vi allerede visst hvem som 
-var god til hva. Kunne kanskje lastet ned noen andre sine spill fra 
-tidligere år og spilt gjennom noen ulike utgaver av de også sett hvordan 
-de har løst det. Hvordan de skiller seg ut fra hva vi har tenkt osv. 
-Kanskje lagt ned mer planlegging enn å gå rett på koden og kjørt cowboy stil. 
-Skulle selvfølgelig vært flinkere til å jobbe jevnt og trutt så vi slipper 
-sånne skippertak på slutten av hver frist. Men vi fikk noen kræsjer mellom fag i 
-starten som vi i løpet av prosjektet lærte av.
 
-#### Hva vi har vært flinke til
-Hva vi har gjort bra er å sette ned rammer, hvilke dager vi skal møte og 
-jobbe sammen som er fast. Alle på teamet har vært ganske flinke til å 
-sette av tid og vært fleksible om noe uforutsett skulle dukke opp 
-og alle personer måtte stille på dekk. 
-Vi har vært flinke til å bli kjent med hverandre og kommuniserer bra, 
-ingen er redd for å spørre om hjelp. 
-Vi har vært flinke til å sette av litt tid til hver oppgave også finne ut om 
-vi skal fortsette på den veien eller slutte og finne en annen løsning.
+#### Retrospekt
 
-#### Gruppedynamikk
-
-Gruppedynamikken er bra, Jacob har vært en klippe som teamleder, 
-han har vist god oversikt og lederevne, han er åpen for innspill og 
-ikke redd for å gi beskjed når det trengs. 
-Olesya har vært flink til å videreformidle våre spørsmål til gruppeleder 
-og faktisk få svar. Lisa har vært god på å forstå koden, hun ser gjennom 
-alt som kommer inn, kommer med forslag, hun gjør endringer som hun mener 
-er nødvendig for å gå en lett leselig kode som samtidig fungerer. 
-Robin har vært flink til å gjøre det administrative, å skrive møtereferat,
-og ha styr på brukerhistorier og alt det andre administrative. 
-Gruppen har vært flink til å bruke trello til å sette opp oppgaver, 
-frister og fordele oppgaver.
-
-Gruppedynamikken har absolutt blitt bedre over tiden, i starten var 
-Lisa og Olesya kanskje litt forsiktige, men har virkelig åpnet seg opp er 
-nå ikke redde for å si sin mening. Jacob har blitt flinkere til å spørre 
-om hjelp om det er noe han sliter med i stedet for å stange hodet i veggen alene.
-Robin har blitt også flinkere til å gi beskjed når han gjør endringer og å 
-kommentere kode slik at de andre på laget forstår hvorfor koden hans er der. 
-Kommunikasjonsdelen har vært egentlig den samme fra starten til slutten.
-
-#### Konklusjon
-
-Alt i alt har gruppen fungert bra, alle har vært motiverte og åpen samtidig hatt et klart mål i sikte.
+Ved forrige retrospekt la vi fram to punkter vi ønsket å forbedre oss på:
+1. Kommunisere tydelig hvilke avhengigheter det eksisterer i prosjektet slik at alle vet hva de burde fokusere på.
+2. Jobbe tettere på områder der flere arbeidsoppgaver overlapper.
 
 
+##### Hva gikk bra?
+
+Vi kan starte med hva som har gått bra i tiden siden forrige innlevering. 
+Vi følte vi klarte å jobbe konkret mot de to overnevnte målene vi satt oss. I den siste tiden har vi kommunisert
+hyppigere, og brukt mer tid på parprogrammering. Dette skapte en bedre felles forståelse av hva som måtte gjøres, og
+hvilke avhengigheter det eksisterte mellom den enkeltets arbeidsoppgaver. Vi jobbet tett, og fikk løst de utfordringene
+sto ovenfort sist gang på en tilfredsstillende måte. 
+
+Hvis vi ser på prosjektet som en helhet fra start til slutt, og da spesielt hva som gikk bra, er det flere punkter man
+kan trekke frem. Det punket som skiller seg positivt ut må være den interpersonelle relasjonen som har oppstått mellom
+medlemmene. Vi brukte mye tid i starten på å bli kjent, og å lære hverandres styrker og svakheter. Dette viste seg å
+være en klok avgjørelse, da det bygde et godt fundament der man føler man kan stole på hverandre og man føler seg hørt. 
+Å lage et godt fundament og et godt utgangspunkt er kritisk i slike sammenhenger, og vi følte vi var raske med å
+identifisere dette. Det hjalp kommunikasjonen gjennom hele prosjektet og terskelen for å be om hjelp, eller spørre om
+noe ble veldig lav. 
+En annen ting vi følte gikk bra var å benytte oss av ferdighetene til den enkelte. Det å gi arbeidsoppgaver basert på 
+komptansefelt gjorde at mange oppgave kunne bli delegert til den som hadde best forutsetninger for å gjøre det. En slik
+måte å fordele oppgaver mener vi har vært god, og har både ført til et bedre resultat, samt at den enkelte har tilegnet
+seg mer kunnskap om noe man er trygg på. 
+
+
+
+#### Hva kunne vi gjort annerledes?
+
+Her kan vi og starte med hva vi ville gjort annerledes den siste tiden.
+
+
+ 
 
 ### DELOPPGAVE 2 - Krav
 

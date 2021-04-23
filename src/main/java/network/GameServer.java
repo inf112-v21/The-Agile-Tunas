@@ -3,7 +3,6 @@ package network;
 
 import java.io.IOException;
 import java.util.*;
-
 import card.Card;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
