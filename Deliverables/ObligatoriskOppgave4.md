@@ -135,7 +135,25 @@ Som nevnt tidligere så valgte vi å droppe Gears. I tillegg er doLasers metoden
 siden posisjonene er hardkodet.
 
 
-#### Brukerhistorie 1 - Conveyor Belts
+#### Brukerhistorie MVP krav 4 og 5 - Besøke flagg og vinne ved å besøke flagg
+
+Som spiller ønsker jeg:
+
+- At når min robot er på samme posisjon som et flagg så skal det besøkes, om det er et flagg i riktig rekkefølge.
+- At jeg vinner om min robot har besøkt alle flaggene.
+
+Løsninsbeskrivelse:
+
+Implementere metoder som sjekker om en player står ved et flagg til enhver tid (etter at en bevegelse er gjort), og setter
+flagget som besøkt dersom det er tilfellet. Implementere metode som setter en spiller som vinner dersom roboten til spilleren
+har besøkt alle flaggene.
+
+Akseptansekriterier:
+
+Gitt at roboten står ved et flagg, så skal flagget regnes som besøkt.
+Gitt at alle flagg er besøkt for en robot, så spilleren som eier roboten vinne.
+
+#### Brukerhistorie for Conveyor Belts
 
 Som spiller jeg at:
 
@@ -153,7 +171,7 @@ Gitt at roboten står på en conveyor belt så skal
 roboten bli synlig flyttet et steg i den rette retningen som
 conveyor belt ligger.
 
-#### Brukerhistorie 2 - Lasers
+#### Brukerhistorie for Lasers
 
 Som spiller ønsker jeg:
 
@@ -168,7 +186,7 @@ Akseptansekriterier:
 
 Gitt at roboten befinner seg på en tile der laseren skyter så skal roboten miste 10 HP.
 
-#### Brukerhistorie 3 - Gear Clockwise
+#### Brukerhistorie for Gears (Clockwise type)
 
 Som spiller ønsker jeg:
 
@@ -183,7 +201,7 @@ Akseptansekriterier:
 
 Gitt at roboten befinner seg på en tile der clockwise gear er, skal roboten bli synlig rotert med klokken.
 
-#### Brukerhistorie 4 - Gear Counter-Clockwise
+#### Brukerhistorie for Gears (Counter-Clockwise type)
 
 Som spiller ønsker jeg:
 
